@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://firestore.googleapis.com https://*.googleapis.com https://formsubmit.co; frame-src https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Ebraheem Hussain Productions | AI video ads, commercials, websites and print design</title>
-  <meta name="description" content="AI video ads, product commercials, music videos, websites, logos, banners and name plates for brands. Ebraheem Hussain Productions, Mathura (near Delhi), working with clients worldwide.">
+  <meta name="description" content="AI video ads, websites, apps, logos, signboards, flex banners, visiting cards, uniforms and promotional gifts. Ebraheem Hussain Productions, Mathura (near Delhi). Courier all over India.">
   <meta name="theme-color" content="#000000">
   <link rel="icon" href="favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="icon-192.png">
@@ -19,7 +21,7 @@
   <link rel="stylesheet" href="styles.css">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"ProfessionalService","name":"Ebraheem Hussain Productions",
-   "description":"AI video ads, commercials, music videos, websites and print design for brands.",
+   "description":"AI video ads, websites, apps, branding, signage, flex banners, printing, uniforms and promotional gifts for brands. Courier all over India.",
    "url":"https://ebraheemhussain748.github.io/ehproductions/","image":"https://ebraheemhussain748.github.io/ehproductions/og-image.jpg",
    "telephone":"+91 93890 80059","email":"ebraheemhussain748@gmail.com",
    "address":{"@type":"PostalAddress","addressLocality":"Mathura","addressRegion":"Uttar Pradesh","addressCountry":"IN"},
@@ -40,7 +42,7 @@
         <button class="nav__toggle" aria-expanded="false" aria-controls="nav-links">Menu</button>
         <ul id="nav-links">
           <li><a href="#work">Work</a></li>
-          <li><a href="#services">Services and prices</a></li>
+          <li><a href="catalog.html">Catalog</a></li>
           <li><a href="#process">How it works</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#reviews">Reviews</a></li>
@@ -60,12 +62,22 @@
             <a class="btn btn--gold" href="#contact">Get a quote</a>
             <a class="btn btn--line" id="hero-wa" href="#" target="_blank" rel="noopener">Chat on WhatsApp</a>
           </div>
+          <form class="find" action="catalog.html" method="get" role="search">
+            <label class="find__label" for="hero-q">What do you need?</label>
+            <div class="find__box">
+              <span class="find__icon" data-icon="search"></span>
+              <input id="hero-q" name="q" type="search" placeholder="Glow sign, logo, website…" autocomplete="off" enterkeyhint="search">
+              <button class="btn btn--gold" type="submit">Search</button>
+            </div>
+          </form>
+          <ul class="quick" id="quick" aria-label="Popular"></ul>
+          <p class="hero__ship" id="hero-ship"></p>
           <ul class="creds" id="creds" aria-label="Awards and certificates"></ul>
         </div>
 
         <figure class="vf" aria-label="Showreel">
           <div class="vf__screen">
-            <video id="reel" src="reel.mp4" poster="reel-poster.jpg" muted loop playsinline autoplay preload="metadata"></video>
+            <video id="reel" data-src="reel.mp4" poster="reel-poster.jpg" muted loop playsinline preload="none" width="400" height="711"></video>
             <span class="vf__corner vf__corner--tl"></span><span class="vf__corner vf__corner--tr"></span>
             <span class="vf__corner vf__corner--bl"></span><span class="vf__corner vf__corner--br"></span>
             <span class="vf__rec"><i></i>REC</span>
@@ -93,23 +105,22 @@
     <section class="band band--light band--rule" id="services">
       <div class="wrap">
         <div class="head">
-          <h2>Services and starting prices</h2>
-          <div class="currency" role="group" aria-label="Currency">
-            <button type="button" data-cur="0" aria-pressed="true">₹ INR</button>
-            <button type="button" data-cur="1" aria-pressed="false">$ USD</button>
+          <h2>What we make</h2>
+          <a class="btn btn--ink" href="catalog.html">Open the full catalog</a>
+        </div>
+        <div class="make">
+          <div class="make__col">
+            <h3>Offline</h3>
+            <p>Print, signage and branded products, couriered all over India.</p>
+            <ul class="tiles" id="tiles-offline"></ul>
+          </div>
+          <div class="make__col">
+            <h3>Online</h3>
+            <p>Design, video, websites and apps, delivered anywhere.</p>
+            <ul class="tiles" id="tiles-online"></ul>
           </div>
         </div>
-        <div class="svc">
-          <div class="svc__col">
-            <h3>On screen</h3>
-            <ul class="svc__list" id="svc-screen"></ul>
-          </div>
-          <div class="svc__col">
-            <h3>On the street</h3>
-            <ul class="svc__list" id="svc-street"></ul>
-          </div>
-        </div>
-        <p class="small">Prices are starting points. Printing, fabrication and ad-space costs are quoted separately. You get a fixed quote before any work starts.</p>
+        <p class="small make__more" id="make-note"></p>
       </div>
     </section>
 
@@ -168,7 +179,7 @@
             <button class="btn btn--ink" type="submit">Submit review</button>
             <p class="form__msg" role="status"></p>
           </div>
-          <p class="small">Reviews appear here after they are approved.</p>
+          <p class="small">Your name, business and review will be shown on this website after we approve it. See our <a href="privacy.html">Privacy Policy</a>.</p>
         </form>
       </div>
     </section>
@@ -201,6 +212,7 @@
               <button class="btn btn--gold" type="submit">Send enquiry</button>
               <p class="form__msg" role="status"></p>
             </div>
+            <p class="small">We use these details only to reply to your enquiry and prepare a quote. We never sell or share them. See our <a href="privacy.html">Privacy Policy</a>.</p>
           </form>
         </div>
         <aside class="direct">
@@ -209,6 +221,7 @@
           <p><a id="contact-mail" href="#"></a></p>
           <p id="contact-loc"></p>
           <p class="small">We reply within 24 hours, usually much sooner.</p>
+          <p class="small" id="contact-ship"></p>
         </aside>
       </div>
     </section>
@@ -221,12 +234,20 @@
         <li><a id="f-yt" href="#" target="_blank" rel="noopener">YouTube</a></li>
         <li><a id="f-ig" href="#" target="_blank" rel="noopener">Instagram</a></li>
         <li><a id="f-wa" href="#" target="_blank" rel="noopener">WhatsApp</a></li>
+        <li><a href="catalog.html">Catalog</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+        <li><a href="licenses.html">Licences</a></li>
       </ul>
-      <p class="small">© <span id="year"></span> Ebraheem Hussain Productions. Some visuals on this site are AI-generated.</p>
+      <p class="small">© <span id="year"></span> Ebraheem Hussain Productions, Mathura, Uttar Pradesh, India. All rights reserved. Some visuals on this site are AI-generated and labelled.</p>
     </div>
   </footer>
 
-  <a class="fab" id="fab-wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+  <nav class="abar" aria-label="Quick contact">
+    <a id="abar-wa" href="#" target="_blank" rel="noopener"><span data-icon="wa"></span>WhatsApp</a>
+    <a id="abar-call" href="#"><span data-icon="call"></span>Call</a>
+    <a href="catalog.html"><span data-icon="list"></span>Catalog</a>
+  </nav>
 
   <dialog class="player" id="player" aria-label="Video player">
     <div class="player__box" id="player-box"></div>

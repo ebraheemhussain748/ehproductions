@@ -1,4 +1,6 @@
-import { CONTACT, WORK, SERVICES, FAQ, CREDENTIALS } from './site-data.js';
+import { CONTACT, WORK, FAQ, CREDENTIALS } from './site-data.js';
+import { CATEGORIES, ITEMS, DELIVERY } from './catalog-data.js';
+import { icon } from './icons.js';
 import { fb, configured } from './firebase.js';
 
 document.documentElement.classList.add('js');
@@ -13,7 +15,11 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- contact links ---------- */
 const hello = 'Hi Ebraheem Hussain Productions, I would like a quote for ';
-for (const id of ['hero-wa', 'contact-wa', 'f-wa', 'fab-wa']) $('#' + id).href = wa(hello);
+for (const id of ['hero-wa', 'contact-wa', 'f-wa', 'abar-wa']) $('#' + id).href = wa(hello);
+$('#abar-call').href = `tel:+${CONTACT.whatsapp}`;
+document.querySelectorAll('[data-icon]').forEach(n => { n.innerHTML = icon(n.dataset.icon); });
+$('#hero-ship').textContent = DELIVERY;
+$('#contact-ship').textContent = DELIVERY;
 $('#wa-number').textContent = CONTACT.whatsappDisplay;
 $('#contact-mail').href = `mailto:${CONTACT.email}`;
 $('#contact-mail').textContent = CONTACT.email;
@@ -33,7 +39,11 @@ links.addEventListener('click', e => { if (e.target.closest('a')) { links.classL
 /* ---------- viewfinder: timecode follows the reel ---------- */
 const reel = $('#reel'), tc = $('#tc'), vf = $('.vf');
 requestAnimationFrame(() => setTimeout(() => vf.classList.add('ready'), 60));
-if (reduceMotion) { reel.removeAttribute('autoplay'); reel.pause(); }
+const conn = navigator.connection || {};
+const lightMode = reduceMotion || conn.saveData || /(^|-)2g$/.test(conn.effectiveType || '');
+function startReel() { if (!reel.src) { reel.src = reel.dataset.src; } reel.play().catch(() => {}); }
+if (!lightMode) addEventListener('load', () => setTimeout(startReel, 300), { once: true });
+else vf.addEventListener('click', startReel, { once: true }); // poster only until tapped
 const pad = n => String(n).padStart(2, '0');
 let tcBase = 0, lastT = 0;
 reel.addEventListener('timeupdate', () => {
@@ -68,7 +78,7 @@ function openPlayer(w) {
   reel.pause();
   player.showModal();
 }
-player.addEventListener('close', () => { box.replaceChildren(); if (!reduceMotion) reel.play().catch(() => {}); });
+player.addEventListener('close', () => { box.replaceChildren(); if (!lightMode) reel.play().catch(() => {}); });
 player.addEventListener('click', e => { if (e.target === player) player.close(); });
 
 const kinds = ['All', ...new Set(WORK.map(w => w.kind))];
@@ -83,30 +93,36 @@ kinds.forEach((k, i) => {
   $('#filters').append(b);
 });
 
-/* ---------- services + currency ---------- */
-let cur = 0;
-try { cur = Number(localStorage.getItem('cur') || 0) ? 1 : 0; } catch {}
-const money = (v, c) => c ? `$${v.toLocaleString('en-US')}` : `₹${v.toLocaleString('en-IN')}`;
-function renderServices() {
-  for (const [key, id] of [['screen', '#svc-screen'], ['street', '#svc-street']]) {
-    $(id).replaceChildren(...SERVICES[key].map(s => el('li', { className: 'svc__item' },
-      el('span', { className: 'svc__name', textContent: s.name }),
-      el('span', { className: 'svc__price' }, ...(s.price
-        ? [el('small', { textContent: 'from' }), money(s.price[cur], cur)]
-        : [el('small', { textContent: 'priced' }), 'on quote'])),
-      el('span', { className: 'svc__what', textContent: s.what }))));
-  }
-  document.querySelectorAll('.currency button').forEach(b => b.setAttribute('aria-pressed', Number(b.dataset.cur) === cur));
+/* ---------- what we make (from the catalog) ---------- */
+for (const group of ['offline', 'online']) {
+  $('#tiles-' + group).replaceChildren(...CATEGORIES.filter(c => c.group === group).map(c => {
+    const items = ITEMS.filter(i => i.cat === c.id);
+    const li = el('li', { className: 'tile' });
+    const a = el('a', { href: `catalog.html?cat=${c.id}` });
+    a.innerHTML = `<span class="tile__icon">${icon(c.icon)}</span><span class="tile__name"></span><span class="tile__n" aria-label="${items.length} items">${items.length}</span><span class="tile__eg"></span>`;
+    $('.tile__name', a).textContent = c.name;
+    $('.tile__eg', a).textContent = items.slice(0, 3).map(i => i.name).join(', ') + (items.length > 3 ? ' and more' : '');
+    li.append(a); return li;
+  }));
 }
-document.querySelectorAll('.currency button').forEach(b => b.addEventListener('click', () => {
-  cur = Number(b.dataset.cur); try { localStorage.setItem('cur', cur); } catch {} renderServices();
-}));
-renderServices();
+$('#make-note').textContent = `${ITEMS.length} products and services in total, each with an average price. This is an average price and depends on your specified work. You get a fixed quote before anything starts.`;
+for (const q of ['AI video ad', 'Glow sign board', 'Visiting cards', 'Flex banner', 'Logo', 'Website', 'School uniforms']) {
+  $('#quick').append(el('li', {}, el('a', { href: `catalog.html?q=${encodeURIComponent(q)}`, textContent: q })));
+}
 
 const sel = $('#service-select');
-sel.append(el('option', { value: '', textContent: 'Choose a service' }));
-for (const s of [...SERVICES.screen, ...SERVICES.street]) sel.append(el('option', { value: s.name, textContent: s.name }));
+sel.append(el('option', { value: '', textContent: 'Choose a category' }));
+for (const c of CATEGORIES) sel.append(el('option', { value: c.name, textContent: c.name }));
 sel.append(el('option', { value: 'Something else', textContent: 'Something else' }));
+
+// coming from the catalog quote list: prefill the form
+const enquiry = new URLSearchParams(location.search).get('enquiry');
+if (enquiry) {
+  const names = enquiry.split(', ').slice(0, 30);
+  const cats = [...new Set(names.map(n => ITEMS.find(i => i.name === n)?.cat).filter(Boolean))];
+  sel.value = cats.length === 1 ? CATEGORIES.find(c => c.id === cats[0]).name : 'Something else';
+  $('#lead-form').message.value = `I'd like a quote for: ${names.join(', ')}.\n\nDetails (sizes, quantity, deadline): `;
+}
 
 /* ---------- FAQ ---------- */
 for (const f of FAQ) $('#faq-list').append(el('details', {}, el('summary', { textContent: f.q }), el('p', { textContent: f.a })));

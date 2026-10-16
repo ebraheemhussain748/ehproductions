@@ -1,0 +1,25 @@
+// Small line icons (24 × 24, stroke = currentColor) for catalog categories.
+const P = {
+  sign: '<rect x="3" y="3.5" width="18" height="10" rx="1.5"/><path d="M7 13.5V21M17 13.5V21M7 7.5h10M7 10h6"/>',
+  banner: '<path d="M3 4.5h18v10H3z"/><circle cx="5.5" cy="7" r=".9"/><circle cx="18.5" cy="7" r=".9"/><path d="M7.5 11h9M3 14.5l2 5M21 14.5l-2 5"/>',
+  card: '<rect x="2.5" y="6" width="19" height="12" rx="2"/><path d="M6 10h6M6 13h9M15.5 9.5h2.5"/>',
+  plate: '<rect x="3" y="7" width="18" height="10" rx="1.5"/><circle cx="5.8" cy="12" r=".8"/><circle cx="18.2" cy="12" r=".8"/><path d="M9 12h6"/>',
+  gift: '<rect x="3.5" y="9" width="17" height="11" rx="1"/><path d="M2.5 9h19M12 9v11M12 9c-1.5-3.5-5.5-4.5-5.5-2S10 9 12 9zm0 0c1.5-3.5 5.5-4.5 5.5-2S14 9 12 9z"/>',
+  shirt: '<path d="M8.5 3.5 4 6l-1.5 4.5 3 1V20.5h13V11.5l3-1L20 6l-4.5-2.5c-.7 1.6-2 2.5-3.5 2.5s-2.8-.9-3.5-2.5z"/>',
+  food: '<path d="M4 9h16l-1.6 11H5.6zM7 9l2-5M17 9l-2-5M9 4h6M8 13.5h8"/>',
+  grid: '<rect x="3" y="3" width="7.5" height="7.5" rx="1"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1"/>',
+  play: '<rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M10 9v6l5-3z"/>',
+  pen: '<path d="M12 3 6 9.5 9 20h6l3-10.5zM12 3v8.5"/><circle cx="12" cy="13" r="1.4"/>',
+  window: '<rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="M2.5 8.5h19M5.5 6.3h.01M8 6.3h.01M10.5 6.3h.01"/>',
+  code: '<path d="m8.5 7-5 5 5 5M15.5 7l5 5-5 5M13.5 4.5l-3 15"/>',
+  phone: '<rect x="6.5" y="2.5" width="11" height="19" rx="2.2"/><path d="M10.5 18.5h3"/>',
+  bolt: '<path d="M13 2.5 4.5 13.5H11l-1 8 8.5-11H12z"/>',
+  search: '<circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/>',
+  wa: '<path d="M4 20.5l1.3-4.2A8.5 8.5 0 1 1 8.2 19z"/><path d="M9 8.7c.3 2.6 2.4 5 5.3 5.9l1.2-1.2-1.8-1-1 .7c-1-.4-1.9-1.3-2.4-2.3l.7-1-1-1.8z"/>',
+  call: '<path d="M5 3.5h3.5l1.5 4.5-2 1.5a12 12 0 0 0 6.5 6.5l1.5-2 4.5 1.5V19a2 2 0 0 1-2 2A16.5 16.5 0 0 1 3 5.5a2 2 0 0 1 2-2z"/>',
+  list: '<path d="M8.5 6.5h12M8.5 12h12M8.5 17.5h12M4 6.5h.01M4 12h.01M4 17.5h.01"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+};
+export const icon = (name, cls = 'ico') =>
+  `<svg class="${cls}" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${P[name] || ''}</svg>`;

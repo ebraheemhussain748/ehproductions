@@ -24,31 +24,16 @@ export const WORK = [
     note: 'A full-length nasheed music video.' },
 ];
 
-// price: [INR, USD]  (starting prices)
-export const SERVICES = {
-  screen: [
-    { name: 'AI video ad', what: '15 to 30 second ad for Reels, Shorts or YouTube, script included', price: [2499, 39] },
-    { name: 'Product commercial', what: '30 to 60 second cinematic ad for one product or menu item', price: [4999, 79] },
-    { name: 'Music or lyric video', what: 'Up to 3 minutes, story visuals or 3D lyric animation', price: [5999, 99] },
-    { name: 'Motion graphics and 3D', what: 'Logo reveals, explainers and animated titles, per 30 seconds', price: [3999, 59] },
-    { name: 'Business website', what: 'Up to 5 pages, enquiry form, mobile-ready, free hosting set up', price: [7999, 129] },
-    { name: 'Social media posts', what: 'Pack of 10 designed posts or story graphics', price: [1999, 29] },
-  ],
-  street: [
-    { name: 'Logo and branding', what: '3 logo concepts, final files and colour guide', price: [1499, 25] },
-    { name: 'Poster or flyer', what: 'Print-ready design for one poster, flyer or menu', price: [499, 9] },
-    { name: 'Flex banner or hoarding', what: 'Large-format design sized for your printer', price: [699, 12] },
-    { name: 'Name plate or sign board', what: 'Shop, office or home name plate design', price: [599, 10] },
-    { name: 'Offline ad campaign', what: 'Pamphlets, banners and hoardings planned together for one launch', price: null },
-  ],
-};
+// Products, services and average prices live in catalog-data.js.
 
 export const FAQ = [
+  { q: 'Are the catalog prices final?', a: 'No. They are average market prices we checked online. This is an average price and depends on your specified work: size, material, quantity and deadline. You get a fixed quote before any work starts.' },
+  { q: 'Do you deliver outside Mathura?', a: 'Yes. We courier printed products, boards, uniforms and gifts all over India. For big projects we also deliver internationally. Online work like videos, designs and websites is delivered anywhere.' },
   { q: 'How long does a video ad take?', a: 'Most AI video ads are ready in 2 to 4 days after you approve the concept. Longer commercials and music videos take about a week.' },
   { q: 'Do you use AI?', a: 'Yes. We use AI video tools such as Google Flow together with editing, motion graphics, 3D and sound design. AI-generated visuals are labelled when they are published.' },
-  { q: 'Can you print banners and make name plates?', a: 'We design them and can arrange printing and fabrication in Mathura and the Delhi NCR area. Printing and material costs are quoted separately.' },
-  { q: 'Do you work with clients outside India?', a: 'Yes. Everything is handled online, files are delivered by link, and prices can be paid in US dollars.' },
-  { q: 'How many changes can I ask for?', a: 'Every project includes two rounds of changes. You get a fixed quote before any work starts, so there are no surprises.' },
+  { q: 'Can I order several things together?', a: 'Yes. In the catalog, tap "Add to list" on everything you need and send the whole list in one WhatsApp message. Schools, coaching centres and companies often order uniforms, ID cards, diaries and banners together.' },
+  { q: 'Do you work with clients outside India?', a: 'Yes. Everything online is handled remotely, files are delivered by link, and prices can be paid in US dollars.' },
+  { q: 'How many changes can I ask for?', a: 'Every design and video includes two rounds of changes. For printed products we send a proof for your approval before printing.' },
 ];
 
 export const CREDENTIALS = [
