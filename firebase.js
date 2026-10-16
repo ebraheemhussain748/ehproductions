@@ -1,12 +1,12 @@
 // Firebase (free Spark plan): Firestore stores enquiries and reviews, Google sign-in protects the admin page.
 // The web config below is public by design; access is controlled by the Firestore security rules.
 export const firebaseConfig = {
-  apiKey: 'REPLACE_ME',
-  authDomain: 'REPLACE_ME',
-  projectId: 'REPLACE_ME',
-  storageBucket: 'REPLACE_ME',
-  messagingSenderId: 'REPLACE_ME',
-  appId: 'REPLACE_ME',
+  apiKey: 'AIzaSyDoUVgknXFXlMt3DvpGGfPfEv1mKMAIjl8',
+  authDomain: 'ehproductions-f0c49.firebaseapp.com',
+  projectId: 'ehproductions-f0c49',
+  storageBucket: 'ehproductions-f0c49.firebasestorage.app',
+  messagingSenderId: '876425405711',
+  appId: '1:876425405711:web:5d91dd1e117bf236a0ca7a',
 };
 
 export const ADMIN_EMAIL = 'ebraheemhussain748@gmail.com';
