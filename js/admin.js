@@ -1,8 +1,8 @@
 // Studio admin: dashboard, leads pipeline, reviews, prices, extra products, home page settings.
 // Data lives in Firestore: leads/*, reviews/*, and one public document site/public that the website reads.
-import { fb, configured, ADMIN_EMAIL } from './firebase.js?v=25368b6f';
-import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=25368b6f';
-import { icon } from './icons.js?v=25368b6f';
+import { fb, configured, ADMIN_EMAIL } from './firebase.js?v=26a14d8f';
+import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=26a14d8f';
+import { icon } from './icons.js?v=26a14d8f';
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];

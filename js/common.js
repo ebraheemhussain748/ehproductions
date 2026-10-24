@@ -1,8 +1,8 @@
 // Shared by every page: clean URLs, nav (search, menu), live prices from the admin, my list drawer, toast.
-import { CONTACT } from './data/site-data.js?v=25368b6f';
-import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=25368b6f';
-import { PHOTOS, img } from './data/photos.js?v=25368b6f';
-import { icon } from './icons.js?v=25368b6f';
+import { CONTACT } from './data/site-data.js?v=26a14d8f';
+import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=26a14d8f';
+import { PHOTOS, img } from './data/photos.js?v=26a14d8f';
+import { icon } from './icons.js?v=26a14d8f';
 
 // Show addresses without ".html" (GitHub Pages serves /catalog from catalog.html).
 if (/\.html$/.test(location.pathname)) {
@@ -26,6 +26,7 @@ export const store = {
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* private mode */ } },
 };
 export const fillIcons = (root = document) => $$('[data-icon]', root).forEach(n => { if (!n.firstChild) n.innerHTML = icon(n.dataset.icon); });
+fillIcons(); // draw nav and button icons straight away
 
 /* ---------- catalog items ---------- */
 export const CAT = Object.fromEntries(CATEGORIES.map(c => [c.id, c]));
