@@ -1,4 +1,4 @@
-// Shared by every page: clean URLs, header (menu, category bar, search), footer links, quote list drawer, toast.
+// Shared by every page: clean URLs, nav (search, menu), live prices from the admin, my list drawer, toast.
 import { CONTACT } from './data/site-data.js';
 import { CATEGORIES, ITEMS } from './data/catalog-data.js';
 import { PHOTOS, img } from './data/photos.js';
@@ -27,20 +27,66 @@ export const store = {
 };
 export const fillIcons = (root = document) => $$('[data-icon]', root).forEach(n => { if (!n.firstChild) n.innerHTML = icon(n.dataset.icon); });
 
-/* ---------- catalog items, shared by home, catalog and product pages ---------- */
+/* ---------- catalog items ---------- */
 export const CAT = Object.fromEntries(CATEGORIES.map(c => [c.id, c]));
 ITEMS.forEach(i => { i.id = slug(i.name); i.group = CAT[i.cat].group; i.photos = PHOTOS[i.id] || []; });
 export const byId = id => ITEMS.find(i => i.id === id);
 export const productUrl = i => `product?id=${encodeURIComponent(i.id)}`;
 export const catPhoto = c => ITEMS.find(i => i.cat === c.id && i.photos.length)?.photos[0];
 
-/* ---------- quote list (like a cart, sent on WhatsApp) ---------- */
+/* ---------- live settings from the admin page (Firestore document site/public) ----------
+   Read through the public REST API so visitors do not need to download Firebase. */
+export const site = { announcement: '', featured: [] };
+const REST = 'https://firestore.googleapis.com/v1/projects/ehproductions-f0c49/databases/(default)/documents/site/public';
+const decode = v => {
+  if (!v) return null;
+  if ('mapValue' in v) return Object.fromEntries(Object.entries(v.mapValue.fields || {}).map(([k, x]) => [k, decode(x)]));
+  if ('arrayValue' in v) return (v.arrayValue.values || []).map(decode);
+  if ('integerValue' in v) return Number(v.integerValue);
+  if ('doubleValue' in v) return Number(v.doubleValue);
+  if ('booleanValue' in v) return v.booleanValue;
+  if ('stringValue' in v) return v.stringValue;
+  return null;
+};
+const range = v => Array.isArray(v) && v.length === 2 && v.every(n => Number.isFinite(n) && n >= 0) ? v : undefined;
+function applySite(d = {}) {
+  for (const [id, o] of Object.entries(d.prices || {})) {
+    const i = byId(id); if (!i || !o) continue;
+    if (o.quote) i.inr = null; else if (range(o.inr)) i.inr = range(o.inr);
+    if (range(o.usd)) i.usd = range(o.usd);
+    if (typeof o.unit === 'string' && o.unit) i.unit = o.unit;
+    if (typeof o.badge === 'string') i.badge = o.badge;
+    if (o.hidden) i.hidden = true;
+  }
+  for (const c of d.custom || []) {
+    if (!c || !c.name || !CAT[c.cat] || byId(slug(c.name))) continue;
+    ITEMS.push({ cat: c.cat, name: String(c.name).slice(0, 80), what: String(c.what || '').slice(0, 300), inr: c.quote ? null : range(c.inr) || null,
+      usd: range(c.usd), unit: String(c.unit || ''), src: [], badge: c.badge || '', custom: true,
+      id: slug(c.name), group: CAT[c.cat].group,
+      photos: /^photo-[\w-]+$/.test(c.photo || '') ? [{ photo: c.photo, by: '', user: '' }] : [] });
+  }
+  for (let k = ITEMS.length - 1; k >= 0; k--) if (ITEMS[k].hidden) ITEMS.splice(k, 1);
+  site.announcement = typeof d.announcement === 'string' ? d.announcement.slice(0, 200) : '';
+  site.featured = Array.isArray(d.featured) ? d.featured.filter(id => byId(id)) : [];
+}
+export const ready = (async () => {
+  let data = store.get('site-public', null);
+  try {
+    const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 1800);
+    const r = await fetch(REST, { signal: ctl.signal, cache: 'no-store' }); clearTimeout(t);
+    if (r.ok) { const j = await r.json(); data = decode({ mapValue: { fields: j.fields || {} } }); store.set('site-public', data); }
+    else if (r.status === 404) { data = {}; store.set('site-public', data); }
+  } catch { /* offline or slow: use the last copy, or the built-in prices */ }
+  applySite(data || {});
+})();
+
+/* ---------- my list (sent on WhatsApp) ---------- */
 const listeners = new Set();
-const ids = new Set(store.get('qlist', []).filter(id => byId(id)));
+let ids = new Set(store.get('qlist', []));
 export const quote = {
   has: id => ids.has(id),
-  get size() { return ids.size; },
-  items: () => [...ids].map(byId),
+  get size() { return [...ids].filter(byId).length; },
+  items: () => [...ids].map(byId).filter(Boolean),
   toggle(id) { ids.has(id) ? ids.delete(id) : ids.add(id); this.save(); return ids.has(id); },
   remove(id) { ids.delete(id); this.save(); },
   clear() { ids.clear(); this.save(); },
@@ -61,18 +107,20 @@ export function toast(msg) {
   clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
 }
 
+export const thumb = (i, w = 120) => i.photos[0] ? el('img', { src: img(i.photos[0], w), alt: '', loading: 'lazy', width: w / 2, height: w / 2 }) : el('span', { className: 'ph', innerHTML: icon(CAT[i.cat].icon) });
+
 function buildDrawer() {
   const d = el('dialog', { className: 'drawer', id: 'qdrawer' });
   d.setAttribute('aria-labelledby', 'qd-title');
   d.innerHTML = `
     <div class="drawer__head"><h2 id="qd-title">My list</h2><button class="drawer__close" type="button" aria-label="Close">${icon('close')}</button></div>
     <ul class="drawer__list" id="qd-list"></ul>
-    <p class="drawer__empty" id="qd-empty">Your list is empty. Tap “Add” on any product, then send the whole list to us in one WhatsApp message.</p>
+    <p class="drawer__empty" id="qd-empty">Your list is empty. Tap “Add” on anything in the shop, then send the whole list to us in one WhatsApp message.</p>
     <div class="drawer__foot" id="qd-foot">
       <label class="drawer__note">Details (optional)<textarea id="qd-note" rows="2" maxlength="500" placeholder="Size, quantity, deadline…"></textarea></label>
       <a class="btn btn--wa btn--block" id="qd-wa" target="_blank" rel="noopener">${icon('wa')}<span>Send list on WhatsApp</span></a>
       <a class="btn btn--outline btn--block" id="qd-form">Use the enquiry form</a>
-      <p class="small">Prices are averages. You get a fixed quote before any work starts. <button class="linkbtn" type="button" id="qd-clear">Clear list</button></p>
+      <p class="small"><button class="linkbtn" type="button" id="qd-clear">Clear list</button></p>
     </div>`;
   document.body.append(d);
   $('.drawer__close', d).addEventListener('click', () => d.close());
@@ -84,54 +132,70 @@ function buildDrawer() {
     const items = quote.items();
     $('#qd-empty', d).hidden = items.length > 0;
     $('#qd-foot', d).hidden = items.length === 0;
-    $('#qd-wa', d).href = wa(quote.text($('#qd-note', d).value));
+    $('#qd-wa', d).href = wa(quote.text(note.value));
     $('#qd-form', d).href = quote.formUrl();
     $('#qd-list', d).replaceChildren(...items.map(i => {
       const rm = el('button', { type: 'button', className: 'linkbtn', textContent: 'Remove' });
       rm.setAttribute('aria-label', `Remove ${i.name}`);
       rm.addEventListener('click', () => quote.remove(i.id));
-      const ph = i.photos[0];
-      return el('li', {},
-        ph ? el('img', { src: img(ph, 112), alt: '', loading: 'lazy', width: 56, height: 56 }) : el('span'),
-        el('div', {}, el('a', { href: productUrl(i), textContent: i.name }), el('small', { textContent: CAT[i.cat].name })),
-        rm);
+      return el('li', {}, thumb(i), el('div', {}, el('a', { href: productUrl(i), textContent: i.name }), el('small', { textContent: CAT[i.cat].name })), rm);
     }));
   };
   quote.onChange(render); render();
   return d;
 }
 
-export function openQuote() { ($('#qdrawer') || buildDrawer()).showModal(); }
-
-/* ---------- header + footer ---------- */
-export function initChrome({ page } = {}) {
+/* ---------- nav, footer, reveal ---------- */
+export async function initChrome() {
   fillIcons();
-  const toggle = $('.nav__toggle'), links = $('#nav-links');
-  toggle?.addEventListener('click', () => toggle.setAttribute('aria-expanded', links.classList.toggle('open')));
-  links?.addEventListener('click', e => { if (e.target.closest('a')) { links.classList.remove('open'); toggle?.setAttribute('aria-expanded', 'false'); } });
+  await ready;
 
+  const a = $('#announce');
+  if (a && site.announcement) { a.textContent = site.announcement; a.hidden = false; }
+
+  // search panel
+  const sp = $('#searchpanel'), so = $('#search-open');
+  so?.addEventListener('click', () => {
+    const open = sp.hidden; sp.hidden = !open; so.setAttribute('aria-expanded', open);
+    if (open) $('#hq').focus();
+  });
+  const sug = $('#suggest');
+  if (sug) sug.replaceChildren(...['Visiting cards', 'Glow sign board', 'Flex banner', 'AI video ad', 'Logo', 'Website', 'Song mixing'].map(q =>
+    el('li', {}, el('a', { href: `catalog?q=${encodeURIComponent(q)}`, textContent: q }))));
   const params = new URLSearchParams(location.search);
-  const bar = $('#catbar');
-  if (bar) bar.replaceChildren(...CATEGORIES.map(c => {
-    const a = el('a', { href: `catalog?cat=${c.id}`, textContent: c.name.replace(' & Landing-Page Packages', ' Packages') });
-    if (c.id === 'music') a.classList.add('is-new');
-    if (page === 'catalog' && params.get('cat') === c.id) a.setAttribute('aria-current', 'true');
-    return el('li', {}, a);
-  }));
-  const hq = $('#hq'); if (hq && params.get('q')) hq.value = params.get('q');
+  if ($('#hq') && params.get('q')) $('#hq').value = params.get('q');
 
-  // quote list button + count
+  // phone menu
+  $('#menu-open')?.addEventListener('click', () => {
+    const m = el('div', { className: 'mobilemenu', role: 'dialog', ariaLabel: 'Menu' });
+    m.innerHTML = `<div class="mobilemenu__top"><a class="brand" href="./"><img src="assets/img/logo-mark-96.png" alt="" width="62" height="32"><span>Ebraheem Hussain<small>Productions</small></span></a><button class="iconbtn" type="button" aria-label="Close menu">${icon('close')}</button></div>`;
+    m.append(el('ul', {}, ...$$('#nav-links a').map(x => el('li', {}, el('a', { href: x.getAttribute('href'), textContent: x.textContent })))),
+      el('a', { className: 'btn btn--dark btn--block', href: './#contact', textContent: 'Get a quote' }));
+    const close = () => { m.remove(); document.body.style.overflow = ''; };
+    m.addEventListener('click', e => { if (e.target.closest('a, .iconbtn')) close(); });
+    document.body.append(m); document.body.style.overflow = 'hidden';
+  });
+
+  // my list
   const drawer = $('#qdrawer') || buildDrawer();
-  const count = () => { $$('.qcount').forEach(n => { n.textContent = quote.size; }); };
+  const count = () => $$('.qcount').forEach(n => { n.textContent = quote.size; n.dataset.n = quote.size; });
   quote.onChange(count); count();
   $$('[data-open-quote]').forEach(b => b.addEventListener('click', () => drawer.showModal()));
 
-  // contact links everywhere
+  // contact links
   const hello = wa('Hi Ebraheem Hussain Productions, I would like a quote for ');
-  $$('[data-link="whatsapp"]').forEach(a => { a.href = hello; });
-  $$('[data-link="call"]').forEach(a => { a.href = `tel:+${CONTACT.whatsapp}`; });
-  $$('[data-link="youtube"]').forEach(a => { a.href = CONTACT.youtube; });
-  $$('[data-link="instagram"]').forEach(a => { a.href = CONTACT.instagram; });
-  $$('[data-link="email"]').forEach(a => { a.href = `mailto:${CONTACT.email}`; if (!a.textContent.trim()) a.textContent = CONTACT.email; });
+  $$('[data-link="whatsapp"]').forEach(x => { x.href = hello; });
+  $$('[data-link="call"]').forEach(x => { x.href = `tel:+${CONTACT.whatsapp}`; });
+  $$('[data-link="youtube"]').forEach(x => { x.href = CONTACT.youtube; });
+  $$('[data-link="instagram"]').forEach(x => { x.href = CONTACT.instagram; });
+  $$('[data-link="email"]').forEach(x => { x.href = `mailto:${CONTACT.email}`; });
   $$('.year').forEach(n => { n.textContent = new Date().getFullYear(); });
+  reveal();
+}
+
+export function reveal(root = document) {
+  const els = $$('.reveal:not(.in)', root);
+  if (reduceMotion || !('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('in')); return; }
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+  els.forEach(e => io.observe(e));
 }

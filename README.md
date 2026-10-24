@@ -19,3 +19,13 @@ Addresses work without `.html` (for example `/catalog`, `/product?id=logo-design
 ## Adding things
 - New product: add it to `ITEMS` in `catalog-data.js`, its text to `details.js`, photos to `photos.js`, and its URL to `sitemap.xml`.
 - New video: add it to `WORK` in `site-data.js` and its poster to `assets/img/`.
+
+## Admin page (admin.html)
+Sign in with ebraheemhussain748@gmail.com. Sections:
+- Dashboard: new leads, follow-ups due, open deals and their quoted value, what people ask for.
+- Leads: stages (New → Contacted → Quote sent → Payment pending → In production → Delivered / Lost), quote amount, follow-up date, notes with history, WhatsApp reply templates, CSV download.
+- Reviews: approve or hide, reply under a review, delete.
+- Prices: change any price, unit or label, mark "price on request", or hide a product. Saved to Firestore `site/public`; the website reads it on every visit.
+- Products: add extra products without editing code.
+- Home & banner: announcement bar and the "Popular right now" picks.
+The `site` rules in `firestore.rules` must be published in the Firebase console for Prices, Products and Home to save.

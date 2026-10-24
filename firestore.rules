@@ -23,6 +23,12 @@ service cloud.firestore {
       allow read, update, delete: if isAdmin();
     }
 
+    // Prices, extra products, announcement and home picks: the website reads them, only the admin can change them.
+    match /site/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
     // Client reviews: anyone can submit one, it stays hidden until the admin approves it.
     match /reviews/{id} {
       allow create: if request.resource.data.keys().hasOnly(['name', 'business', 'rating', 'text', 'approved', 'createdAt'])

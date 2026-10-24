@@ -1,9 +1,10 @@
 // Catalog page: search, category and offline/online filters, sorting, currency, print.
-import { NOTE, CHECKED, GROUPS, CATEGORIES, ITEMS, SOURCES } from './data/catalog-data.js';
-import { $, $$, el, wa, initChrome, CAT, reduceMotion } from './common.js';
+import { GROUPS, CATEGORIES, ITEMS, SOURCES } from './data/catalog-data.js';
+import { $, $$, el, wa, initChrome, CAT, ready } from './common.js';
 import { card, price, currency } from './shop.js';
 
-initChrome({ page: 'catalog' });
+await ready;
+initChrome();
 
 // extra words people type (English + common Hinglish) so search finds the right thing
 const KEYWORDS = {
@@ -42,7 +43,7 @@ const state = {
   group: ['offline', 'online'].includes(params.get('type')) ? params.get('type') : 'all',
   sort: ['low', 'high', 'az'].includes(params.get('sort')) ? params.get('sort') : '',
 };
-const hq = $('#hq'); hq.value = state.q;
+const hq = $('#cq'); hq.value = state.q;
 $('#sort').value = state.sort;
 
 function syncUrl() {
@@ -62,6 +63,7 @@ function pool() {
   const ws = words(); if (!ws.length) return inGroup;
   const own = inGroup.filter(i => ws.every(w => hit(i.own, w)));              // the product itself mentions every word
   const wide = inGroup.filter(i => !own.includes(i) && ws.every(w => hit(i.wide, w))); // or its category does
+  if (own.length >= 4) return own;
   if (own.length || wide.length) return [...own, ...wide];
   return inGroup.filter(i => ws.some(w => hit(i.wide, w)));                    // last try: any word
 }
@@ -75,7 +77,7 @@ function renderFilters(all) {
     const b = el('button', { type: 'button' }, el('span', { textContent: label }), el('small', { textContent: n }));
     b.setAttribute('aria-pressed', state.cat === id);
     b.disabled = n === 0 && state.cat !== id;
-    b.addEventListener('click', () => { state.cat = id; render(); $('.toolbar').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' }); });
+    b.addEventListener('click', () => { state.cat = id; render();  });
     return el('li', {}, b);
   };
   $('#cat-filter').replaceChildren(btn('all', 'All categories', all.length), ...cats.map(c => btn(c.id, c.name, counts[c.id] || 0)));
@@ -89,7 +91,7 @@ function render() {
   renderFilters(all);
   let shown = all.filter(i => state.cat === 'all' || i.cat === state.cat);
   const sorted = state.sort || state.q;
-  if (state.sort === 'low') shown = shown.slice().sort((a, b) => price(a).from - price(b).from);
+  if (state.sort === 'low') shown = shown.slice().sort((a, b) => price(a).low - price(b).low);
   else if (state.sort === 'high') shown = shown.slice().sort((a, b) => (b.inr ? b.inr[1] : -1) - (a.inr ? a.inr[1] : -1));
   else if (state.sort === 'az') shown = shown.slice().sort((a, b) => a.name.localeCompare(b.name));
   else if (state.q) shown = shown.slice().sort((a, b) => score(b) - score(a));
@@ -111,13 +113,12 @@ function render() {
   $('#empty').hidden = shown.length > 0;
 
   const c = state.cat !== 'all' ? CAT[state.cat] : null;
-  $('#shop-title').textContent = c ? c.name : state.group === 'offline' ? 'Offline products' : state.group === 'online' ? 'Online services' : 'Catalog';
-  $('#shop-sub').textContent = c ? c.blurb : 'Everything we make, with average prices. Add things to your quote list and send it in one WhatsApp message.';
-  document.title = `${c ? c.name : 'Catalog and prices'} | Ebraheem Hussain Productions`;
+  $('#shop-title').textContent = c ? `${c.name}.` : state.group === 'offline' ? 'Print & signage.' : state.group === 'online' ? 'Digital services.' : 'Shop.';
+  $('#shop-sub').textContent = c ? c.blurb : 'Everything we make, with prices. Add what you need to your list and send it in one WhatsApp message.';
+  document.title = `${c ? c.name : 'Shop'} | Ebraheem Hussain Productions`;
   $('#crumbs').replaceChildren(...[el('li', {}, el('a', { href: './', textContent: 'Home' })),
-    c ? el('li', {}, el('a', { href: 'catalog', textContent: 'Catalog' })) : el('li', { textContent: 'Catalog' }),
+    c ? el('li', {}, el('a', { href: 'catalog', textContent: 'Shop' })) : el('li', { textContent: 'Shop' }),
     c ? el('li', { textContent: c.name }) : null].filter(Boolean));
-  $$('#catbar a').forEach(a => a.setAttribute('aria-current', String(a.getAttribute('href') === `catalog?cat=${state.cat}`)));
 
   const where = c ? ` in ${c.name}` : state.group !== 'all' ? ` (${state.group})` : '';
   $('#result-count').textContent = state.q ? `${shown.length} ${shown.length === 1 ? 'result' : 'results'} for “${state.q}”${where}` : `${shown.length} ${shown.length === 1 ? 'item' : 'items'}${where}`;
@@ -129,7 +130,7 @@ function render() {
 /* ---------- controls ---------- */
 let t;
 hq.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => { state.q = hq.value.trim(); render(); }, 160); });
-hq.form.addEventListener('submit', e => { e.preventDefault(); state.q = hq.value.trim(); render(); $('.toolbar').scrollIntoView({ block: 'start' }); });
+hq.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); state.q = hq.value.trim(); render(); hq.blur(); } });
 $$('#group-filter button').forEach(b => b.addEventListener('click', () => {
   state.group = b.dataset.group;
   if (state.cat !== 'all' && state.group !== 'all' && CAT[state.cat].group !== state.group) state.cat = 'all';
@@ -140,15 +141,7 @@ $('#sort').addEventListener('change', e => { state.sort = e.target.value; render
 const reset = () => { state.q = ''; state.cat = 'all'; state.group = 'all'; state.sort = ''; hq.value = ''; $('#sort').value = ''; render(); };
 $('#clear').addEventListener('click', reset);
 $('#empty-clear').addEventListener('click', reset);
-// category bar links: filter in place instead of reloading
-$('#catbar').addEventListener('click', e => {
-  const a = e.target.closest('a'); if (!a) return;
-  const id = new URL(a.href).searchParams.get('cat'); if (!id || !CAT[id]) return;
-  e.preventDefault(); state.cat = id; state.q = ''; hq.value = ''; render(); scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
-});
 
-$('#note-text').textContent = NOTE;
-$('#checked').textContent = CHECKED;
 $('#print').addEventListener('click', () => window.print());
 const det = $('.sources'); let wasOpen;
 addEventListener('beforeprint', () => { wasOpen = det.open; det.open = true; });

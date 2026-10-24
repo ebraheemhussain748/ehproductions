@@ -5,20 +5,20 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://images.unsplash.com; font-src 'self'; media-src 'self'; connect-src 'self' https://firestore.googleapis.com https://*.googleapis.com https://formsubmit.co; frame-src https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Ebraheem Hussain Productions | AI video ads, print, signage, websites and music mixing</title>
+  <title>Ebraheem Hussain Productions | AI video ads, print, signage, websites and music</title>
   <meta name="description" content="AI video ads, signboards, flex banners, visiting cards, uniforms, gifts, websites, apps and music mixing and mastering. Ebraheem Hussain Productions, Mathura (near Delhi). Courier all over India.">
-  <meta name="theme-color" content="#0b0b0c">
+  <meta name="theme-color" content="#f5f5f7">
   <link rel="canonical" href="https://ebraheemhussain748.github.io/ehproductions/">
   <link rel="icon" href="assets/img/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/img/icon-192.png">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Ebraheem Hussain Productions">
-  <meta property="og:title" content="Ebraheem Hussain Productions | AI video ads, print, signage, websites and music mixing">
+  <meta property="og:title" content="Ebraheem Hussain Productions | AI video ads, print, signage, websites and music">
   <meta property="og:description" content="AI video ads, signboards, flex banners, visiting cards, uniforms, gifts, websites, apps and music mixing and mastering. Ebraheem Hussain Productions, Mathura (near Delhi). Courier all over India.">
   <meta property="og:image" content="https://ebraheemhussain748.github.io/ehproductions/assets/img/og-image.jpg">
   <meta property="og:url" content="https://ebraheemhussain748.github.io/ehproductions/">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="preload" href="assets/fonts/font-display-900.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/font-text-600.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/font-text-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preconnect" href="https://images.unsplash.com">
   <link rel="stylesheet" href="css/styles.css">
@@ -34,126 +34,105 @@
 </head>
 <body class="page-index">
   <a class="skip" href="#main">Skip to content</a>
-  <header class="top">
-    <div class="wrap top__row">
+  <div class="announce" id="announce" hidden></div>
+  <header class="nav">
+    <div class="wrap nav__row">
       <a class="brand" href="./" aria-label="Ebraheem Hussain Productions, home">
         <img src="assets/img/logo-mark-96.png" alt="" width="62" height="32">
         <span>Ebraheem Hussain<small>Productions</small></span>
       </a>
-      <form class="hsearch" action="catalog" method="get" role="search">
-        <label class="sr" for="hq">Search products and services</label>
-        <input id="hq" name="q" type="search" placeholder="Search glow sign, logo, song mixing…" autocomplete="off" enterkeyhint="search">
-        <button type="submit" aria-label="Search"><span data-icon="search"></span></button>
-      </form>
-      <nav class="nav" aria-label="Main">
-        <ul id="nav-links">
-          <li><a href="catalog">Catalog</a></li>
-          <li><a href="./#work">Work</a></li>
-          <li><a href="./#process">How it works</a></li>
-          <li><a href="./#about">About</a></li>
-          <li><a href="./#contact">Contact</a></li>
-        </ul>
-      </nav>
-      <button class="qbtn" type="button" data-open-quote aria-label="Open my list"><span data-icon="bag"></span><span class="qbtn__t">My list</span><span class="qbtn__n qcount">0</span></button>
-      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links"><span data-icon="menu"></span><span class="sr">Menu</span></button>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="./#work">Work</a></li>
+        <li><a href="catalog">Shop</a></li>
+        <li><a href="catalog?cat=music">Music</a></li>
+        <li><a href="./#about">About</a></li>
+        <li><a href="./#contact">Contact</a></li>
+      </ul>
+      <button class="iconbtn" type="button" id="search-open" aria-expanded="false" aria-controls="searchpanel" aria-label="Search"><span data-icon="search"></span></button>
+      <button class="iconbtn" type="button" data-open-quote aria-label="Open my list"><span data-icon="bag"></span><span class="badge qcount" data-n="0">0</span></button>
+      <a class="btn btn--dark btn--sm nav__cta" href="./#contact">Get a quote</a>
+      <button class="iconbtn nav__menu" type="button" id="menu-open" aria-label="Menu"><span data-icon="menu"></span></button>
     </div>
-    <nav class="catbar" aria-label="Categories"><div class="wrap"><ul id="catbar"><li><a href="catalog">All categories</a></li></ul></div></nav>
+    <div class="searchpanel" id="searchpanel" hidden>
+      <div class="wrap">
+        <form action="catalog" method="get" role="search">
+          <label class="searchbox"><span data-icon="search"></span><span class="sr">Search products and services</span><input id="hq" name="q" type="search" placeholder="Search signboards, visiting cards, video ads, mixing…" autocomplete="off" enterkeyhint="search"></label>
+          <button class="btn btn--dark" type="submit">Search</button>
+        </form>
+        <ul class="suggest" id="suggest"></ul>
+      </div>
+    </div>
   </header>
 
   <main id="main">
     <section class="hero">
-      <div class="wrap hero__grid">
-        <div>
-          <h1 class="hero__title">Ads people <em>stop scrolling</em> for.</h1>
-          <p class="hero__lede">Signboards, printing, AI video ads, websites and music mixing from one studio in Mathura. Pick what you need and get a fixed price on WhatsApp.</p>
-          <div class="hero__cta">
-            <a class="btn btn--gold" href="catalog">Browse the catalog <span data-icon="arrow"></span></a>
-            <a class="btn btn--line" data-link="whatsapp" href="https://wa.me/919389080059" target="_blank" rel="noopener"><span data-icon="wa"></span>Chat on WhatsApp</a>
-          </div>
-          <ul class="trust">
-            <li><span data-icon="truck"></span>Courier all over India</li>
-            <li><span data-icon="shield"></span>Fixed price first</li>
-            <li><span data-icon="chat"></span>Reply in 24 hours</li>
-          </ul>
+      <div class="wrap">
+        <p class="kicker">Ebraheem Hussain Productions · Mathura, India</p>
+        <h1>We make brands <em>impossible to ignore.</em></h1>
+        <p class="lede">AI video ads, print and signage, websites and music, all from one studio. Tell us what you need and get a fixed price on WhatsApp.</p>
+        <div class="hero__cta">
+          <a class="btn btn--dark" href="catalog">Explore services</a>
+          <a class="btn btn--outline" data-link="whatsapp" href="https://wa.me/919389080059" target="_blank" rel="noopener"><span data-icon="wa"></span>Chat on WhatsApp</a>
         </div>
-        <div class="mosaic" id="mosaic" aria-label="Popular categories"></div>
+        <p class="hero__note">Courier all over India · Online work delivered anywhere · Reply within 24 hours</p>
       </div>
     </section>
 
-    <section class="section" aria-labelledby="cats-h">
+    <section class="showcase" id="work" aria-label="Our work">
       <div class="wrap">
-        <div class="section__head"><div><h2 id="cats-h">Shop by category</h2><p id="cats-sub">Every product and service comes with an average price.</p></div><a class="more" href="catalog">See everything <span data-icon="arrow"></span></a></div>
-        <ul class="cats" id="cats"></ul>
+        <div class="showcase__frame reveal" id="work-list"></div>
       </div>
     </section>
 
-    <section class="section section--white" aria-labelledby="off-h">
+    <section class="section section--white" aria-labelledby="svc-h">
       <div class="wrap">
-        <div class="section__head"><div><h2 id="off-h">Popular for shops</h2><p>Print, signage and branded products, couriered all over India.</p></div><a class="more" href="catalog?type=offline">All offline products <span data-icon="arrow"></span></a></div>
-        <div class="rail" id="rail-offline"></div>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="on-h">
-      <div class="wrap">
-        <div class="section__head"><div><h2 id="on-h">Popular online</h2><p>Video, design, websites and apps, delivered anywhere.</p></div><a class="more" href="catalog?type=online">All online services <span data-icon="arrow"></span></a></div>
-        <div class="rail" id="rail-online"></div>
-      </div>
-    </section>
-
-    <section class="section section--white" aria-labelledby="music-h">
-      <div class="wrap">
-        <div class="promo">
-          <div class="promo__copy">
-            <span class="promo__tag">New</span>
-            <h2 id="music-h">Music Production</h2>
-            <p>We now mix and master songs. Send your vocals and beat as separate tracks and get back a clear, loud, release-ready song for Spotify, YouTube and Instagram.</p>
-            <ul class="promo__list" id="music-list"></ul>
-            <a class="btn btn--gold" href="catalog?cat=music">See music prices <span data-icon="arrow"></span></a>
-          </div>
-          <div class="promo__img"><img id="music-img" alt="" loading="lazy" width="720" height="560"></div>
+        <div class="section__head reveal">
+          <div><h2 id="svc-h">One studio.<br>Everything your brand needs.</h2></div>
+          <a class="link" href="catalog">See all <span id="item-total">93</span> services <span data-icon="arrow"></span></a>
         </div>
+        <div class="bento" id="bento"></div>
       </div>
     </section>
 
-    <section class="section section--dark" id="work" aria-labelledby="work-h">
+    <section class="section" aria-labelledby="pop-h">
       <div class="wrap">
-        <div class="section__head"><div><h2 id="work-h">Our work</h2><p>Made with AI video tools, editing and motion graphics. AI-generated visuals are labelled.</p></div><a class="more" data-link="youtube" href="https://www.youtube.com/channel/UCWhn9Tuk_qFfp__eVmOqNBQ" target="_blank" rel="noopener">YouTube channel <span data-icon="arrow"></span></a></div>
-        <div class="work" id="work-list"></div>
+        <div class="section__head reveal"><div><h2 id="pop-h">Popular right now.</h2><p class="lede">Average prices, fixed quote before we start.</p></div><a class="link" href="catalog">Open the shop <span data-icon="arrow"></span></a></div>
+        <div class="rail" id="rail"></div>
       </div>
     </section>
 
-    <section class="section" id="process" aria-labelledby="process-h">
+    <section class="section section--white" id="process" aria-labelledby="process-h">
       <div class="wrap">
-        <div class="section__head"><div><h2 id="process-h">How a project works</h2><p>Simple, on WhatsApp, with a fixed price before anything starts.</p></div></div>
-        <ol class="steps">
-          <li><h3>Pick from the catalog</h3><p>Add products to your quote list, or just tell us what you need on WhatsApp.</p></li>
-          <li><h3>Get a fixed quote</h3><p>Share size, quantity, deadline and your idea. You get a concept and a fixed price.</p></li>
-          <li><h3>We make it</h3><p>Design, printing, AI video, editing, sound or code, done in-house.</p></li>
-          <li><h3>Delivered to you</h3><p>Couriered across India, or files sent online, with two rounds of changes on designs and videos.</p></li>
+        <div class="section__head reveal"><div><h2 id="process-h">How it works.</h2></div></div>
+        <ol class="steps reveal">
+          <li><h3>Tell us the idea</h3><p>Pick from the shop or just send a message on WhatsApp.</p></li>
+          <li><h3>Get a fixed price</h3><p>Share size, quantity and deadline. You get a concept and a fixed quote.</p></li>
+          <li><h3>We make it</h3><p>Design, print, AI video, editing, code or sound, done in-house.</p></li>
+          <li><h3>Delivered</h3><p>Couriered across India or sent online, with two rounds of changes on designs and videos.</p></li>
         </ol>
       </div>
     </section>
 
-    <section class="section section--white" id="about" aria-labelledby="about-h">
+    <section class="section" id="about" aria-labelledby="about-h">
       <div class="wrap about">
-        <img src="assets/img/logo-full.jpg" alt="Ebraheem Hussain Productions logo" width="900" height="685" loading="lazy">
-        <div>
-          <p class="eyebrow">About the studio</p>
-          <h2 id="about-h">Small brands deserve big-brand ads</h2>
-          <p>I'm Ebraheem Hussain. I started Ebraheem Hussain Productions to give local shops, startups and creators the kind of ads that big companies run: cinematic video, sharp design and websites that bring in enquiries.</p>
-          <p>I combine AI video tools with editing, motion graphics and 3D, so a full commercial can be ready in days instead of weeks, without a film crew or a studio budget. The same studio designs the posters, banners, logos and name plates that carry your brand offline, and now mixes and masters music too.</p>
+        <div class="reveal">
+          <p class="kicker" id="about-h">About the studio</p>
+          <p class="statement">Small brands deserve big-brand ads. <span>Cinematic video, sharp print and websites that bring in enquiries, without a film crew or a studio budget.</span></p>
+          <p>I’m Ebraheem Hussain. I combine AI video tools with editing, motion graphics and 3D, so a full commercial can be ready in days instead of weeks. The same studio designs the posters, banners, logos and name plates that carry your brand offline, and mixes and masters music too.</p>
+        </div>
+        <div class="about__card reveal">
+          <img src="assets/img/logo-full.jpg" alt="Ebraheem Hussain Productions logo" width="900" height="685" loading="lazy">
           <h3>Awards and certificates</h3>
-          <ul class="chips-list" id="creds"></ul>
+          <ul class="chips" id="creds"></ul>
         </div>
       </div>
     </section>
 
-    <section class="section" id="reviews" aria-labelledby="reviews-h">
+    <section class="section section--white" id="reviews" aria-labelledby="reviews-h">
       <div class="wrap">
-        <div class="section__head"><div><h2 id="reviews-h">Worked with us?</h2><p>Tell other customers how it went. Reviews appear here after we check them.</p></div><button class="btn btn--ink btn--sm" type="button" id="review-open" aria-expanded="false" aria-controls="review-form">Write a review</button></div>
+        <div class="section__head"><div><h2 id="reviews-h">Worked with us?</h2><p class="lede">Tell other customers how it went. Reviews appear here after we check them.</p></div><button class="btn btn--outline" type="button" id="review-open" aria-expanded="false" aria-controls="review-form">Write a review</button></div>
         <div class="reviews" id="review-list" aria-live="polite" hidden></div>
-        <form class="form panel" id="review-form" hidden novalidate>
+        <form class="form panel" id="review-form" hidden novalidate style="background:var(--bg)">
           <div class="form__row">
             <label>Your name<input name="name" required maxlength="80" autocomplete="name"></label>
             <label>Business (optional)<input name="business" maxlength="80" autocomplete="organization"></label>
@@ -167,23 +146,24 @@
             <label><input type="radio" name="rating" value="1">1</label>
           </fieldset>
           <label>Your review<textarea name="text" required maxlength="800" rows="4"></textarea></label>
-          <div class="form__foot"><button class="btn btn--ink" type="submit">Submit review</button><p class="form__msg" role="status"></p></div>
+          <div class="form__foot"><button class="btn btn--dark" type="submit">Submit review</button><p class="form__msg" role="status"></p></div>
           <p class="small">Your name, business and review will be shown on this website after we approve it. See our <a href="privacy">Privacy Policy</a>.</p>
         </form>
       </div>
     </section>
 
-    <section class="section section--white" id="faq" aria-labelledby="faq-h">
-      <div class="wrap faq">
-        <h2 id="faq-h" style="margin-bottom:20px">Questions people ask</h2>
-        <div id="faq-list"></div>
+    <section class="section" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <h2 id="faq-h" class="center reveal" style="margin-bottom:28px">Questions.</h2>
+        <div class="faq" id="faq-list"></div>
       </div>
     </section>
 
     <section class="section section--dark" id="contact" aria-labelledby="contact-h">
       <div class="wrap contact">
         <div>
-          <h2 id="contact-h" style="margin-bottom:20px">Tell us about your project</h2>
+          <h2 id="contact-h" style="margin-bottom:12px">Tell us about your project.</h2>
+          <p class="lede" style="margin-bottom:28px">A few lines is enough. We reply within 24 hours with ideas and a fixed price.</p>
           <form class="form" id="lead-form" novalidate>
             <div class="form__row">
               <label>Your name<input name="name" required maxlength="80" autocomplete="name"></label>
@@ -195,72 +175,76 @@
             </div>
             <label>Project details<textarea name="message" required maxlength="2000" rows="5" placeholder="What are you selling, who is it for, and when do you need it?"></textarea></label>
             <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-            <div class="form__foot"><button class="btn btn--gold" type="submit">Send enquiry</button><p class="form__msg" role="status"></p></div>
-            <p class="small">We use these details only to reply to your enquiry and prepare a quote. We never sell or share them. See our <a href="privacy">Privacy Policy</a>.</p>
+            <div class="form__foot"><button class="btn btn--light" type="submit">Send enquiry</button><p class="form__msg" role="status"></p></div>
+            <p class="small">We use these details only to reply to your enquiry. We never sell or share them. See our <a href="privacy">Privacy Policy</a>.</p>
           </form>
         </div>
-        <aside class="direct">
-          <h3>Prefer to talk directly?</h3>
-          <a class="direct__wa" data-link="whatsapp" href="https://wa.me/919389080059" target="_blank" rel="noopener"><span data-icon="wa"></span>WhatsApp +91 93890 80059</a>
-          <p><a data-link="email" href="mailto:ebraheemhussain748@gmail.com">ebraheemhussain748@gmail.com</a></p>
-          <p>Mathura, Uttar Pradesh (near Delhi)</p>
-          <p class="small">We reply within 24 hours, usually much sooner. Courier all over India. International delivery for big projects.</p>
+        <aside class="contact__side">
+          <div class="contact__card">
+            <h3>Prefer WhatsApp?</h3>
+            <p>Most clients start here. Send a photo, a voice note or a reference and we take it from there.</p>
+            <a class="btn btn--wa btn--block" data-link="whatsapp" href="https://wa.me/919389080059" target="_blank" rel="noopener"><span data-icon="wa"></span>+91 93890 80059</a>
+          </div>
+          <div class="contact__card">
+            <h3>Email</h3>
+            <p><a data-link="email" href="mailto:ebraheemhussain748@gmail.com">ebraheemhussain748@gmail.com</a></p>
+            <p>Mathura, Uttar Pradesh (near Delhi). Courier all over India, international delivery for big projects.</p>
+          </div>
         </aside>
       </div>
     </section>
   </main>
 
   <footer class="foot">
-    <div class="wrap foot__grid">
-      <div>
-        <a class="brand" href="./"><img src="assets/img/logo-mark-96.png" alt="" width="62" height="32"><span>Ebraheem Hussain<small>Productions</small></span></a>
-        <p class="small">AI video ads, print, signage, websites and music mixing from Mathura, Uttar Pradesh (near Delhi). Courier all over India, online work delivered anywhere.</p>
+    <div class="wrap">
+      <p class="foot__big"><a href="./#contact">Let’s make something<br>people remember.</a></p>
+      <div class="foot__grid">
+        <div>
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="catalog?type=offline">Print &amp; signage</a></li>
+            <li><a href="catalog?cat=video">Video ads</a></li>
+            <li><a href="catalog?cat=websites">Websites</a></li>
+            <li><a href="catalog?cat=music">Music production</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Studio</h4>
+          <ul>
+            <li><a href="./#work">Work</a></li>
+            <li><a href="./#about">About</a></li>
+            <li><a href="./#faq">FAQ</a></li>
+            <li><a href="./#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Follow</h4>
+          <ul>
+            <li><a data-link="instagram" href="https://www.instagram.com/ebraheemhussainproductions/" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a data-link="youtube" href="https://www.youtube.com/channel/UCWhn9Tuk_qFfp__eVmOqNBQ" target="_blank" rel="noopener">YouTube</a></li>
+            <li><a data-link="whatsapp" href="https://wa.me/919389080059" target="_blank" rel="noopener">WhatsApp</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Talk to us</h4>
+          <ul>
+            <li><a data-link="call" href="tel:+919389080059">+91 93890 80059</a></li>
+            <li><a data-link="email" href="mailto:ebraheemhussain748@gmail.com">ebraheemhussain748@gmail.com</a></li>
+            <li>Mathura, Uttar Pradesh, India</li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <h4>Shop</h4>
-        <ul>
-          <li><a href="catalog?type=offline">Offline products</a></li>
-          <li><a href="catalog?type=online">Online services</a></li>
-          <li><a href="catalog?cat=video">Advertising videos</a></li>
-          <li><a href="catalog?cat=music">Music Production</a></li>
-          <li><a href="catalog?cat=websites">Websites</a></li>
-        </ul>
+      <div class="foot__base">
+        <p>© <span class="year">2026</span> Ebraheem Hussain Productions. AI-generated visuals are labelled.</p>
+        <p><a href="privacy">Privacy</a> · <a href="terms">Terms</a> · <a href="licenses">Licences</a></p>
       </div>
-      <div>
-        <h4>Company</h4>
-        <ul>
-          <li><a href="./#about">About</a></li>
-          <li><a href="./#work">Our work</a></li>
-          <li><a href="./#faq">FAQ</a></li>
-          <li><a href="./#contact">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Follow &amp; chat</h4>
-        <ul>
-          <li><a data-link="whatsapp" href="https://wa.me/919389080059" target="_blank" rel="noopener">WhatsApp +91 93890 80059</a></li>
-          <li><a data-link="instagram" href="https://www.instagram.com/ebraheemhussainproductions/" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a data-link="youtube" href="https://www.youtube.com/channel/UCWhn9Tuk_qFfp__eVmOqNBQ" target="_blank" rel="noopener">YouTube</a></li>
-          <li><a data-link="email" href="mailto:ebraheemhussain748@gmail.com">ebraheemhussain748@gmail.com</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="wrap foot__base">
-      <p class="small">© <span class="year">2026</span> Ebraheem Hussain Productions, Mathura, Uttar Pradesh, India. All rights reserved. Product photos are sample photos from Unsplash. AI-generated visuals are labelled.</p>
-      <ul class="foot__legal"><li><a href="privacy">Privacy</a></li><li><a href="terms">Terms</a></li><li><a href="licenses">Licences</a></li></ul>
     </div>
   </footer>
-
-  <nav class="abar" aria-label="Quick contact">
-    <a data-link="whatsapp" href="https://wa.me/919389080059" target="_blank" rel="noopener"><span data-icon="wa"></span>WhatsApp</a>
-    <a data-link="call" href="tel:+919389080059"><span data-icon="call"></span>Call</a>
-    <a href="catalog"><span data-icon="grid"></span>Catalog</a>
-    <button type="button" data-open-quote><span data-icon="bag"></span><span>My list · <span class="qcount">0</span></span></button>
-  </nav>
+  <a class="fab" data-link="whatsapp" href="https://wa.me/919389080059" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><span data-icon="wa"></span><span>Chat with us</span></a>
 
   <dialog class="player" id="player" aria-label="Video player">
     <div class="player__box" id="player-box"></div>
-    <form method="dialog"><button class="player__close">Close video</button></form>
+    <form method="dialog"><button class="btn btn--light btn--sm player__close">Close video</button></form>
   </dialog>
   <script type="module" src="js/main.js"></script>
 </body>

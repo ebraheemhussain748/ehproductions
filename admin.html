@@ -2,58 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.googleusercontent.com; font-src 'self'; connect-src 'self' https://*.googleapis.com https://ehproductions-f0c49.firebaseapp.com; frame-src https://ehproductions-f0c49.firebaseapp.com https://accounts.google.com https://apis.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.googleusercontent.com https://images.unsplash.com; font-src 'self'; connect-src 'self' https://*.googleapis.com https://ehproductions-f0c49.firebaseapp.com; frame-src https://ehproductions-f0c49.firebaseapp.com https://accounts.google.com https://apis.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex">
-  <title>Leads and reviews | Ebraheem Hussain Productions</title>
+  <meta name="robots" content="noindex, nofollow">
+  <title>Studio admin | Ebraheem Hussain Productions</title>
   <link rel="icon" href="assets/img/favicon.png" type="image/png">
   <link rel="stylesheet" href="css/styles.css">
-  <style>
-    body { background: var(--silver); }
-    .admin { padding-top: 40px; padding-bottom: 80px; }
-    .admin .form__msg.err { color: #b3261e; }
-    .admin .form__msg.ok { color: #1f7a3d; }
-    .admin h1 { font-size: clamp(44px, 6vw, 72px); line-height: .95; margin-bottom: 8px; }
-    .bar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 24px 0; }
-    .tabs button { min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid #a9afb4; background: transparent; font: 600 14px var(--text); cursor: pointer; }
-    .tabs button[aria-selected="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-    .cards { display: grid; gap: 14px; }
-    .card { background: var(--paper); border-radius: 6px; padding: 18px 20px; display: grid; gap: 6px; }
-    .card__top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; }
-    .card__name { font-weight: 600; font-size: 18px; }
-    .card__meta { font-size: 14px; color: var(--ink-soft); }
-    .card__msg { white-space: pre-wrap; margin: 6px 0; }
-    .card__actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-    .card select { font: 600 14px var(--text); padding: 8px 10px; border-radius: 6px; border: 1px solid #a9afb4; background: #fff; }
-    .card a { font-weight: 600; }
-    .linkbtn { background: none; border: 0; color: #b3261e; font: 600 14px var(--text); cursor: pointer; padding: 6px 0; }
-    .count { font-size: 15px; color: var(--ink-soft); }
-    .status-new { color: #1f7a3d; font-weight: 600; }
-  </style>
 </head>
-<body>
-  <header class="top"><div class="wrap top__row">
-    <a class="brand" href="./"><img src="assets/img/logo-mark-96.png" alt="" width="62" height="32"><span>Ebraheem Hussain Productions</span></a>
-    <button class="btn btn--line btn--sm" id="signout" hidden>Sign out</button>
-  </div></header>
-  <main class="wrap admin">
-    <h1>Leads and reviews</h1>
-    <p id="who" class="small">Sign in with your Google account to see enquiries from the website.</p>
-    <div class="bar" id="signin-bar"><button class="btn btn--ink" id="signin">Sign in with Google</button></div>
-    <section id="panel" hidden>
-      <div class="bar">
-        <div class="tabs" role="tablist">
-          <button role="tab" aria-selected="true" data-tab="leads">Enquiries</button>
-          <button role="tab" aria-selected="false" data-tab="reviews">Reviews</button>
-        </div>
-        <span class="count" id="count"></span>
-        <button class="btn btn--ink btn--sm" id="csv">Download enquiries (CSV)</button>
-      </div>
-      <div class="cards" id="list"></div>
-    </section>
-    <p class="form__msg" id="msg" role="status"></p>
-  </main>
+<body class="page-admin">
+  <div class="adm__login" id="login">
+    <img src="assets/img/logo-mark-96.png" alt="" width="62" height="32" style="margin:0 auto 18px;width:62px;border-radius:8px;background:#000">
+    <h1>Studio admin</h1>
+    <p class="small" id="login-text">Loading…</p>
+    <button class="btn btn--dark" id="signin" hidden>Sign in with Google</button>
+    <p style="margin-top:18px"><a class="small" href="./">Back to the website</a></p>
+  </div>
+
+  <div class="adm" id="app" hidden>
+    <nav class="adm__side" aria-label="Admin sections">
+      <a class="brand" href="./"><img src="assets/img/logo-mark-96.png" alt="" width="62" height="32"><span>Studio admin<small>Ebraheem Hussain Productions</small></span></a>
+      <button type="button" data-view="dashboard"><span data-icon="grid"></span>Dashboard</button>
+      <button type="button" data-view="leads"><span data-icon="chat"></span>Leads <span class="n" id="n-leads" hidden></span></button>
+      <button type="button" data-view="reviews"><span data-icon="check"></span>Reviews <span class="n" id="n-reviews" hidden></span></button>
+      <button type="button" data-view="prices"><span data-icon="list"></span>Prices</button>
+      <button type="button" data-view="products"><span data-icon="plus"></span>Products</button>
+      <button type="button" data-view="home"><span data-icon="window"></span>Home &amp; banner</button>
+      <span class="spacer"></span>
+      <a href="./" target="_blank" rel="noopener">View website ↗</a>
+      <button type="button" id="signout"><span data-icon="close"></span>Sign out</button>
+    </nav>
+    <main class="adm__main">
+      <div class="adm__top"><h1 id="view-title">Dashboard</h1><span class="adm__who" id="who"></span></div>
+      <div id="view"></div>
+    </main>
+  </div>
+  <p class="msg" id="msg" role="status"></p>
   <script type="module" src="js/admin.js"></script>
 </body>
 </html>
