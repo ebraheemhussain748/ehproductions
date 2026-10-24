@@ -54,7 +54,7 @@
           <li><a href="./#contact">Contact</a></li>
         </ul>
       </nav>
-      <button class="qbtn" type="button" data-open-quote aria-label="Open your quote list"><span data-icon="bag"></span><span class="qbtn__t">Quote list</span><span class="qbtn__n qcount">0</span></button>
+      <button class="qbtn" type="button" data-open-quote aria-label="Open my list"><span data-icon="bag"></span><span class="qbtn__t">My list</span><span class="qbtn__n qcount">0</span></button>
       <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links"><span data-icon="menu"></span><span class="sr">Menu</span></button>
     </div>
     <nav class="catbar" aria-label="Categories"><div class="wrap"><ul id="catbar"><li><a href="catalog">All categories</a></li></ul></div></nav>
@@ -64,17 +64,16 @@
     <section class="hero">
       <div class="wrap hero__grid">
         <div>
-          <p class="eyebrow" style="color:var(--gold)">AI video ads · Print &amp; signage · Websites · Music</p>
           <h1 class="hero__title">Ads people <em>stop scrolling</em> for.</h1>
-          <p class="hero__lede">AI video ads, signboards, printing, websites and now music mixing, all from one studio in Mathura, near Delhi. Pick what you need from the catalog and get a fixed quote on WhatsApp.</p>
+          <p class="hero__lede">Signboards, printing, AI video ads, websites and music mixing from one studio in Mathura. Pick what you need and get a fixed price on WhatsApp.</p>
           <div class="hero__cta">
             <a class="btn btn--gold" href="catalog">Browse the catalog <span data-icon="arrow"></span></a>
             <a class="btn btn--line" data-link="whatsapp" href="https://wa.me/919389080059" target="_blank" rel="noopener"><span data-icon="wa"></span>Chat on WhatsApp</a>
           </div>
           <ul class="trust">
             <li><span data-icon="truck"></span>Courier all over India</li>
-            <li><span data-icon="shield"></span>Fixed quote before work starts</li>
-            <li><span data-icon="chat"></span>Reply within 24 hours</li>
+            <li><span data-icon="shield"></span>Fixed price first</li>
+            <li><span data-icon="chat"></span>Reply in 24 hours</li>
           </ul>
         </div>
         <div class="mosaic" id="mosaic" aria-label="Popular categories"></div>
@@ -152,10 +151,8 @@
 
     <section class="section" id="reviews" aria-labelledby="reviews-h">
       <div class="wrap">
-        <div class="section__head"><div><h2 id="reviews-h">Client reviews</h2><p>Only real reviews from clients, shown after we check them.</p></div><button class="btn btn--ink btn--sm" type="button" id="review-open" aria-expanded="false" aria-controls="review-form">Write a review</button></div>
-        <div class="reviews" id="review-list" aria-live="polite">
-          <div class="reviews__empty"><p class="reviews__big">No reviews yet.</p><p>Worked with us? Your review can be the first one on this page.</p></div>
-        </div>
+        <div class="section__head"><div><h2 id="reviews-h">Worked with us?</h2><p>Tell other customers how it went. Reviews appear here after we check them.</p></div><button class="btn btn--ink btn--sm" type="button" id="review-open" aria-expanded="false" aria-controls="review-form">Write a review</button></div>
+        <div class="reviews" id="review-list" aria-live="polite" hidden></div>
         <form class="form panel" id="review-form" hidden novalidate>
           <div class="form__row">
             <label>Your name<input name="name" required maxlength="80" autocomplete="name"></label>
@@ -193,7 +190,7 @@
               <label>Phone or email<input name="contact" required maxlength="120" autocomplete="email"></label>
             </div>
             <div class="form__row">
-              <label>What do you need?<select name="service" id="service-select" required></select></label>
+              <label>What do you need?<select name="service" id="service-select"></select></label>
               <label>Budget (optional)<input name="budget" maxlength="60" placeholder="For example ₹5,000 or $100"></label>
             </div>
             <label>Project details<textarea name="message" required maxlength="2000" rows="5" placeholder="What are you selling, who is it for, and when do you need it?"></textarea></label>
@@ -258,7 +255,7 @@
     <a data-link="whatsapp" href="https://wa.me/919389080059" target="_blank" rel="noopener"><span data-icon="wa"></span>WhatsApp</a>
     <a data-link="call" href="tel:+919389080059"><span data-icon="call"></span>Call</a>
     <a href="catalog"><span data-icon="grid"></span>Catalog</a>
-    <button type="button" data-open-quote><span data-icon="bag"></span><span>List · <span class="qcount">0</span></span></button>
+    <button type="button" data-open-quote><span data-icon="bag"></span><span>My list · <span class="qcount">0</span></span></button>
   </nav>
 
   <dialog class="player" id="player" aria-label="Video player">

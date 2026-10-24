@@ -115,6 +115,16 @@ function render() {
     pick.length ? el('section', { className: 'related' }, el('h2', { textContent: 'You may also need' }), el('div', { className: 'rail' }, ...pick.map(x => card(x)))) : null].filter(Boolean));
   show(0);
 
+  // phones: keep the two actions on screen while the customer reads
+  const bar = $('.abar');
+  if (bar) {
+    const w = el('a', { className: 'btn btn--wa', href: wa(askText(i)), target: '_blank', rel: 'noopener' });
+    w.innerHTML = `${icon('wa')}<span>Get price on WhatsApp</span>`;
+    bar.classList.add('abar--buy');
+    bar.setAttribute('aria-label', 'Order this product');
+    bar.replaceChildren(addButton(i, { small: false }), w);
+  }
+
   // structured data for search engines (real prices only, no ratings)
   const ld = { '@context': 'https://schema.org', '@type': 'Product', name: i.name, description: d.about || i.what, category: c.name,
     brand: { '@type': 'Brand', name: 'Ebraheem Hussain Productions' }, url: `https://ebraheemhussain748.github.io/ehproductions/${productUrl(i)}` };

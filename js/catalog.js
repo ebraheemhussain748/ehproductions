@@ -25,11 +25,13 @@ const KEYWORDS = {
 };
 const SYN = {
   shaadi: 'wedding', shadi: 'wedding', vivah: 'wedding', dukan: 'shop', dukaan: 'shop', naam: 'name', ghar: 'house',
-  kapde: 'clothing', vardi: 'uniform', tshirt: 't-shirt', tee: 't-shirt', flyer: 'leaflets', handbill: 'pamphlets',
+  kapde: 'clothing', vardi: 'uniform', tshirt: 't shirt', tee: 't shirt', tshirts: 't shirt', flyer: 'leaflets', handbill: 'pamphlets',
   hoarding: 'hoardings', billboard: 'billboards', reel: 'reels', short: 'shorts', ads: 'ad', advert: 'advertisements', commercial: 'ad',
   site: 'website', web: 'website', bot: 'chatbots', chatbot: 'chatbots', gmb: 'google', gaana: 'song', gana: 'song', mix: 'mixing', master: 'mastering',
 };
-const norm = s => s.toLowerCase().normalize('NFKD').replace(/[^a-z0-9₹ -]+/g, ' ');
+const norm = s => s.toLowerCase().normalize('NFKD').replace(/[^a-z0-9₹ ]+/g, ' ');
+// filler words people type (English + Hinglish) that should not decide the results
+const STOP = new Set('i a an the for of and to in on my me we us our need needs want wants please plz pls price prices rate rates cost kitna kitne kya ka ki ke ko se me mein par ek hai hain ho chahiye chaiye chahie banana banwana banwani banani banao karna make get new naya nayi wala wali'.split(' '));
 ITEMS.forEach(i => { i.own = norm([i.name, i.what, i.tip || ''].join(' ')); i.wide = norm([i.own, CAT[i.cat].name, KEYWORDS[i.cat] || ''].join(' ')); });
 
 /* ---------- state lives in the URL so a filtered view can be shared ---------- */
@@ -52,20 +54,23 @@ function syncUrl() {
   history.replaceState(null, '', `${location.pathname}${p.toString() ? '?' + p : ''}`);
 }
 
-const words = () => norm(state.q).split(/\s+/).filter(w => w.length > 1);
-const hit = (hay, w) => hay.includes(w) || hay.includes(w.replace(/s$/, '')) || (SYN[w] && hay.includes(SYN[w].replace(/s$/, '')));
+const words = () => norm(state.q).split(/\s+/).filter(w => w.length > 1 && !STOP.has(w));
+const starts = (hay, w) => (' ' + hay).includes(' ' + w); // match the start of a word, so “ad” finds “advert” but not “letterhead”
+const hit = (hay, w) => starts(hay, w) || starts(hay, w.replace(/s$/, '')) || (SYN[w] && starts(hay, SYN[w].replace(/s$/, '')));
 function pool() {
   const inGroup = ITEMS.filter(i => state.group === 'all' || i.group === state.group);
   const ws = words(); if (!ws.length) return inGroup;
-  const own = inGroup.filter(i => ws.every(w => hit(i.own, w)));
-  return own.length ? own : inGroup.filter(i => ws.every(w => hit(i.wide, w)));
+  const own = inGroup.filter(i => ws.every(w => hit(i.own, w)));              // the product itself mentions every word
+  const wide = inGroup.filter(i => !own.includes(i) && ws.every(w => hit(i.wide, w))); // or its category does
+  if (own.length || wide.length) return [...own, ...wide];
+  return inGroup.filter(i => ws.some(w => hit(i.wide, w)));                    // last try: any word
 }
-const score = i => words().reduce((n, w) => n + (hit(norm(i.name), w) ? 3 : hit(i.own, w) ? 1 : 0), 0);
+const score = i => words().reduce((n, w) => n + (norm(i.name).startsWith(w) ? 5 : hit(norm(i.name), w) ? 3 : hit(i.own, w) ? 1 : 0), 0);
 
 /* ---------- render ---------- */
 function renderFilters(all) {
   const counts = {}; all.forEach(i => { counts[i.cat] = (counts[i.cat] || 0) + 1; });
-  const cats = CATEGORIES.filter(c => state.group === 'all' || c.group === state.group);
+  const cats = CATEGORIES.filter(c => (state.group === 'all' || c.group === state.group) && (counts[c.id] || c.id === state.cat));
   const btn = (id, label, n) => {
     const b = el('button', { type: 'button' }, el('span', { textContent: label }), el('small', { textContent: n }));
     b.setAttribute('aria-pressed', state.cat === id);

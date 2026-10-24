@@ -46,9 +46,9 @@ export const quote = {
   clear() { ids.clear(); this.save(); },
   save() { store.set('qlist', [...ids]); listeners.forEach(f => f()); },
   onChange: f => listeners.add(f),
-  text() {
+  text(note = '') {
     const rows = this.items().map((i, n) => `${n + 1}. ${i.name} (${CAT[i.cat].name})`);
-    return `Hi Ebraheem Hussain Productions, I'd like a quote for:\n${rows.join('\n')}\n\n[From your website]`;
+    return `Hi Ebraheem Hussain Productions, I'd like a quote for:\n${rows.join('\n')}${note.trim() ? `\n\nDetails: ${note.trim()}` : ''}\n\n[From your website]`;
   },
   formUrl() { return `./?enquiry=${encodeURIComponent(this.items().map(i => i.name).join(', '))}#contact`; },
 };
@@ -65,10 +65,11 @@ function buildDrawer() {
   const d = el('dialog', { className: 'drawer', id: 'qdrawer' });
   d.setAttribute('aria-labelledby', 'qd-title');
   d.innerHTML = `
-    <div class="drawer__head"><h2 id="qd-title">Quote list</h2><button class="drawer__close" type="button" aria-label="Close">${icon('close')}</button></div>
+    <div class="drawer__head"><h2 id="qd-title">My list</h2><button class="drawer__close" type="button" aria-label="Close">${icon('close')}</button></div>
     <ul class="drawer__list" id="qd-list"></ul>
-    <p class="drawer__empty" id="qd-empty">Your list is empty. Tap “Add to list” on any product, then send the whole list in one WhatsApp message.</p>
+    <p class="drawer__empty" id="qd-empty">Your list is empty. Tap “Add” on any product, then send the whole list to us in one WhatsApp message.</p>
     <div class="drawer__foot" id="qd-foot">
+      <label class="drawer__note">Details (optional)<textarea id="qd-note" rows="2" maxlength="500" placeholder="Size, quantity, deadline…"></textarea></label>
       <a class="btn btn--wa btn--block" id="qd-wa" target="_blank" rel="noopener">${icon('wa')}<span>Send list on WhatsApp</span></a>
       <a class="btn btn--outline btn--block" id="qd-form">Use the enquiry form</a>
       <p class="small">Prices are averages. You get a fixed quote before any work starts. <button class="linkbtn" type="button" id="qd-clear">Clear list</button></p>
@@ -77,11 +78,13 @@ function buildDrawer() {
   $('.drawer__close', d).addEventListener('click', () => d.close());
   d.addEventListener('click', e => { if (e.target === d) d.close(); });
   $('#qd-clear', d).addEventListener('click', () => quote.clear());
+  const note = $('#qd-note', d);
+  note.addEventListener('input', () => { $('#qd-wa', d).href = wa(quote.text(note.value)); });
   const render = () => {
     const items = quote.items();
     $('#qd-empty', d).hidden = items.length > 0;
     $('#qd-foot', d).hidden = items.length === 0;
-    $('#qd-wa', d).href = wa(quote.text());
+    $('#qd-wa', d).href = wa(quote.text($('#qd-note', d).value));
     $('#qd-form', d).href = quote.formUrl();
     $('#qd-list', d).replaceChildren(...items.map(i => {
       const rm = el('button', { type: 'button', className: 'linkbtn', textContent: 'Remove' });

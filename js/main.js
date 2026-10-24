@@ -70,7 +70,7 @@ $('#faq-list').replaceChildren(...FAQ.map(f => el('details', {}, el('summary', {
 
 /* ---------- enquiry form ---------- */
 const sel = $('#service-select');
-sel.append(el('option', { value: '', textContent: 'Choose a category' }));
+sel.append(el('option', { value: '', textContent: 'Choose a category (optional)' }));
 for (const c of CATEGORIES) sel.append(el('option', { value: c.name, textContent: c.name }));
 sel.append(el('option', { value: 'Something else', textContent: 'Something else' }));
 
@@ -97,8 +97,9 @@ const leadForm = $('#lead-form');
 leadForm.addEventListener('submit', async e => {
   e.preventDefault();
   if (leadForm.website.value) return; // bot trap
-  if (!check(leadForm)) { say(leadForm, 'Fill in your name, a phone number or email, the service and a few project details.', 'err'); return; }
+  if (!check(leadForm)) { say(leadForm, 'Fill in your name, a phone number or email, and a few project details.', 'err'); return; }
   const data = Object.fromEntries(['name', 'contact', 'service', 'budget', 'message'].map(k => [k, leadForm[k].value.trim()]));
+  if (!data.service) data.service = 'Not chosen';
   const btn = $('button[type=submit]', leadForm); btn.disabled = true; btn.textContent = 'Sending…'; say(leadForm, '');
   const results = await Promise.allSettled([saveLead(data), emailLead(data)]);
   btn.disabled = false; btn.textContent = 'Send enquiry';
@@ -145,6 +146,8 @@ async function loadReviews() {
     const snap = await fs.getDocs(fs.query(fs.collection(db, 'reviews'), fs.where('approved', '==', true), fs.limit(30)));
     const rows = snap.docs.map(d => d.data()).sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
     if (!rows.length) return;
+    $('#reviews-h').textContent = 'Client reviews';
+    $('#review-list').hidden = false;
     $('#review-list').replaceChildren(...rows.map(r => el('figure', { className: 'review' },
       el('p', { className: 'review__stars', textContent: '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating), ariaLabel: `${r.rating} out of 5` }),
       el('blockquote', { textContent: r.text, style: 'margin:0 0 12px' }),

@@ -21,9 +21,9 @@ export function price(i, cur = currency.get()) {
 
 function paint(b) {
   const on = quote.has(b.dataset.id), name = b.dataset.name;
-  b.innerHTML = `${icon(on ? 'check' : 'plus')}<span>${on ? 'In your list' : 'Add to list'}</span><span class="short">${on ? 'Added' : 'Add'}</span>`;
+  b.innerHTML = `${icon(on ? 'check' : 'plus')}<span>${on ? 'In my list' : 'Add to my list'}</span><span class="short">${on ? 'Added' : 'Add'}</span>`;
   b.setAttribute('aria-pressed', on);
-  b.setAttribute('aria-label', `${on ? 'Remove' : 'Add'} ${name} ${on ? 'from' : 'to'} your quote list`);
+  b.setAttribute('aria-label', `${on ? 'Remove' : 'Add'} ${name} ${on ? 'from' : 'to'} my list`);
 }
 // one listener repaints every "Add to list" button on the page
 quote.onChange(() => document.querySelectorAll('button.add[data-id]').forEach(paint));
@@ -31,7 +31,7 @@ quote.onChange(() => document.querySelectorAll('button.add[data-id]').forEach(pa
 export function addButton(i, { small = true } = {}) {
   const b = el('button', { type: 'button', className: `btn btn--outline add${small ? ' btn--sm' : ''}` });
   b.dataset.id = i.id; b.dataset.name = i.name;
-  b.addEventListener('click', () => { const on = quote.toggle(i.id); toast(on ? `Added: ${i.name}` : `Removed: ${i.name}`); });
+  b.addEventListener('click', () => { const on = quote.toggle(i.id); toast(on ? `Added to my list: ${i.name}` : `Removed: ${i.name}`); });
   paint(b);
   return b;
 }
