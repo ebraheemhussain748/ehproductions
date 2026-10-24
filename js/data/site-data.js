@@ -1,5 +1,5 @@
 // All editable content for the site lives here.
-// To add a new video: add an entry to WORK (poster image goes in the same folder).
+// To add a new video: add an entry to WORK and put its poster image in assets/img/.
 
 export const CONTACT = {
   whatsapp: '919389080059',
@@ -12,16 +12,10 @@ export const CONTACT = {
 
 // shape: 'tall' (9:16 Short) or 'wide' (16:9)
 export const WORK = [
-  { id: 'WGivVL_ncP0', title: 'Same burger, 3 budgets', kind: 'AI ads', shape: 'tall', poster: 'p-burger.jpg',
+  { id: 'WGivVL_ncP0', title: 'Same burger, 3 budgets', kind: 'AI ads', shape: 'tall', poster: 'assets/img/p-burger.jpg',
     note: 'One product shot three ways: phone photo, studio, and full cinematic commercial.' },
-  { id: 'bmRPnHQaVVM', title: 'Bakery commercial with no camera', kind: 'AI ads', shape: 'tall', poster: 'p-bakery.jpg',
-    note: 'A full product ad for a bakery, made from text prompts and edited in-house.' },
-  { id: 'nbUOq4ORrf4', title: 'Quiet Avenue', kind: 'Music videos', shape: 'tall', poster: 'p-quiet-avenue.jpg',
+  { id: 'nbUOq4ORrf4', title: 'Quiet Avenue', kind: 'Music videos', shape: 'tall', poster: 'assets/img/p-quiet-avenue.jpg',
     note: 'A 3D retrowave lyric video built shot by shot with motion graphics.' },
-  { id: 'oe1k8PPNrvo', title: 'What was hidden inside', kind: 'AI stories', shape: 'tall', poster: 'p-mystery.jpg',
-    note: 'Macro-detail reveal story designed for watch time.' },
-  { id: 'LRDaQZ_trO8', title: 'Tu Hi Kaafi Hai', kind: 'Music videos', shape: 'wide', poster: 'p-nasheed.jpg',
-    note: 'A full-length nasheed music video.' },
 ];
 
 // Products, services and average prices live in catalog-data.js.
@@ -32,6 +26,7 @@ export const FAQ = [
   { q: 'How long does a video ad take?', a: 'Most AI video ads are ready in 2 to 4 days after you approve the concept. Longer commercials and music videos take about a week.' },
   { q: 'Do you use AI?', a: 'Yes. We use AI video tools such as Google Flow together with editing, motion graphics, 3D and sound design. AI-generated visuals are labelled when they are published.' },
   { q: 'Can I order several things together?', a: 'Yes. In the catalog, tap "Add to list" on everything you need and send the whole list in one WhatsApp message. Schools, coaching centres and companies often order uniforms, ID cards, diaries and banners together.' },
+  { q: 'Do you mix and master songs?', a: 'Yes. Send your separate tracks (stems) as WAV files and we mix them, master them, or both. We work in a music editor and use AI-assisted tools where they help. You get WAV and MP3 files ready for Spotify, YouTube and Instagram.' },
   { q: 'Do you work with clients outside India?', a: 'Yes. Everything online is handled remotely, files are delivered by link, and prices can be paid in US dollars.' },
   { q: 'How many changes can I ask for?', a: 'Every design and video includes two rounds of changes. For printed products we send a proof for your approval before printing.' },
 ];

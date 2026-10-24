@@ -1,16 +1,21 @@
 # Ebraheem Hussain Productions website
 
 Static site hosted on GitHub Pages: https://ebraheemhussain748.github.io/ehproductions/
+Addresses work without `.html` (for example `/catalog`, `/product?id=logo-design`).
 
-- `index.html` home page. `catalog.html` is the full catalog with search, filters, quote list and print view.
-- `catalog-data.js` holds every product/service with its average price (INR, and USD for online work), the note
-  "This is an average price and depends on your specified work.", the delivery line and the price sources.
-  To change a price edit `inr: [low, high]`; `inr: null` shows "On quote". The printed PDF updates by itself.
-- The catalog prints as a clean A4 document: the "Save as PDF or print" button opens the browser's print window,
-  so the PDF always shows the latest prices.
-- `site-data.js` holds contact details, portfolio videos, FAQ and certificates.
-- `icons.js` holds the small category icons.
-- `firebase.js` holds the Firebase web config (Firestore stores enquiries and reviews).
-- `admin.html` is the private page for enquiries and reviews (Google sign-in, admin email only).
-- `firestore.rules` are the security rules to paste into the Firebase console.
-- Enquiries are also emailed through FormSubmit to the address in `site-data.js`.
+## Folders
+- `index.html` home, `catalog.html` catalog (search, filters, sort, quote list, print), `product.html` one product (`product?id=...`).
+- `privacy.html`, `terms.html`, `licenses.html`, `404.html` legal pages. `admin.html` private page for enquiries and reviews (Google sign-in, admin email only).
+- `css/styles.css` all styles.
+- `js/` page scripts: `common.js` (header, quote list, clean URLs), `shop.js` (product cards, prices), `main.js` (home), `catalog.js`, `product.js`, `legal.js`, `admin.js`, `firebase.js`, `icons.js`.
+- `js/data/` all editable content:
+  - `catalog-data.js` every product/service with its average price (INR, and USD for online work) and price sources. `inr: null` shows "Price on quote".
+  - `details.js` the description and "what you get" list on each product page.
+  - `photos.js` sample product photos from Unsplash (Unsplash License) with photographer credits.
+  - `site-data.js` contact details, portfolio videos, FAQ and certificates.
+- `assets/img/` logo, icons, video posters. `assets/fonts/` web fonts and their licence.
+- `firestore.rules` security rules to paste into the Firebase console. Enquiries are also emailed through FormSubmit.
+
+## Adding things
+- New product: add it to `ITEMS` in `catalog-data.js`, its text to `details.js`, photos to `photos.js`, and its URL to `sitemap.xml`.
+- New video: add it to `WORK` in `site-data.js` and its poster to `assets/img/`.

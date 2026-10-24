@@ -22,6 +22,7 @@ export const CATEGORIES = [
   { id: 'retail', group: 'offline', icon: 'food', name: 'Restaurant & Retail Advertising', blurb: 'Menus, packaging, bags, labels and counter QR stands.' },
   { id: 'social', group: 'online', icon: 'grid', name: 'Social Media Design Packs', blurb: 'Posts, stories, ads and festival posters in your brand style.' },
   { id: 'video', group: 'online', icon: 'play', name: 'Advertising Videos', blurb: 'Reels, Shorts, product ads and AI-made commercials.' },
+  { id: 'music', group: 'online', icon: 'music', name: 'Music Production', blurb: 'Mixing and mastering that makes your song sound clear, loud and ready for release.' },
   { id: 'branding', group: 'online', icon: 'pen', name: 'Branding', blurb: 'Logos, brand kits, guidelines and campaign designs.' },
   { id: 'websites', group: 'online', icon: 'window', name: 'Website & Landing-Page Packages', blurb: 'Fast, mobile-first sites that bring in enquiries.' },
   { id: 'webdev', group: 'online', icon: 'code', name: 'Web Development', blurb: 'Online stores, custom sites and ongoing maintenance.' },
@@ -115,6 +116,12 @@ export const ITEMS = [
   { cat: 'video', name: 'Logo reveals & motion graphics', what: 'Animated logo, titles or a short motion piece, 10 to 30 seconds.', inr: [3000, 20000], usd: [100, 300], unit: 'per piece', src: ['im-motion', 'manypixels'] },
   { cat: 'video', name: 'Music & lyric videos', what: 'Story visuals or 3D lyric animation for your song.', inr: null, unit: '', src: [] },
 
+  // ---------- Music Production ----------
+  { cat: 'music', name: 'Song mixing', what: 'Your vocals, beat and instruments balanced into one clear, full mix.', inr: [4000, 12000], usd: [100, 350], unit: 'per song', src: ['roex', 'sb-india'], tip: 'Send separate tracks (stems) as WAV files for the best result.' },
+  { cat: 'music', name: 'Song mastering', what: 'Final polish and loudness for Spotify, YouTube and Instagram.', inr: [1500, 5000], usd: [40, 130], unit: 'per song', src: ['roex', 'sb-india'] },
+  { cat: 'music', name: 'Mixing + mastering package', what: 'From raw tracks to a release-ready song in one order.', inr: [6000, 15000], usd: [140, 480], unit: 'per song', src: ['studiod', 'roex'] },
+  { cat: 'music', name: 'EP & album mastering', what: 'Every track mastered to the same loudness and tone, so it sounds like one record.', inr: null, unit: '', src: [], tip: 'Priced by the number of tracks.' },
+
   // ---------- Branding ----------
   { cat: 'branding', name: 'Logo design', what: 'Logo concepts, final files in every format and colour versions.', inr: [1500, 15000], usd: [25, 300], unit: 'per logo', src: ['sprak', 'madegood'] },
   { cat: 'branding', name: 'Logo & brand kit', what: 'Logo, colours, fonts, social profile kit and stationery set.', inr: [5000, 25000], usd: [300, 2500], unit: 'per kit', src: ['sprak', 'madegood'] },
@@ -150,6 +157,9 @@ export const ITEMS = [
 ];
 
 export const SOURCES = {
+  'roex': ['RoEx Audio: mixing and mastering cost in 2026', 'https://www.roexaudio.com/blog/how-much-does-it-cost-to-mix-and-master-a-song-in-2026'],
+  'sb-india': ['SoundBetter: India-based mixing engineer rates', 'https://soundbetter.com/profiles/21342-amit-yadav'],
+  'studiod': ['Studio D: mixing and mastering packages (India)', 'https://studiodoffers.carrd.co/'],
   'sa': ['SA Creative catalogue (print, signage, gifts)', 'https://sacreativestore.lovable.app/catalog'],
   'printo': ['Printo: visiting card printing', 'https://printo.in/p/business-cards-india'],
   'im-flexsign': ['IndiaMART: flex sign boards', 'https://m.indiamart.com/impcat/flex-sign-board.html'],
