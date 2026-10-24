@@ -1,11 +1,11 @@
 // Home page.
-import { CONTACT, WORK, FAQ, CREDENTIALS } from './data/site-data.js?v=88fcc63b';
-import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=88fcc63b';
-import { img } from './data/photos.js?v=88fcc63b';
-import { icon } from './icons.js?v=88fcc63b';
-import { fb, configured } from './firebase.js?v=88fcc63b';
-import { $, el, initChrome, CAT, byId, site, ready, reveal } from './common.js?v=88fcc63b';
-import { card } from './shop.js?v=88fcc63b';
+import { CONTACT, WORK, FAQ, CREDENTIALS } from './data/site-data.js?v=bd05d29a';
+import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=bd05d29a';
+import { img } from './data/photos.js?v=bd05d29a';
+import { icon } from './icons.js?v=bd05d29a';
+import { fb, configured } from './firebase.js?v=bd05d29a';
+import { $, el, initChrome, CAT, byId, site, ready, reveal } from './common.js?v=bd05d29a';
+import { card } from './shop.js?v=bd05d29a';
 
 await ready;
 
