@@ -1,8 +1,8 @@
 // Shared by every page: clean URLs, nav (search, menu), live prices from the admin, my list drawer, toast.
-import { CONTACT } from './data/site-data.js?v=bd05d29a';
-import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=bd05d29a';
-import { PHOTOS, img } from './data/photos.js?v=bd05d29a';
-import { icon } from './icons.js?v=bd05d29a';
+import { CONTACT } from './data/site-data.js?v=e57dfd0c';
+import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=e57dfd0c';
+import { PHOTOS, img } from './data/photos.js?v=e57dfd0c';
+import { icon } from './icons.js?v=e57dfd0c';
 
 // Show addresses without ".html" (GitHub Pages serves /catalog from catalog.html).
 if (/\.html$/.test(location.pathname)) {

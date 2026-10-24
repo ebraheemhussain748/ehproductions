@@ -160,7 +160,7 @@ p { margin: 0 0 1em; }
 .hero .lede { margin: 24px auto 32px; }
 .hero__cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
 .hero__note { margin: 24px 0 0; font-size: 13px; letter-spacing: .08em; color: var(--faint); }
-.showcase { padding-bottom: clamp(64px, 10vw, 112px); }
+.about-sec { padding-top: clamp(32px, 5vw, 64px); }
 .showcase__frame { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; padding: clamp(12px, 2vw, 18px); border-radius: var(--r-xl); background: linear-gradient(var(--surface), var(--surface)) padding-box, linear-gradient(135deg, rgba(212,175,55,.55), rgba(255,255,255,.08) 40%, rgba(212,175,55,.35)) border-box; border: 1px solid transparent; }
 .reel { all: unset; cursor: pointer; position: relative; display: block; border-radius: 16px; overflow: hidden; aspect-ratio: 9 / 14; background: #000; }
 .reel img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease), opacity .4s; opacity: .88; }
