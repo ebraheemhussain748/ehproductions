@@ -1,7 +1,7 @@
 // Product cards and prices, shared by the home, shop and product pages.
-import { img } from './data/photos.js?v=e19716b7';
-import { icon } from './icons.js?v=e19716b7';
-import { el, wa, CAT, quote, productUrl, store, toast } from './common.js?v=e19716b7';
+import { img } from './data/photos.js?v=f2b211f8';
+import { icon } from './icons.js?v=f2b211f8';
+import { el, wa, CAT, quote, productUrl, store, toast } from './common.js?v=f2b211f8';
 
 export const currency = {
   get: () => (store.get('cur', 0) ? 1 : 0),

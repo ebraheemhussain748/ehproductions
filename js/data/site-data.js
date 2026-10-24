@@ -27,6 +27,7 @@ export const FAQ = [
   { q: 'Do you use AI?', a: 'Yes. We use AI video tools such as Google Flow together with editing, motion graphics, 3D and sound design. AI-generated visuals are labelled when they are published.' },
   { q: 'Can I order several things together?', a: 'Yes. In the catalog, tap "Add to list" on everything you need and send the whole list in one WhatsApp message. Schools, coaching centres and companies often order uniforms, ID cards, diaries and banners together.' },
   { q: 'Do you mix and master songs?', a: 'Yes. Send your separate tracks (stems) as WAV files and we mix them, master them, or both. We work in a music editor and use AI-assisted tools where they help. You get WAV and MP3 files ready for Spotify, YouTube and Instagram.' },
+  { q: 'Do you have a referral offer?', a: 'Yes. Send a friend or another business to us and you both save: they get 10% off their first order and you get 10% off your next order. Just ask them to mention your name when they message us.' },
   { q: 'Do you work with clients outside India?', a: 'Yes. Everything online is handled remotely, files are delivered by link, and prices can be paid in US dollars.' },
   { q: 'How many changes can I ask for?', a: 'Every design and video includes two rounds of changes. For printed products we send a proof for your approval before printing.' },
 ];

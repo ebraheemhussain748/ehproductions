@@ -1,8 +1,8 @@
 // Catalog page: search, category and offline/online filters, sorting, currency, print.
-import { GROUPS, CATEGORIES, ITEMS, SOURCES } from './data/catalog-data.js?v=e19716b7';
-import { $, $$, el, wa, initChrome, CAT, ready } from './common.js?v=e19716b7';
-import { card, price, currency } from './shop.js?v=e19716b7';
-import { index, words as toWords, hit, norm } from './search.js?v=e19716b7';
+import { GROUPS, CATEGORIES, ITEMS, SOURCES } from './data/catalog-data.js?v=f2b211f8';
+import { $, $$, el, wa, initChrome, CAT, ready } from './common.js?v=f2b211f8';
+import { card, price, currency } from './shop.js?v=f2b211f8';
+import { index, words as toWords, hit, norm } from './search.js?v=f2b211f8';
 
 await ready;
 initChrome();

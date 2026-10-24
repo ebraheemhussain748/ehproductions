@@ -1,7 +1,7 @@
 // Plan builder: the questions and the matching engine.
 // The engine scores every product from the answers (business, goals, reach, budget, timing, own words),
 // keeps a reason for every point it gives, and returns a short curated plan: 3 main picks + up to 3 add-ons.
-import { words, hit, norm, index } from './search.js?v=e19716b7';
+import { words, hit, norm, index } from './search.js?v=f2b211f8';
 
 export const STEPS = [
   { id: 'b', type: 'one', title: 'What do you do?', sub: 'Pick the closest one.', options: [
