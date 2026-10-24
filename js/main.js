@@ -1,11 +1,11 @@
 // Home page.
-import { CONTACT, WORK, FAQ, CREDENTIALS } from './data/site-data.js?v=26a14d8f';
-import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=26a14d8f';
-import { img } from './data/photos.js?v=26a14d8f';
-import { icon } from './icons.js?v=26a14d8f';
-import { fb, configured } from './firebase.js?v=26a14d8f';
-import { $, el, initChrome, CAT, byId, site, ready, reveal } from './common.js?v=26a14d8f';
-import { card } from './shop.js?v=26a14d8f';
+import { CONTACT, WORK, FAQ, CREDENTIALS } from './data/site-data.js?v=88fcc63b';
+import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=88fcc63b';
+import { img } from './data/photos.js?v=88fcc63b';
+import { icon } from './icons.js?v=88fcc63b';
+import { fb, configured } from './firebase.js?v=88fcc63b';
+import { $, el, initChrome, CAT, byId, site, ready, reveal } from './common.js?v=88fcc63b';
+import { card } from './shop.js?v=88fcc63b';
 
 await ready;
 
@@ -41,6 +41,7 @@ const TILES = [
   { cls: 'tile--e', title: 'Music production', text: 'Mixing and mastering, release-ready.', photo: 'mixing-mastering-package', href: 'catalog?cat=music', isNew: true },
 ];
 $('#item-total').textContent = ITEMS.length;
+$('#fact-items').textContent = ITEMS.length;
 $('#bento').replaceChildren(...TILES.map(t => {
   const ph = byId(t.photo)?.photos[0];
   return el('a', { className: `tile reveal ${t.cls}`, href: t.href },
