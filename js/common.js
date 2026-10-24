@@ -1,8 +1,8 @@
 // Shared by every page: clean URLs, nav (search, menu), live prices from the admin, my list drawer, toast.
-import { CONTACT } from './data/site-data.js?v=e57dfd0c';
-import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=e57dfd0c';
-import { PHOTOS, img } from './data/photos.js?v=e57dfd0c';
-import { icon } from './icons.js?v=e57dfd0c';
+import { CONTACT } from './data/site-data.js?v=e19716b7';
+import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=e19716b7';
+import { PHOTOS, img } from './data/photos.js?v=e19716b7';
+import { icon } from './icons.js?v=e19716b7';
 
 // Show addresses without ".html" (GitHub Pages serves /catalog from catalog.html).
 if (/\.html$/.test(location.pathname)) {
@@ -191,6 +191,8 @@ export async function initChrome() {
   $$('[data-link="instagram"]').forEach(x => { x.href = CONTACT.instagram; });
   $$('[data-link="email"]').forEach(x => { x.href = `mailto:${CONTACT.email}`; });
   $$('.year').forEach(n => { n.textContent = new Date().getFullYear(); });
+  // "Build my plan" opens the questions in place (the link still works without JavaScript)
+  $$('[data-open-plan]').forEach(a => a.addEventListener('click', async e => { e.preventDefault(); (await import('./quiz.js?v=e19716b7')).openQuiz(); }));
   reveal();
 }
 

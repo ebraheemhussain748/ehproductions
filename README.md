@@ -29,3 +29,11 @@ Sign in with ebraheemhussain748@gmail.com. Sections:
 - Products: add extra products without editing code.
 - Home & banner: announcement bar and the "Popular right now" picks.
 The `site` rules in `firestore.rules` must be published in the Firebase console for Prices, Products and Home to save.
+
+## Plan builder (plan.html, js/planner.js, js/quiz.js, js/plan.js)
+"Build my plan" asks 6 questions (business, goals, where customers are, budget, timing, own words in Hindi or English).
+`js/planner.js` scores every product: business and goal rules, offline/online reach, words the customer typed
+(shared with the shop search in `js/search.js`), a rough first-order cost compared with the budget, and timing.
+It picks 3 items from different categories that fit the budget together, plus up to 3 add-ons, each with a reason.
+The plan page can send the plan on WhatsApp, add it to My list, or save it as a lead (service "Plan builder").
+To tune suggestions, edit the RULES in `js/planner.js`.

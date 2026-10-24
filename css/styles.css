@@ -515,3 +515,65 @@ p { margin: 0 0 1em; }
   .pcard__img img { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .group-title { break-after: avoid; }
 }
+
+/* ---------- plan builder (questions + plan page) ---------- */
+.btn--plan { border: 1px solid transparent; color: var(--gold-hi); background: linear-gradient(var(--bg), var(--bg)) padding-box, var(--g-gold) border-box; }
+.btn--plan:hover { color: #000; background: var(--g-gold) padding-box, var(--g-gold) border-box; }
+.quizdlg { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: var(--bg); color: var(--ink); overflow: auto; }
+.quizdlg::backdrop { background: #000; }
+.quiz { position: relative; max-width: 860px; margin: 0 auto; padding: 18px var(--gutter) 48px; min-height: 100%; display: flex; flex-direction: column; }
+.quiz__bar { height: 3px; border-radius: 99px; background: var(--raised-2); overflow: hidden; margin-top: 6px; }
+.quiz__bar i { display: block; height: 100%; background: var(--g-gold); transition: width .4s var(--ease); }
+.quiz__top { display: flex; justify-content: space-between; align-items: center; margin: 12px 0 10px; }
+.quiz__count { font-size: 13px; letter-spacing: .2em; color: var(--faint); }
+.quiz__head { margin: clamp(16px, 5vh, 48px) 0 26px; }
+.quiz__head h2 { font-size: clamp(30px, 5vw, 52px); }
+.quiz__head .lede { margin: 12px 0 0; }
+.quiz__opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.quiz__opt { display: grid; gap: 4px; text-align: left; padding: 18px 20px; border-radius: var(--r-lg); border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; transition: border-color .2s, background-color .2s, transform .2s var(--ease); }
+.quiz__opt:hover { border-color: var(--gold-line); transform: translateY(-1px); }
+.quiz__opt b { font-size: 16.5px; font-weight: 600; }
+.quiz__opt small { font-size: 13.5px; color: var(--faint); }
+.quiz__opt[aria-pressed="true"], .quiz__opt[aria-checked="true"] { border-color: var(--gold); background: rgba(212,175,55,.08); box-shadow: inset 0 0 0 1px var(--gold); }
+.quiz__opt[aria-pressed="true"] b::after, .quiz__opt[aria-checked="true"] b::after { content: " ✓"; color: var(--gold); }
+.quiz__text textarea { width: 100%; padding: 16px 18px; border-radius: var(--r-lg); border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: 400 17px/1.5 var(--text); resize: vertical; }
+.quiz__text textarea:focus { outline: 0; border-color: var(--gold); }
+.quiz__foot { margin-top: 26px; display: flex; justify-content: flex-end; }
+.quiz__next { min-width: 160px; }
+@media (max-width: 600px) { .quiz__opts { grid-template-columns: 1fr; gap: 10px; } .quiz__opt { padding: 15px 16px; } .quiz__foot { position: sticky; bottom: 0; padding: 12px 0; background: linear-gradient(transparent, var(--bg) 30%); } .quiz__next { width: 100%; } }
+.plan-quiz { min-height: 70vh; }
+.plan-quiz .quiz { padding-top: 0; }
+.plan-head { padding: clamp(28px, 5vw, 56px) 0 28px; max-width: 760px; }
+.plan-head h1 { font-size: clamp(36px, 6vw, 72px); background: var(--g-silver); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.plan-head .lede { margin: 14px 0 18px; }
+.plan-chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0 0 14px; padding: 0; }
+.plan-chips li { padding: 6px 12px; border-radius: 999px; border: 1px solid var(--gold-line); color: var(--gold-hi); font-size: 13.5px; }
+.plan-grid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: clamp(20px, 3vw, 36px); align-items: start; }
+.plan-picks { display: grid; gap: 16px; }
+.pick { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); background: var(--surface); border: 1px solid var(--hair); border-radius: var(--r-xl); overflow: hidden; }
+.pick:first-child { border-color: var(--gold-line); }
+.pick__img { position: relative; display: block; background: var(--raised); min-height: 220px; }
+.pick__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.pick__img .ph { display: grid; place-items: center; height: 100%; color: var(--gold); }
+.pick__n { position: absolute; left: 14px; top: 12px; font: 700 34px/1 var(--serif); background: var(--g-gold); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: 0 2px 12px rgba(0,0,0,.4); }
+.pick__body { padding: 22px 24px; display: flex; flex-direction: column; gap: 6px; }
+.pick__body h3 { font-size: 22px; }
+.pick__body h3 a { text-decoration: none; }
+.pick__what { margin: 0; color: var(--muted); font-size: 15px; }
+.pick__why { display: flex; gap: 8px; align-items: flex-start; margin: 6px 0 0; font-size: 14px; color: var(--ink); }
+.pick__why .ico { color: var(--gold); margin-top: 2px; }
+.pick__cost { margin: 8px 0 0; font-size: 15px; color: var(--muted); }
+.pick__cost b { color: var(--gold-hi); font-weight: 600; }
+.pick__actions { display: flex; gap: 8px; margin-top: auto; padding-top: 14px; }
+.plan-side { position: sticky; top: 86px; display: grid; gap: 14px; }
+.plan-total { background: #000; border: 1px solid var(--gold-line); border-radius: var(--r-xl); padding: 24px; display: grid; gap: 10px; }
+.plan-total p { margin: 0; }
+.plan-total__val { font: 700 clamp(26px, 3vw, 34px)/1.15 var(--serif); background: var(--g-gold); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.plan-note { padding: 10px 12px; border-radius: 12px; background: rgba(212,175,55,.08); color: var(--gold-hi); font-size: 14px; }
+.plan-form { background: var(--surface); border: 1px solid var(--hair); border-radius: var(--r-xl); padding: 24px; gap: 12px; }
+.plan-form h3 { margin: 0; }
+.plan-form p.small { margin: 0; }
+.plan-human { margin: 40px 0 0; color: var(--muted); }
+.plan-human a { color: var(--gold); }
+@media (max-width: 960px) { .plan-grid { grid-template-columns: 1fr; } .plan-side { position: static; } }
+@media (max-width: 640px) { .pick { grid-template-columns: 1fr; } .pick__img { aspect-ratio: 16 / 10; min-height: 0; } }
