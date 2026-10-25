@@ -1,11 +1,11 @@
 // Home page.
-import { CONTACT, WORK, FAQ, CREDENTIALS } from './data/site-data.js?v=f2b211f8';
-import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=f2b211f8';
-import { img } from './data/photos.js?v=f2b211f8';
-import { icon } from './icons.js?v=f2b211f8';
-import { fb, configured } from './firebase.js?v=f2b211f8';
-import { $, el, initChrome, CAT, byId, site, ready, reveal } from './common.js?v=f2b211f8';
-import { card } from './shop.js?v=f2b211f8';
+import { CONTACT, WORK, FAQ, CREDENTIALS } from './data/site-data.js?v=bd8f584e';
+import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=bd8f584e';
+import { img } from './data/photos.js?v=bd8f584e';
+import { icon } from './icons.js?v=bd8f584e';
+import { fb, configured } from './firebase.js?v=bd8f584e';
+import { $, el, initChrome, CAT, byId, site, ready, reveal, recentlySent, markSent } from './common.js?v=bd8f584e';
+import { card } from './shop.js?v=bd8f584e';
 
 await ready;
 
@@ -88,6 +88,7 @@ const leadForm = $('#lead-form');
 leadForm.addEventListener('submit', async e => {
   e.preventDefault();
   if (leadForm.website.value) return; // bot trap
+  if (recentlySent('lead')) { say(leadForm, 'Your enquiry was just sent. Please wait a minute before sending another.', 'err'); return; }
   if (!check(leadForm)) { say(leadForm, 'Add your name, a phone number or email, and a few words about the project.', 'err'); return; }
   const data = Object.fromEntries(['name', 'contact', 'service', 'budget', 'message'].map(k => [k, leadForm[k].value.trim()]));
   if (!data.service) data.service = 'Not chosen';
@@ -95,6 +96,7 @@ leadForm.addEventListener('submit', async e => {
   const results = await Promise.allSettled([saveLead(data), emailLead(data)]);
   btn.disabled = false; btn.textContent = 'Send enquiry';
   if (results.some(r => r.status === 'fulfilled')) {
+    markSent('lead');
     leadForm.reset();
     say(leadForm, 'Sent. We will reply on WhatsApp or email within 24 hours.', 'ok');
   } else {
@@ -119,6 +121,7 @@ rOpen.addEventListener('click', () => { rForm.hidden = !rForm.hidden; rOpen.setA
 rForm.addEventListener('submit', async e => {
   e.preventDefault();
   if (!check(rForm)) { say(rForm, 'Add your name and a few words about working with us.', 'err'); return; }
+  if (recentlySent('review', 600)) { say(rForm, 'Thank you, we already have your review. You can send another one later.', 'err'); return; }
   const btn = $('button[type=submit]', rForm); btn.disabled = true;
   try {
     const { db, fs } = await fb();
@@ -126,7 +129,7 @@ rForm.addEventListener('submit', async e => {
       name: rForm.name.value.trim(), business: rForm.business.value.trim(), text: rForm.text.value.trim(),
       rating: Number(rForm.rating.value), approved: false, createdAt: fs.serverTimestamp(),
     });
-    rForm.reset(); say(rForm, 'Thank you. Your review will appear here after it is approved.', 'ok');
+    markSent('review'); rForm.reset(); say(rForm, 'Thank you. Your review will appear here after it is approved.', 'ok');
   } catch { say(rForm, 'The review could not be sent. Try again in a minute.', 'err'); }
   btn.disabled = false;
 });

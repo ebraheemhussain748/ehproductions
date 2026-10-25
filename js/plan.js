@@ -1,13 +1,13 @@
 // Plan page: plan?b=…&g=…&r=…&m=…&t=…&q=…  Shows the curated plan, or the questions when there are no answers yet.
-import { CONTACT } from './data/site-data.js?v=f2b211f8';
-import { ITEMS } from './data/catalog-data.js?v=f2b211f8';
-import { img } from './data/photos.js?v=f2b211f8';
-import { icon } from './icons.js?v=f2b211f8';
-import { fb } from './firebase.js?v=f2b211f8';
-import { $, el, wa, initChrome, CAT, byId, productUrl, quote, ready, toast, store } from './common.js?v=f2b211f8';
-import { card, addButton } from './shop.js?v=f2b211f8';
-import { plan, labelOf, STEPS } from './planner.js?v=f2b211f8';
-import { openQuiz, fromQuery } from './quiz.js?v=f2b211f8';
+import { CONTACT } from './data/site-data.js?v=bd8f584e';
+import { ITEMS } from './data/catalog-data.js?v=bd8f584e';
+import { img } from './data/photos.js?v=bd8f584e';
+import { icon } from './icons.js?v=bd8f584e';
+import { fb } from './firebase.js?v=bd8f584e';
+import { $, el, wa, initChrome, CAT, byId, productUrl, quote, ready, toast, store, recentlySent, markSent } from './common.js?v=bd8f584e';
+import { card, addButton } from './shop.js?v=bd8f584e';
+import { plan, labelOf, STEPS } from './planner.js?v=bd8f584e';
+import { openQuiz, fromQuery } from './quiz.js?v=bd8f584e';
 
 await ready;
 initChrome();
@@ -79,6 +79,7 @@ function render(a) {
     if (form.website.value) return;
     const name = form.name.value.trim(), contact = form.contact.value.trim();
     if (!name || !contact) { msg.textContent = 'Add your name and a phone number or email.'; msg.className = 'form__msg err'; return; }
+    if (recentlySent('lead')) { msg.textContent = 'Your plan was just sent. Please wait a minute before sending again.'; msg.className = 'form__msg err'; return; }
     const btn = form.querySelector('button'); btn.disabled = true; btn.textContent = 'Sending…';
     const data = { name, contact, service: 'Plan builder', budget: labelOf('m', a.m).slice(0, 60), message: planText().slice(0, 2000) };
     const res = await Promise.allSettled([
@@ -87,7 +88,7 @@ function render(a) {
         body: JSON.stringify({ _subject: 'New plan from the website', _template: 'table', _captcha: 'false', ...data }) }).then(r => { if (!r.ok) throw 0; }),
     ]);
     btn.disabled = false; btn.textContent = 'Send my plan';
-    if (res.some(x => x.status === 'fulfilled')) { form.reset(); msg.textContent = 'Sent. We will reply within 24 hours.'; msg.className = 'form__msg ok'; }
+    if (res.some(x => x.status === 'fulfilled')) { markSent('lead'); form.reset(); msg.textContent = 'Sent. We will reply within 24 hours.'; msg.className = 'form__msg ok'; }
     else { msg.textContent = 'It could not be sent. Please use the WhatsApp button.'; msg.className = 'form__msg err'; }
   });
 

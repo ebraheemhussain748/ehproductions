@@ -1,8 +1,9 @@
 // Shared by every page: clean URLs, nav (search, menu), live prices from the admin, my list drawer, toast.
-import { CONTACT } from './data/site-data.js?v=f2b211f8';
-import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=f2b211f8';
-import { PHOTOS, img } from './data/photos.js?v=f2b211f8';
-import { icon } from './icons.js?v=f2b211f8';
+import './guard.js?v=bd8f584e';
+import { CONTACT } from './data/site-data.js?v=bd8f584e';
+import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=bd8f584e';
+import { PHOTOS, img } from './data/photos.js?v=bd8f584e';
+import { icon } from './icons.js?v=bd8f584e';
 
 // Show addresses without ".html" (GitHub Pages serves /catalog from catalog.html).
 if (/\.html$/.test(location.pathname)) {
@@ -192,7 +193,7 @@ export async function initChrome() {
   $$('[data-link="email"]').forEach(x => { x.href = `mailto:${CONTACT.email}`; });
   $$('.year').forEach(n => { n.textContent = new Date().getFullYear(); });
   // "Build my plan" opens the questions in place (the link still works without JavaScript)
-  $$('[data-open-plan]').forEach(a => a.addEventListener('click', async e => { e.preventDefault(); (await import('./quiz.js?v=f2b211f8')).openQuiz(); }));
+  $$('[data-open-plan]').forEach(a => a.addEventListener('click', async e => { e.preventDefault(); (await import('./quiz.js?v=bd8f584e')).openQuiz(); }));
   reveal();
 }
 
@@ -202,3 +203,7 @@ export function reveal(root = document) {
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
   els.forEach(e => io.observe(e));
 }
+
+// Stops the same browser from sending a form again and again (accidental double taps and simple spam).
+export const recentlySent = (key, seconds = 60) => Date.now() - Number(store.get(`sent-${key}`, 0)) < seconds * 1000;
+export const markSent = key => store.set(`sent-${key}`, Date.now());

@@ -1,8 +1,9 @@
 // Studio admin: dashboard, leads pipeline, reviews, prices, extra products, home page settings.
 // Data lives in Firestore: leads/*, reviews/*, and one public document site/public that the website reads.
-import { fb, configured, ADMIN_EMAIL } from './firebase.js?v=f2b211f8';
-import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=f2b211f8';
-import { icon } from './icons.js?v=f2b211f8';
+import './guard.js?v=bd8f584e';
+import { fb, configured, ADMIN_EMAIL } from './firebase.js?v=bd8f584e';
+import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=bd8f584e';
+import { icon } from './icons.js?v=bd8f584e';
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -210,7 +211,8 @@ function leadCard(l, compact = false) {
 
 function downloadCsv() {
   const cols = ['createdAt', 'name', 'contact', 'service', 'budget', 'message', 'status', 'quote', 'followUp'];
-  const esc = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
+  // A cell that starts with = + - @ would run as a formula in Excel, so it is prefixed with an apostrophe.
+  const esc = v => { let t = String(v ?? ''); if (/^[=+\-@\t\r]/.test(t)) t = `'${t}`; return `"${t.replace(/"/g, '""')}"`; };
   const rows = [cols.join(','), ...leads.map(l => cols.map(c => esc(c === 'createdAt' ? when(l.createdAt) : c === 'status' ? stageName(l.status || 'new') : l[c])).join(','))];
   const a = el('a', { href: URL.createObjectURL(new Blob([rows.join('\n')], { type: 'text/csv' })), download: `leads-${today()}.csv` });
   a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
