@@ -1,11 +1,11 @@
 // Home page.
-import { CONTACT, WORK, FAQ, CREDENTIALS } from './data/site-data.js?v=3a74d31a';
-import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=3a74d31a';
-import { img } from './data/photos.js?v=3a74d31a';
-import { icon } from './icons.js?v=3a74d31a';
-import { fb, configured } from './firebase.js?v=3a74d31a';
-import { $, el, initChrome, CAT, byId, site, ready, reveal, recentlySent, markSent } from './common.js?v=3a74d31a';
-import { card } from './shop.js?v=3a74d31a';
+import { CONTACT, WORK, FAQ, CREDENTIALS } from './data/site-data.js?v=77a24b5e';
+import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=77a24b5e';
+import { img } from './data/photos.js?v=77a24b5e';
+import { icon } from './icons.js?v=77a24b5e';
+import { fb, configured } from './firebase.js?v=77a24b5e';
+import { $, el, initChrome, CAT, byId, site, ready, reveal, recentlySent, markSent, cleanName, cleanPhone, cleanEmail } from './common.js?v=77a24b5e';
+import { card } from './shop.js?v=77a24b5e';
 
 await ready;
 
@@ -85,12 +85,32 @@ function check(form) {
 function say(form, text, kind) { const m = $('.form__msg', form); m.textContent = text; m.className = `form__msg ${kind || ''}`; }
 
 const leadForm = $('#lead-form');
+const fieldErr = (form, name, text) => {
+  const s = form.querySelector(`.form__err[data-for="${name}"]`);
+  form[name].setAttribute('aria-invalid', Boolean(text)); if (s) s.textContent = text || '';
+  return !text;
+};
+function checkLead(f) {
+  const name = cleanName(f.name.value), phone = cleanPhone(f.phone.value), raw = f.email.value.trim();
+  const email = raw ? cleanEmail(raw) : '', message = f.message.value.trim();
+  const ok = [
+    fieldErr(f, 'name', name ? '' : 'Write your name in letters, for example Rahul Sharma.'),
+    fieldErr(f, 'phone', phone ? '' : 'Enter a 10-digit mobile number. From outside India, start with + and the country code.'),
+    fieldErr(f, 'email', email !== null ? '' : 'This email address does not look right. You can also leave it empty.'),
+    fieldErr(f, 'message', message.length >= 10 ? '' : 'Tell us a little more about the work (at least 10 letters).'),
+  ];
+  const bad = ['name', 'phone', 'email', 'message'][ok.indexOf(false)];
+  if (bad) { f[bad].focus(); return null; }
+  return { name, contact: email ? `${phone}, ${email}` : phone, message };
+}
+['name', 'phone', 'email', 'message'].forEach(k => leadForm[k].addEventListener('input', () => fieldErr(leadForm, k, '')));
 leadForm.addEventListener('submit', async e => {
   e.preventDefault();
   if (leadForm.website.value) return; // bot trap
   if (recentlySent('lead')) { say(leadForm, 'Your enquiry was just sent. Please wait a minute before sending another.', 'err'); return; }
-  if (!check(leadForm)) { say(leadForm, 'Add your name, a phone number or email, and a few words about the project.', 'err'); return; }
-  const data = Object.fromEntries(['name', 'contact', 'service', 'budget', 'message'].map(k => [k, leadForm[k].value.trim()]));
+  const checked = checkLead(leadForm);
+  if (!checked) { say(leadForm, 'Please fix the field marked in red.', 'err'); return; }
+  const data = { name: checked.name, contact: checked.contact, service: leadForm.service.value, budget: leadForm.budget.value || 'Not sure yet', message: checked.message };
   if (!data.service) data.service = 'Not chosen';
   const btn = $('button[type=submit]', leadForm); btn.disabled = true; btn.textContent = 'Sending…'; say(leadForm, '');
   const results = await Promise.allSettled([saveLead(data), emailLead(data)]);

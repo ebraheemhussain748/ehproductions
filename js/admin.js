@@ -1,9 +1,9 @@
 // Studio admin: dashboard, leads pipeline, reviews, prices, extra products, home page settings.
 // Data lives in Firestore: leads/*, reviews/*, and one public document site/public that the website reads.
-import './guard.js?v=3a74d31a';
-import { fb, configured, ADMIN_EMAIL } from './firebase.js?v=3a74d31a';
-import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=3a74d31a';
-import { icon } from './icons.js?v=3a74d31a';
+import './guard.js?v=77a24b5e';
+import { fb, configured, ADMIN_EMAIL } from './firebase.js?v=77a24b5e';
+import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=77a24b5e';
+import { icon } from './icons.js?v=77a24b5e';
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -159,7 +159,8 @@ function leadCard(l, compact = false) {
     } catch (e) { msg(`Could not save: ${e.code || e.message}`, 'err'); }
   };
   const status = l.status || 'new';
-  const c = l.contact || '', digits = c.replace(/\D/g, '');
+  const c = l.contact || '', mail = (c.match(/[^\s,]+@[^\s,]+\.[^\s,]+/) || [''])[0];
+  const digits = c.replace(mail, '').replace(/\D/g, '');
   const phone = digits.length >= 10 ? (digits.length === 10 ? '91' + digits : digits) : '';
   const first = String(l.name || '').split(' ')[0];
   const reach = [];
@@ -169,7 +170,7 @@ function leadCard(l, compact = false) {
     reach.push(el('a', { className: 'btn btn--wa btn--sm', href: `https://wa.me/${phone}`, target: '_blank', rel: 'noopener', innerHTML: `${icon('wa')} WhatsApp` }), tpl,
       el('a', { className: 'btn btn--outline btn--sm', href: `tel:+${phone}`, textContent: 'Call' }));
   }
-  if (c.includes('@')) reach.push(el('a', { className: 'btn btn--outline btn--sm', href: `mailto:${c}?subject=${encodeURIComponent('Your enquiry with Ebraheem Hussain Productions')}`, textContent: 'Email' }));
+  if (mail) reach.push(el('a', { className: 'btn btn--outline btn--sm', href: `mailto:${mail}?subject=${encodeURIComponent('Your enquiry with Ebraheem Hussain Productions')}`, textContent: 'Email' }));
 
   const head = el('div', { className: 'lead__top' },
     el('span', { className: 'lead__name', textContent: l.name || 'No name' }),
@@ -177,7 +178,15 @@ function leadCard(l, compact = false) {
       isDue(l) ? el('span', { className: 'flag flag--due', textContent: `Follow up ${l.followUp === today() ? 'today' : 'overdue'}` }) : null, ' ',
       status === 'new' ? el('span', { className: 'flag flag--new', textContent: 'New' }) : el('span', { className: 'flag', textContent: stageName(status) }), ' ',
       when(l.createdAt)));
-  const meta = el('p', { className: 'lead__meta', textContent: [l.service, l.budget && `Budget: ${l.budget}`, c, l.quote && `Quote: ${inr(l.quote)}`].filter(Boolean).join('  ·  ') });
+  const fact = (k, v, href) => v ? el('div', { className: 'fact' }, el('span', { className: 'fact__k', textContent: k }),
+    href ? el('a', { className: 'fact__v', href, textContent: v }) : el('span', { className: 'fact__v', textContent: v })) : null;
+  const shownPhone = phone ? (phone.startsWith('91') && phone.length === 12 ? `+91 ${phone.slice(2, 7)} ${phone.slice(7)}` : `+${phone}`) : '';
+  const meta = el('div', { className: 'lead__facts' },
+    fact('Phone / WhatsApp', shownPhone || (!mail && c) || '', phone ? `tel:+${phone}` : null),
+    fact('Email', mail, mail ? `mailto:${mail}` : null),
+    fact('Service', l.service || 'Not chosen'),
+    fact('Budget', l.budget || 'Not given'),
+    l.quote ? fact('Our quote', inr(l.quote)) : null);
   const cls = `lead${status === 'new' ? ' lead--new' : ''}${isDue(l) ? ' lead--due' : ''}`;
   if (compact) {
     const open = el('button', { className: 'btn btn--outline btn--sm', textContent: 'Open in Leads' });

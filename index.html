@@ -21,7 +21,7 @@
   <link rel="preload" href="assets/fonts/font-serif-600.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/font-text-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preconnect" href="https://images.unsplash.com">
-  <link rel="stylesheet" href="css/styles.css?v=3a74d31a">
+  <link rel="stylesheet" href="css/styles.css?v=77a24b5e">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"ProfessionalService","name":"Ebraheem Hussain Productions",
    "description":"AI video ads, websites, apps, branding, signage, flex banners, printing, uniforms, promotional gifts and music mixing and mastering. Courier all over India.",
@@ -174,14 +174,22 @@
           <p class="lede" style="margin-bottom:28px">A few lines is enough. We reply within 24 hours with ideas and a fixed price.</p>
           <form class="form" id="lead-form" novalidate>
             <div class="form__row">
-              <label>Your name<input name="name" required maxlength="80" autocomplete="name"></label>
-              <label>Phone or email<input name="contact" required maxlength="120" autocomplete="email"></label>
+              <label>Your name<input name="name" required maxlength="80" autocomplete="name" placeholder="For example: Rahul Sharma"><span class="form__err" data-for="name"></span></label>
+              <label>WhatsApp number<input name="phone" type="tel" inputmode="tel" required maxlength="16" autocomplete="tel" placeholder="98765 43210"><span class="form__err" data-for="phone"></span></label>
             </div>
             <div class="form__row">
+              <label>Email (optional)<input name="email" type="email" inputmode="email" maxlength="80" autocomplete="email" placeholder="name@example.com"><span class="form__err" data-for="email"></span></label>
               <label>What do you need?<select name="service" id="service-select"></select></label>
-              <label>Budget (optional)<input name="budget" maxlength="60" placeholder="For example ₹5,000 or $100"></label>
             </div>
-            <label>Project details<textarea name="message" required maxlength="2000" rows="5" placeholder="What are you selling, who is it for, and when do you need it?"></textarea></label>
+            <label>Your budget<select name="budget">
+                <option value="">Not sure yet</option>
+                <option>Under ₹5,000</option>
+                <option>₹5,000 – ₹15,000</option>
+                <option>₹15,000 – ₹50,000</option>
+                <option>₹50,000 – ₹1 lakh</option>
+                <option>Above ₹1 lakh</option>
+              </select></label>
+            <label>Project details<textarea name="message" required minlength="10" maxlength="2000" rows="5" placeholder="What are you selling, who is it for, size or quantity, and when do you need it?"></textarea><span class="form__err" data-for="message"></span></label>
             <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
             <div class="form__foot"><button class="btn btn--light" type="submit">Send enquiry</button><p class="form__msg" role="status"></p></div>
             <p class="small">We use these details only to reply to your enquiry. We never sell or share them. See our <a href="privacy">Privacy Policy</a>.</p>
@@ -255,6 +263,6 @@
     <div class="player__box" id="player-box"></div>
     <form method="dialog"><button class="btn btn--light btn--sm player__close">Close video</button></form>
   </dialog>
-  <script type="module" src="js/main.js?v=3a74d31a"></script>
+  <script type="module" src="js/main.js?v=77a24b5e"></script>
 </body>
 </html>

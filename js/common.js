@@ -1,9 +1,9 @@
 // Shared by every page: clean URLs, nav (search, menu), live prices from the admin, my list drawer, toast.
-import './guard.js?v=3a74d31a';
-import { CONTACT } from './data/site-data.js?v=3a74d31a';
-import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=3a74d31a';
-import { PHOTOS, img } from './data/photos.js?v=3a74d31a';
-import { icon } from './icons.js?v=3a74d31a';
+import './guard.js?v=77a24b5e';
+import { CONTACT } from './data/site-data.js?v=77a24b5e';
+import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=77a24b5e';
+import { PHOTOS, img } from './data/photos.js?v=77a24b5e';
+import { icon } from './icons.js?v=77a24b5e';
 
 // Show addresses without ".html" (GitHub Pages serves /catalog from catalog.html).
 if (/\.html$/.test(location.pathname)) {
@@ -75,7 +75,7 @@ export const ready = (async () => {
   let data = store.get('site-public', null);
   try {
     const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 2500);
-    const headers = await Promise.race([import('./firebase.js?v=3a74d31a').then(m => m.appCheckHeaders()), new Promise(r => setTimeout(() => r({}), 1500))]);
+    const headers = await Promise.race([import('./firebase.js?v=77a24b5e').then(m => m.appCheckHeaders()), new Promise(r => setTimeout(() => r({}), 1500))]);
     const r = await fetch(REST, { signal: ctl.signal, cache: 'no-store', headers }); clearTimeout(t);
     if (r.ok) { const j = await r.json(); data = decode({ mapValue: { fields: j.fields || {} } }); store.set('site-public', data); }
     else if (r.status === 404) { data = {}; store.set('site-public', data); }
@@ -194,7 +194,7 @@ export async function initChrome() {
   $$('[data-link="email"]').forEach(x => { x.href = `mailto:${CONTACT.email}`; });
   $$('.year').forEach(n => { n.textContent = new Date().getFullYear(); });
   // "Build my plan" opens the questions in place (the link still works without JavaScript)
-  $$('[data-open-plan]').forEach(a => a.addEventListener('click', async e => { e.preventDefault(); (await import('./quiz.js?v=3a74d31a')).openQuiz(); }));
+  $$('[data-open-plan]').forEach(a => a.addEventListener('click', async e => { e.preventDefault(); (await import('./quiz.js?v=77a24b5e')).openQuiz(); }));
   reveal();
 }
 
@@ -208,3 +208,18 @@ export function reveal(root = document) {
 // Stops the same browser from sending a form again and again (accidental double taps and simple spam).
 export const recentlySent = (key, seconds = 60) => Date.now() - Number(store.get(`sent-${key}`, 0)) < seconds * 1000;
 export const markSent = key => store.set(`sent-${key}`, Date.now());
+
+// Contact checks shared by the forms. Indian mobile numbers need 10 digits (6 to 9 first);
+// numbers from other countries must start with + and the country code.
+export function cleanPhone(v) {
+  const raw = String(v || '').trim();
+  if (!raw || /[^\d\s+\-().]/.test(raw)) return null;
+  let d = raw.replace(/\D/g, '');
+  if (raw.startsWith('+')) {
+    if (d.startsWith('91')) d = d.slice(2); else return d.length >= 8 && d.length <= 15 ? `+${d}` : null;
+  } else if (d.length === 12 && d.startsWith('91')) d = d.slice(2);
+  else if (d.length === 11 && d.startsWith('0')) d = d.slice(1);
+  return /^[6-9]\d{9}$/.test(d) ? `+91 ${d.slice(0, 5)} ${d.slice(5)}` : null;
+}
+export const cleanEmail = v => { const e = String(v || '').trim().toLowerCase(); return /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/.test(e) ? e : null; };
+export const cleanName = v => { const n = String(v || '').trim().replace(/\s+/g, ' '); return /^[\p{L}][\p{L}\p{M} .'-]{1,79}$/u.test(n) ? n : null; };

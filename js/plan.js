@@ -1,13 +1,13 @@
 // Plan page: plan?b=…&g=…&r=…&m=…&t=…&q=…  Shows the curated plan, or the questions when there are no answers yet.
-import { CONTACT } from './data/site-data.js?v=3a74d31a';
-import { ITEMS } from './data/catalog-data.js?v=3a74d31a';
-import { img } from './data/photos.js?v=3a74d31a';
-import { icon } from './icons.js?v=3a74d31a';
-import { fb } from './firebase.js?v=3a74d31a';
-import { $, el, wa, initChrome, CAT, byId, productUrl, quote, ready, toast, store, recentlySent, markSent } from './common.js?v=3a74d31a';
-import { card, addButton } from './shop.js?v=3a74d31a';
-import { plan, labelOf, STEPS } from './planner.js?v=3a74d31a';
-import { openQuiz, fromQuery } from './quiz.js?v=3a74d31a';
+import { CONTACT } from './data/site-data.js?v=77a24b5e';
+import { ITEMS } from './data/catalog-data.js?v=77a24b5e';
+import { img } from './data/photos.js?v=77a24b5e';
+import { icon } from './icons.js?v=77a24b5e';
+import { fb } from './firebase.js?v=77a24b5e';
+import { $, el, wa, initChrome, CAT, byId, productUrl, quote, ready, toast, store, recentlySent, markSent, cleanName, cleanPhone } from './common.js?v=77a24b5e';
+import { card, addButton } from './shop.js?v=77a24b5e';
+import { plan, labelOf, STEPS } from './planner.js?v=77a24b5e';
+import { openQuiz, fromQuery } from './quiz.js?v=77a24b5e';
 
 await ready;
 initChrome();
@@ -69,7 +69,7 @@ function render(a) {
   const form = el('form', { className: 'form plan-form', noValidate: true });
   form.innerHTML = `<h3>Get the exact price</h3><p class="small">We reply within 24 hours on WhatsApp.</p>
     <label>Your name<input name="name" required maxlength="80" autocomplete="name"></label>
-    <label>Phone or email<input name="contact" required maxlength="120" autocomplete="tel"></label>
+    <label>WhatsApp number<input name="contact" type="tel" inputmode="tel" required maxlength="16" autocomplete="tel" placeholder="98765 43210"></label>
     <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
     <button class="btn btn--dark btn--block" type="submit">Send my plan</button><p class="form__msg" role="status"></p>
     <p class="small">We use these details only to reply to you. See our <a href="privacy">Privacy Policy</a>.</p>`;
@@ -77,8 +77,9 @@ function render(a) {
     e.preventDefault();
     const msg = form.querySelector('.form__msg');
     if (form.website.value) return;
-    const name = form.name.value.trim(), contact = form.contact.value.trim();
-    if (!name || !contact) { msg.textContent = 'Add your name and a phone number or email.'; msg.className = 'form__msg err'; return; }
+    const name = cleanName(form.name.value), contact = cleanPhone(form.contact.value);
+    form.name.setAttribute('aria-invalid', !name); form.contact.setAttribute('aria-invalid', !contact);
+    if (!name || !contact) { msg.textContent = !name ? 'Write your name in letters, for example Rahul Sharma.' : 'Enter a 10-digit mobile number. From outside India, start with + and the country code.'; msg.className = 'form__msg err'; (!name ? form.name : form.contact).focus(); return; }
     if (recentlySent('lead')) { msg.textContent = 'Your plan was just sent. Please wait a minute before sending again.'; msg.className = 'form__msg err'; return; }
     const btn = form.querySelector('button'); btn.disabled = true; btn.textContent = 'Sending…';
     const data = { name, contact, service: 'Plan builder', budget: labelOf('m', a.m).slice(0, 60), message: planText().slice(0, 2000) };
