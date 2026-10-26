@@ -1,9 +1,9 @@
 // Shared by every page: clean URLs, nav (search, menu), live prices from the admin, my list drawer, toast.
-import './guard.js?v=bd8f584e';
-import { CONTACT } from './data/site-data.js?v=bd8f584e';
-import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=bd8f584e';
-import { PHOTOS, img } from './data/photos.js?v=bd8f584e';
-import { icon } from './icons.js?v=bd8f584e';
+import './guard.js?v=8fed9583';
+import { CONTACT } from './data/site-data.js?v=8fed9583';
+import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=8fed9583';
+import { PHOTOS, img } from './data/photos.js?v=8fed9583';
+import { icon } from './icons.js?v=8fed9583';
 
 // Show addresses without ".html" (GitHub Pages serves /catalog from catalog.html).
 if (/\.html$/.test(location.pathname)) {
@@ -74,8 +74,9 @@ function applySite(d = {}) {
 export const ready = (async () => {
   let data = store.get('site-public', null);
   try {
-    const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 1800);
-    const r = await fetch(REST, { signal: ctl.signal, cache: 'no-store' }); clearTimeout(t);
+    const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 2500);
+    const headers = await Promise.race([import('./firebase.js?v=8fed9583').then(m => m.appCheckHeaders()), new Promise(r => setTimeout(() => r({}), 1500))]);
+    const r = await fetch(REST, { signal: ctl.signal, cache: 'no-store', headers }); clearTimeout(t);
     if (r.ok) { const j = await r.json(); data = decode({ mapValue: { fields: j.fields || {} } }); store.set('site-public', data); }
     else if (r.status === 404) { data = {}; store.set('site-public', data); }
   } catch { /* offline or slow: use the last copy, or the built-in prices */ }
@@ -193,7 +194,7 @@ export async function initChrome() {
   $$('[data-link="email"]').forEach(x => { x.href = `mailto:${CONTACT.email}`; });
   $$('.year').forEach(n => { n.textContent = new Date().getFullYear(); });
   // "Build my plan" opens the questions in place (the link still works without JavaScript)
-  $$('[data-open-plan]').forEach(a => a.addEventListener('click', async e => { e.preventDefault(); (await import('./quiz.js?v=bd8f584e')).openQuiz(); }));
+  $$('[data-open-plan]').forEach(a => a.addEventListener('click', async e => { e.preventDefault(); (await import('./quiz.js?v=8fed9583')).openQuiz(); }));
   reveal();
 }
 
