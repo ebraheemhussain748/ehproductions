@@ -15,7 +15,7 @@ const V = '10.12.2';
 const CDN = `https://www.gstatic.com/firebasejs/${V}`;
 export const configured = !String(firebaseConfig.apiKey).startsWith('REPLACE');
 
-// App Check: reCAPTCHA v3 proves requests come from this website, so bots cannot flood the database.
+// App Check: Google reCAPTCHA (Fraud Defense) proves requests come from this website, so bots cannot flood the database.
 export const RECAPTCHA_SITE_KEY = '6LccJgEuAAAAAHb_lsDrDJbXg_Sh2mVZGJ05jlNz';
 
 let base = null;
@@ -23,7 +23,7 @@ function core() {
   if (!base) base = (async () => {
     const [{ initializeApp, getApps }, ac] = await Promise.all([import(`${CDN}/firebase-app.js`), import(`${CDN}/firebase-app-check.js`)]);
     const app = getApps()[0] || initializeApp(firebaseConfig);
-    const check = ac.initializeAppCheck(app, { provider: new ac.ReCaptchaV3Provider(RECAPTCHA_SITE_KEY), isTokenAutoRefreshEnabled: true });
+    const check = ac.initializeAppCheck(app, { provider: new ac.ReCaptchaEnterpriseProvider(RECAPTCHA_SITE_KEY), isTokenAutoRefreshEnabled: true });
     return { app, ac, check };
   })();
   return base;
