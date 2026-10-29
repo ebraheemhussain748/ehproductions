@@ -4,7 +4,8 @@ Static site hosted on GitHub Pages: https://ebraheemhussain748.github.io/ehprodu
 Addresses work without `.html` (for example `/catalog`, `/product?id=logo-design`).
 
 ## Folders
-- `index.html` home, `catalog.html` catalog (search, filters, sort, quote list, print), `product.html` one product (`product?id=...`).
+- `index.html` home. Its top is a scroll story: `js/scrollcraft.js` + `css/scrollcraft.css` (the Scroll Craft engine, MIT, do not edit) and `js/story.js` (mounts it and runs the shop-name sign). Story clips and frames are in `assets/story/`.
+- `catalog.html` catalog (search, filters, sort, quote list, print), `product.html` one product (`product?id=...`).
 - `privacy.html`, `terms.html`, `licenses.html`, `404.html` legal pages. `admin.html` private page for enquiries and reviews (Google sign-in, admin email only).
 - `css/styles.css` all styles.
 - `js/` page scripts: `common.js` (header, quote list, clean URLs), `shop.js` (product cards, prices), `main.js` (home), `catalog.js`, `product.js`, `legal.js`, `admin.js`, `firebase.js`, `icons.js`.

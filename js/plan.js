@@ -1,13 +1,13 @@
 // Plan page: plan?b=…&g=…&r=…&m=…&t=…&q=…  Shows the curated plan, or the questions when there are no answers yet.
-import { CONTACT } from './data/site-data.js?v=77a24b5e';
-import { ITEMS } from './data/catalog-data.js?v=77a24b5e';
-import { img } from './data/photos.js?v=77a24b5e';
-import { icon } from './icons.js?v=77a24b5e';
-import { fb } from './firebase.js?v=77a24b5e';
-import { $, el, wa, initChrome, CAT, byId, productUrl, quote, ready, toast, store, recentlySent, markSent, cleanName, cleanPhone } from './common.js?v=77a24b5e';
-import { card, addButton } from './shop.js?v=77a24b5e';
-import { plan, labelOf, STEPS } from './planner.js?v=77a24b5e';
-import { openQuiz, fromQuery } from './quiz.js?v=77a24b5e';
+import { CONTACT } from './data/site-data.js?v=928c1474';
+import { ITEMS } from './data/catalog-data.js?v=928c1474';
+import { img } from './data/photos.js?v=928c1474';
+import { icon } from './icons.js?v=928c1474';
+import { fb } from './firebase.js?v=928c1474';
+import { $, el, wa, initChrome, CAT, byId, productUrl, quote, ready, toast, store, recentlySent, markSent, cleanName, cleanPhone } from './common.js?v=928c1474';
+import { card, addButton } from './shop.js?v=928c1474';
+import { plan, labelOf, STEPS } from './planner.js?v=928c1474';
+import { openQuiz, fromQuery } from './quiz.js?v=928c1474';
 
 await ready;
 initChrome();
@@ -50,14 +50,14 @@ function render(a) {
         el('h3', {}, el('a', { href: productUrl(i), textContent: i.name })),
         el('p', { className: 'pick__what', textContent: i.what }),
         p.reasons.length ? el('p', { className: 'pick__why' }, el('span', { innerHTML: icon('check') }), `Why: ${p.reasons.join(', ')}.`) : null,
-        el('p', { className: 'pick__cost' }, p.cost ? el('b', { textContent: `${rupee(p.cost.lo)} – ${rupee(p.cost.hi)}` }) : el('b', { textContent: 'Price on request' }),
+        el('p', { className: 'pick__cost' }, p.cost ? el('b', { textContent: `${rupee(p.cost.lo)} to ${rupee(p.cost.hi)}` }) : el('b', { textContent: 'Price on request' }),
           p.cost?.basis ? el('span', { textContent: ` for ${p.cost.basis}` }) : null),
         el('div', { className: 'pick__actions' }, addButton(i), el('a', { className: 'btn btn--outline btn--sm', href: productUrl(i), textContent: 'Details' }))));
   };
 
   const t = r.total, over = r.max && r.max < 1e9 && t.lo > r.max;
   const planText = () => {
-    const lines = picks.map((p, n) => `${n + 1}. ${p.item.name}${p.cost ? ` (${rupee(p.cost.lo)}–${rupee(p.cost.hi)})` : ''}`);
+    const lines = picks.map((p, n) => `${n + 1}. ${p.item.name}${p.cost ? ` (${rupee(p.cost.lo)} to ${rupee(p.cost.hi)})` : ''}`);
     const about = [labelOf('b', a.b), a.g.map(g => labelOf('g', g)).join(', '), labelOf('m', a.m) && `Budget: ${labelOf('m', a.m)}`, labelOf('t', a.t) && `Needed: ${labelOf('t', a.t)}`].filter(Boolean).join(' · ');
     return `Hi Ebraheem Hussain Productions, I built a plan on your website:\n${lines.join('\n')}\n\nAbout me: ${about}${a.q ? `\nMy words: ${a.q}` : ''}\n\nPlease send me an exact quote.`;
   };
@@ -96,9 +96,9 @@ function render(a) {
   const side = el('aside', { className: 'plan-side' },
     el('div', { className: 'plan-total' },
       el('p', { className: 'pricebox__label', textContent: 'Estimated for this plan' }),
-      t.hi ? el('p', { className: 'plan-total__val', textContent: `${rupee(t.lo)} – ${rupee(t.hi)}` }) : el('p', { className: 'plan-total__val', textContent: 'On request' }),
+      t.hi ? el('p', { className: 'plan-total__val', textContent: `${rupee(t.lo)} to ${rupee(t.hi)}` }) : el('p', { className: 'plan-total__val', textContent: 'On request' }),
       el('p', { className: 'small', textContent: `${r.onRequest ? 'Some items are priced on request. ' : ''}Rough estimate for a typical first order. You get a fixed price before we start.` }),
-      over ? el('p', { className: 'plan-note', textContent: `This is above your budget. Start with 01 and add the rest later, or tell us and we will fit it to ${labelOf('m', a.m)}.` }) : null,
+      over ? el('p', { className: 'plan-note', textContent: `This is above your budget. Start with the first pick and add the rest later, or tell us and we will fit it to ${labelOf('m', a.m)}.` }) : null,
       sendWa, addAll),
     form);
 

@@ -1,7 +1,7 @@
 // Product cards and prices, shared by the home, shop and product pages.
-import { img } from './data/photos.js?v=77a24b5e';
-import { icon } from './icons.js?v=77a24b5e';
-import { el, wa, CAT, quote, productUrl, store, toast } from './common.js?v=77a24b5e';
+import { img } from './data/photos.js?v=928c1474';
+import { icon } from './icons.js?v=928c1474';
+import { el, wa, CAT, quote, productUrl, store, toast } from './common.js?v=928c1474';
 
 export const currency = {
   get: () => (store.get('cur', 0) ? 1 : 0),
@@ -10,12 +10,12 @@ export const currency = {
 const inr = v => v >= 100000 ? `₹${(v / 100000).toLocaleString('en-IN', { maximumFractionDigits: 1 })} lakh` : `₹${v.toLocaleString('en-IN')}`;
 const usd = v => `$${v.toLocaleString('en-US')}`;
 
-// { val: '₹50 – ₹150', from: 'From ₹50', unit: 'per sq ft', low: 50 }
+// { val: '₹50 to ₹150', from: 'From ₹50', unit: 'per sq ft', low: 50 }
 export function price(i, cur = currency.get()) {
   if (!i.inr) return { val: 'Price on request', from: 'Price on request', unit: '', low: Infinity };
   const useUsd = cur === 1 && i.usd;
   const [lo, hi] = useUsd ? i.usd : i.inr, f = useUsd ? usd : inr;
-  return { val: lo === hi ? f(lo) : `${f(lo)} – ${f(hi)}`, from: `From ${f(lo)}`, unit: i.unit + (cur === 1 && !i.usd ? ' · USD on request' : ''), low: i.inr[0] };
+  return { val: lo === hi ? f(lo) : `${f(lo)} to ${f(hi)}`, from: `From ${f(lo)}`, unit: i.unit + (cur === 1 && !i.usd ? ' · USD on request' : ''), low: i.inr[0] };
 }
 
 function paint(b) {

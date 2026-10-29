@@ -12,16 +12,18 @@ export const CONTACT = {
 
 // shape: 'tall' (9:16 Short) or 'wide' (16:9)
 export const WORK = [
-  { id: 'WGivVL_ncP0', title: 'Same burger, 3 budgets', kind: 'AI ads', shape: 'tall', poster: 'assets/img/p-burger.jpg',
+  { id: 'vgrbVoJ-tTo', title: 'Seen.', kind: 'Brand film', shape: 'tall', poster: 'assets/img/p-seen.jpg',
+    note: 'Our own ad: glass towers, a shop in four feet, and every business that deserves to be seen.' },
+  { id: 'WGivVL_ncP0', title: 'Same burger, 3 budgets', kind: 'AI ad', shape: 'tall', poster: 'assets/img/p-burger.jpg',
     note: 'One product shot three ways: phone photo, studio, and full cinematic commercial.' },
-  { id: 'nbUOq4ORrf4', title: 'Quiet Avenue', kind: 'Music videos', shape: 'tall', poster: 'assets/img/p-quiet-avenue.jpg',
+  { id: 'nbUOq4ORrf4', title: 'Quiet Avenue', kind: 'Music video', shape: 'tall', poster: 'assets/img/p-quiet-avenue.jpg',
     note: 'A 3D retrowave lyric video built shot by shot with motion graphics.' },
 ];
 
 // Products, services and average prices live in catalog-data.js.
 
 export const FAQ = [
-  { q: 'Are the catalog prices final?', a: 'No. They are average market prices we checked online. This is an average price and depends on your specified work: size, material, quantity and deadline. You get a fixed quote before any work starts.' },
+  { q: 'Are the catalog prices final?', a: 'No. They are average market prices we checked online. Your price depends on the size, material, quantity and deadline, and you get a fixed quote before any work starts.' },
   { q: 'Do you deliver outside Mathura?', a: 'Yes. We courier printed products, boards, uniforms and gifts all over India. For big projects we also deliver internationally. Online work like videos, designs and websites is delivered anywhere.' },
   { q: 'How long does a video ad take?', a: 'Most AI video ads are ready in 2 to 4 days after you approve the concept. Longer commercials and music videos take about a week.' },
   { q: 'Do you use AI?', a: 'Yes. We use AI video tools such as Google Flow together with editing, motion graphics, 3D and sound design. AI-generated visuals are labelled when they are published.' },

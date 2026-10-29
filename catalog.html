@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://www.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://images.unsplash.com; font-src 'self'; media-src 'self'; connect-src 'self' https://firestore.googleapis.com https://*.googleapis.com https://formsubmit.co https://www.google.com; frame-src https://www.youtube-nocookie.com https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://www.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://images.unsplash.com; font-src 'self'; media-src 'self' blob:; connect-src 'self' https://firestore.googleapis.com https://*.googleapis.com https://formsubmit.co https://www.google.com; frame-src https://www.youtube-nocookie.com https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Shop | Ebraheem Hussain Productions</title>
   <meta name="description" content="Signboards, flex banners, visiting cards, uniforms, gifts, AI video ads, logos, websites, apps and music mixing, each with a price. Courier all over India.">
-  <meta name="theme-color" content="#0a0a0b">
+  <meta name="theme-color" content="#0c0b0a">
   <link rel="canonical" href="https://ebraheemhussain748.github.io/ehproductions/catalog">
   <link rel="icon" href="assets/img/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/img/icon-192.png">
@@ -18,15 +18,17 @@
   <meta property="og:image" content="https://ebraheemhussain748.github.io/ehproductions/assets/img/og-image.jpg">
   <meta property="og:url" content="https://ebraheemhussain748.github.io/ehproductions/catalog">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="preload" href="assets/fonts/font-serif-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/font-text-600.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/font-text-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/font-serif-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preconnect" href="https://images.unsplash.com">
-  <link rel="stylesheet" href="css/styles.css?v=77a24b5e">
+  <link rel="stylesheet" href="css/scrollcraft.css?v=928c1474">
+  <link rel="stylesheet" href="css/styles.css?v=928c1474">
 </head>
 <body class="page-catalog">
   <a class="skip" href="#main">Skip to content</a>
-  <div class="announce" id="announce" hidden></div>
   <header class="nav">
+    <div class="announce" id="announce" hidden></div>
     <div class="wrap nav__row">
       <a class="brand" href="./" aria-label="Ebraheem Hussain Productions, home">
         <img src="assets/img/logo-mark-96.png" alt="" width="62" height="32">
@@ -105,12 +107,18 @@
 
   <footer class="foot">
     <div class="wrap">
-      <p class="foot__big"><a href="./#contact">Let’s make something<br>people remember.</a></p>
+      <div class="foot__top">
+        <a class="brand brand--foot" href="./" aria-label="Ebraheem Hussain Productions, home">
+          <img src="assets/img/logo-mark-96.png" alt="" width="62" height="32">
+          <span>Ebraheem Hussain<small>Productions</small></span>
+        </a>
+        <p class="foot__line">Ads, signs, websites and music from one studio in Mathura. Courier across India.</p>
+      </div>
       <div class="foot__grid">
         <div>
           <h4>Shop</h4>
           <ul>
-            <li><a href="catalog?type=offline">Print &amp; signage</a></li>
+            <li><a href="catalog?type=offline">Print and signage</a></li>
             <li><a href="catalog?cat=video">Video ads</a></li>
             <li><a href="catalog?cat=websites">Websites</a></li>
             <li><a href="catalog?cat=music">Music production</a></li>
@@ -121,7 +129,7 @@
           <ul>
             <li><a href="./#work">Work</a></li>
             <li><a href="./#about">About</a></li>
-            <li><a href="./#faq">FAQ</a></li>
+            <li><a href="./#faq">Questions</a></li>
             <li><a href="./#contact">Contact</a></li>
           </ul>
         </div>
@@ -151,6 +159,6 @@
   </footer>
   <a class="fab" data-link="whatsapp" href="https://wa.me/919389080059" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><span data-icon="wa"></span><span>Chat with us</span></a>
 
-  <script type="module" src="js/catalog.js?v=77a24b5e"></script>
+  <script type="module" src="js/catalog.js?v=928c1474"></script>
 </body>
 </html>

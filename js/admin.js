@@ -1,9 +1,9 @@
 // Studio admin: dashboard, leads pipeline, reviews, prices, extra products, home page settings.
 // Data lives in Firestore: leads/*, reviews/*, and one public document site/public that the website reads.
-import './guard.js?v=77a24b5e';
-import { fb, configured, ADMIN_EMAIL } from './firebase.js?v=77a24b5e';
-import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=77a24b5e';
-import { icon } from './icons.js?v=77a24b5e';
+import './guard.js?v=928c1474';
+import { fb, configured, ADMIN_EMAIL } from './firebase.js?v=928c1474';
+import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=928c1474';
+import { icon } from './icons.js?v=928c1474';
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -215,7 +215,7 @@ function leadCard(l, compact = false) {
       el('div', { className: 'fld' }, 'Quick follow-up', el('div', { style: 'display:flex;gap:6px' }, quick('Tomorrow', 1), quick('3 days', 3), quick('1 week', 7)))),
     el('div', { className: 'lead__actions' }, el('div', { style: 'flex:1 1 260px;display:flex;gap:8px' }, note, addNote)),
     el('div', { className: 'lead__actions' }, ...reach, del),
-    log.length ? el('ul', { className: 'lead__log' }, ...log.map(x => el('li', { textContent: `${new Date(x.at).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })} — ${x.text}` }))) : null);
+    log.length ? el('ul', { className: 'lead__log' }, ...log.map(x => el('li', { textContent: `${new Date(x.at).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })}: ${x.text}` }))) : null);
 }
 
 function downloadCsv() {
@@ -282,11 +282,11 @@ function prices() {
     const unit = el('input', { type: 'text', value: o.unit ?? i.unit ?? '' });
     const quoteBox = el('input', { type: 'checkbox', checked: o.quote ?? !i.inr });
     const hidden = el('input', { type: 'checkbox', checked: !!o.hidden });
-    const badge = el('select', {}, ...BADGES.map(b => el('option', { value: b, textContent: b || '—' }))); badge.value = o.badge || '';
+    const badge = el('select', {}, ...BADGES.map(b => el('option', { value: b, textContent: b || 'None' }))); badge.value = o.badge || '';
     const tr = el('tr', { className: `${draft[i.id] ? 'changed' : ''}${o.hidden ? ' off' : ''}` },
       el('td', {}, el('b', { textContent: i.name }), el('br'), el('span', { className: 'small', textContent: CAT[i.cat].name })),
       el('td', {}, lo), el('td', {}, hi), el('td', {}, unit),
-      el('td', {}, i.group === 'online' ? ulo : el('span', { className: 'small', textContent: '—' })), el('td', {}, i.group === 'online' ? uhi : ''),
+      el('td', {}, i.group === 'online' ? ulo : el('span', { className: 'small', textContent: 'n/a' })), el('td', {}, i.group === 'online' ? uhi : ''),
       el('td', {}, el('label', { className: 'check' }, quoteBox, 'On request')), el('td', {}, badge), el('td', {}, el('label', { className: 'check' }, hidden, 'Hide')));
     const update = () => {
       const d = {};
@@ -332,7 +332,7 @@ function products() {
     <label>Short description<input name="what" maxlength="300" placeholder="One line customers see on the card"></label>
     <div class="form__row"><label>₹ from<input name="lo" type="number" min="0"></label><label>₹ to<input name="hi" type="number" min="0"></label></div>
     <div class="form__row"><label>Unit<input name="unit" maxlength="40" placeholder="per piece, per sq ft, per song…"></label>
-    <label>Label<select name="badge">${BADGES.map(b => `<option value="${b}">${b || '—'}</option>`).join('')}</select></label></div>
+    <label>Label<select name="badge">${BADGES.map(b => `<option value="${b}">${b || 'None'}</option>`).join('')}</select></label></div>
     <label>Photo (optional): Unsplash image address<input name="photo" placeholder="https://images.unsplash.com/photo-…"></label>
     <label class="check"><input type="checkbox" name="quote"> Price on request</label>
     <div class="form__foot"><button class="btn btn--dark" type="submit">Add to the website</button></div>`;
@@ -353,7 +353,7 @@ function products() {
     del.onclick = async () => { if (!confirm(`Remove ${c.name} from the website?`)) return; site.custom = list.filter((_, j) => j !== k); if (await saveSite('Removed.')) rerender(); };
     return el('article', { className: 'lead' },
       el('div', { className: 'lead__top' }, el('span', { className: 'lead__name', textContent: c.name }), el('span', { className: 'lead__meta', textContent: CAT[c.cat]?.name || c.cat })),
-      el('p', { className: 'lead__meta', textContent: [c.quote ? 'Price on request' : `${inr(c.inr?.[0])} – ${inr(c.inr?.[1])} ${c.unit || ''}`, c.badge, c.photo ? 'Has photo' : 'No photo'].filter(Boolean).join(' · ') }),
+      el('p', { className: 'lead__meta', textContent: [c.quote ? 'Price on request' : `${inr(c.inr?.[0])} to ${inr(c.inr?.[1])} ${c.unit || ''}`, c.badge, c.photo ? 'Has photo' : 'No photo'].filter(Boolean).join(' · ') }),
       c.what ? el('p', { className: 'lead__msg', textContent: c.what }) : null,
       el('div', { className: 'lead__actions' }, el('a', { className: 'btn btn--outline btn--sm', href: `product?id=${slug(c.name)}`, target: '_blank', rel: 'noopener', textContent: 'View' }), del));
   };
@@ -363,7 +363,7 @@ function products() {
 }
 
 function home() {
-  const ann = el('input', { type: 'text', maxLength: 200, value: site.announcement || '', placeholder: 'For example: Diwali offer — 10% off visiting cards till 30 Oct' });
+  const ann = el('input', { type: 'text', maxLength: 200, value: site.announcement || '', placeholder: 'For example: Diwali offer, 10% off visiting cards till 30 Oct' });
   const chosen = new Set(site.featured || []);
   const all = [...DEFAULTS, ...(site.custom || []).map(c => ({ ...c, id: slug(c.name) }))];
   const q = el('input', { type: 'search', placeholder: 'Search products…' });

@@ -1,21 +1,20 @@
 // Home page.
-import { CONTACT, WORK, FAQ, CREDENTIALS } from './data/site-data.js?v=77a24b5e';
-import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=77a24b5e';
-import { img } from './data/photos.js?v=77a24b5e';
-import { icon } from './icons.js?v=77a24b5e';
-import { fb, configured } from './firebase.js?v=77a24b5e';
-import { $, el, initChrome, CAT, byId, site, ready, reveal, recentlySent, markSent, cleanName, cleanPhone, cleanEmail } from './common.js?v=77a24b5e';
-import { card } from './shop.js?v=77a24b5e';
+import { CONTACT, WORK, FAQ, CREDENTIALS } from './data/site-data.js?v=928c1474';
+import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=928c1474';
+import { icon } from './icons.js?v=928c1474';
+import { fb, configured } from './firebase.js?v=928c1474';
+import { $, $$, el, initChrome, CAT, byId, site, ready, reveal, store, recentlySent, markSent, cleanName, cleanPhone, cleanEmail } from './common.js?v=928c1474';
+import { card, price } from './shop.js?v=928c1474';
 
 await ready;
 
-/* ---------- work: our own videos first ---------- */
+/* ---------- work: our own films ---------- */
 const player = $('#player'), box = $('#player-box');
 $('#work-list').replaceChildren(...WORK.map(w => {
   const b = el('button', { type: 'button', className: 'reel', ariaLabel: `Play ${w.title}` },
-    el('img', { src: w.poster, alt: '', width: 400, height: 622 }),
-    el('span', { className: 'reel__tag', textContent: `${w.kind} · AI-generated` }));
-  b.insertAdjacentHTML('beforeend', `<span class="reel__play"><i>${icon('play')}</i>${w.title}</span>`);
+    el('span', { className: 'reel__frame' }, el('img', { src: w.poster, alt: '', width: 540, height: 960, loading: 'lazy' })),
+    el('span', { className: 'reel__tag', textContent: 'AI-generated' }));
+  b.insertAdjacentHTML('beforeend', `<span class="reel__play"><i>${icon('play')}</i><span><b>${w.title}</b><small>${w.kind}</small></span></span>`);
   b.addEventListener('click', () => {
     box.replaceChildren(el('iframe', {
       src: `https://www.youtube-nocookie.com/embed/${w.id}?autoplay=1&rel=0&playsinline=1`,
@@ -24,32 +23,17 @@ $('#work-list').replaceChildren(...WORK.map(w => {
     player.showModal();
   });
   return b;
-}), el('div', { className: 'showcase__note' },
-  el('h3', { textContent: 'Real ads. No camera crew.' }),
-  el('p', { textContent: 'Every film is made in-house with AI video tools, editing and motion graphics. New work is on the way.' }),
-  el('p', {}, el('a', { className: 'btn btn--ghost-light btn--sm', href: CONTACT.youtube, target: '_blank', rel: 'noopener', textContent: 'YouTube' }), ' ',
-    el('a', { className: 'btn btn--ghost-light btn--sm', href: CONTACT.instagram, target: '_blank', rel: 'noopener', textContent: 'Instagram' }))));
+}));
 player.addEventListener('close', () => box.replaceChildren());
 player.addEventListener('click', e => { if (e.target === player) player.close(); });
 
-/* ---------- services bento ---------- */
-const TILES = [
-  { cls: 'tile--a', title: 'Video & social ads', text: 'Reels, Shorts and cinematic AI commercials that stop the scroll.', photo: 'ai-generated-promotional-videos', href: 'catalog?cat=video' },
-  { cls: 'tile--b', title: 'Print & signage', text: 'Glow signs, flex, cards, uniforms and gifts. Couriered across India.', photo: 'glow-sign-boards', href: 'catalog?type=offline' },
-  { cls: 'tile--c', title: 'Branding', text: 'Logos and brand kits.', photo: 'logo-design', href: 'catalog?cat=branding' },
-  { cls: 'tile--d', title: 'Websites & apps', text: 'Fast sites that bring in enquiries.', photo: 'business-websites', href: 'catalog?cat=websites' },
-  { cls: 'tile--e', title: 'Music production', text: 'Mixing and mastering, release-ready.', photo: 'mixing-mastering-package', href: 'catalog?cat=music', isNew: true },
-];
-$('#item-total').textContent = ITEMS.length;
+/* ---------- live starting prices in the story (the admin can change them) ---------- */
+$$('[data-from]').forEach(n => {
+  const i = byId(n.dataset.from); if (!i || !i.inr) return;
+  const lo = price(i, 0).from.replace(/^From /, '');
+  n.textContent = n.classList.contains('svc__price') ? `From ${lo} ${i.unit}` : `${lo} ${i.unit}`;
+});
 $('#fact-items').textContent = ITEMS.length;
-$('#bento').replaceChildren(...TILES.map(t => {
-  const ph = byId(t.photo)?.photos[0];
-  return el('a', { className: `tile reveal ${t.cls}`, href: t.href },
-    ph ? el('img', { src: img(ph, 1100, 800), alt: '', loading: 'lazy', width: 1100, height: 800 }) : null,
-    t.isNew ? el('span', { className: 'tile__new', textContent: 'New' }) : null,
-    el('h3', { textContent: t.title }), el('p', { textContent: t.text }),
-    el('span', { className: 'go', innerHTML: `Explore ${icon('arrow')}` }));
-}));
 
 /* ---------- popular (chosen in the admin page, or a default mix) ---------- */
 const DEFAULT = ['shop-signboards', 'ai-generated-promotional-videos', 'visiting-cards', 'logo-design', 'glow-sign-boards', 'business-websites', 'mixing-mastering-package', 'led-neon-signs'];
@@ -73,6 +57,18 @@ if (enquiry) {
   sel.value = cats.length === 1 ? CAT[cats[0]].name : 'Something else';
   $('#lead-form').message.value = `I'd like a price for: ${names.join(', ')}.\n\nDetails (size, quantity, deadline): `;
 }
+
+/* ---------- the shop name typed on the sign ---------- */
+const leadMsg = $('#lead-form').message;
+let prefilled = '';
+function useShop(v) {
+  v = String(v || '').trim();
+  $('#close-name').textContent = v || 'your business';
+  const line = v ? `Business: ${v}\n\n` : '';
+  if (!leadMsg.value || leadMsg.value === prefilled) { leadMsg.value = line; prefilled = line; }
+}
+if (!enquiry) useShop(store.get('eh-shop', ''));
+addEventListener('eh:shop', e => useShop(e.detail));
 
 function check(form) {
   let ok = true;
@@ -117,7 +113,7 @@ leadForm.addEventListener('submit', async e => {
   btn.disabled = false; btn.textContent = 'Send enquiry';
   if (results.some(r => r.status === 'fulfilled')) {
     markSent('lead');
-    leadForm.reset();
+    leadForm.reset(); prefilled = '';
     say(leadForm, 'Sent. We will reply on WhatsApp or email within 24 hours.', 'ok');
   } else {
     say(leadForm, 'It could not be sent. Check your internet and try again, or message us on WhatsApp.', 'err');
@@ -169,7 +165,9 @@ async function loadReviews() {
       r.reply ? el('p', { className: 'review__reply' }, el('strong', { textContent: 'Reply from the studio: ' }), r.reply) : null)));
   } catch { /* keep the quiet state */ }
 }
-new IntersectionObserver((es, o) => { if (es.some(e => e.isIntersecting)) { o.disconnect(); loadReviews(); } }, { rootMargin: '400px' }).observe($('#reviews'));
+new IntersectionObserver((es, o) => { if (es.some(e => e.isIntersecting)) { o.disconnect(); loadReviews().then(() => dispatchEvent(new Event('eh:content'))); } }, { rootMargin: '400px' }).observe($('#reviews'));
 
 await initChrome();
 reveal();
+// The story measured the page before these sections were filled in.
+dispatchEvent(new Event('eh:content'));

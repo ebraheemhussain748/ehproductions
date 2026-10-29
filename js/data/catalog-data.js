@@ -22,7 +22,7 @@ export const CATEGORIES = [
   { id: 'retail', group: 'offline', icon: 'food', name: 'Restaurant & Retail Advertising', blurb: 'Menus, packaging, bags, labels and counter QR stands.' },
   { id: 'social', group: 'online', icon: 'grid', name: 'Social Media Design Packs', blurb: 'Posts, stories, ads and festival posters in your brand style.' },
   { id: 'video', group: 'online', icon: 'play', name: 'Advertising Videos', blurb: 'Reels, Shorts, product ads and AI-made commercials.' },
-  { id: 'music', group: 'online', icon: 'music', name: 'Music Production', blurb: 'Mixing and mastering that makes your song sound clear, loud and ready for release.' },
+  { id: 'music', group: 'online', icon: 'music', name: 'Music Production', blurb: 'Mixing and mastering that gets your song clear and loud, ready to release.' },
   { id: 'branding', group: 'online', icon: 'pen', name: 'Branding', blurb: 'Logos, brand kits, guidelines and campaign designs.' },
   { id: 'websites', group: 'online', icon: 'window', name: 'Website & Landing-Page Packages', blurb: 'Fast, mobile-first sites that bring in enquiries.' },
   { id: 'webdev', group: 'online', icon: 'code', name: 'Web Development', blurb: 'Online stores, custom sites and ongoing maintenance.' },
@@ -36,7 +36,7 @@ export const ITEMS = [
   { cat: 'signage', name: 'Shop signboards', what: 'Front-lit flex board on a metal frame, made to your shop width.', inr: [50, 150], unit: 'per sq ft', src: ['im-flexsign'], tip: 'Readable distance: about 1 inch of letter height for every 10 feet.' },
   { cat: 'signage', name: 'Flex boards', what: 'Printed flex for walls, shop fronts and events. Printing only, frame extra.', inr: [8, 25], unit: 'per sq ft', src: ['im-flex', 'sa'] },
   { cat: 'signage', name: 'Glow sign boards', what: 'Backlit box with a flex or acrylic face that lights up at night.', inr: [180, 500], unit: 'per sq ft', src: ['im-glow'] },
-  { cat: 'signage', name: 'LED sign boards', what: 'Acrylic board with built-in LEDs for a bright, clean look.', inr: [300, 800], unit: 'per sq ft', src: ['im-led'] },
+  { cat: 'signage', name: 'LED sign boards', what: 'Acrylic board with built-in LEDs, brighter and sharper than a glow box.', inr: [300, 800], unit: 'per sq ft', src: ['im-led'] },
   { cat: 'signage', name: 'Acrylic signage', what: 'Cut or printed acrylic signs for shop fronts, offices and counters.', inr: [300, 800], unit: 'per sq ft', src: ['im-nameboard', 'im-led'] },
   { cat: 'signage', name: '3D letter signage', what: 'Raised letters in stainless steel, gold or rose-gold finish, or PU.', inr: [40, 120], unit: 'per inch of letter height', src: ['im-boxletters'] },
   { cat: 'signage', name: '3D LED letters', what: 'Raised acrylic letters that glow, for premium shop fronts.', inr: [140, 400], unit: 'per inch of letter height', src: ['im-boxletters', 'im-led'] },
@@ -103,7 +103,7 @@ export const ITEMS = [
 
   // ---------- Social Media Design Packs ----------
   { cat: 'social', name: 'Instagram posts & story templates', what: 'Pack of 10 branded posts or stories in the right sizes.', inr: [1500, 5000], usd: [50, 400], unit: 'per pack of 10', src: ['im-social', 'manypixels'] },
-  { cat: 'social', name: 'Facebook & Instagram ad creatives', what: 'Ad images built to stop the scroll, with your offer and CTA.', inr: [500, 2000], usd: [15, 60], unit: 'per creative', src: ['manypixels', 'im-social'] },
+  { cat: 'social', name: 'Facebook & Instagram ad creatives', what: 'Ad images with your offer and a clear call to action.', inr: [500, 2000], usd: [15, 60], unit: 'per creative', src: ['manypixels', 'im-social'] },
   { cat: 'social', name: 'Festival & sale posters', what: 'Diwali, Eid, Holi, Independence Day, New Year and sale posters with your brand.', inr: [300, 1000], usd: [10, 40], unit: 'per poster', src: ['im-social', 'manypixels'], tip: 'A full-year festival pack usually costs ₹4,000 to ₹7,000.' },
   { cat: 'social', name: 'Business promotion graphics', what: '12 to 20 designed posts a month, planned around your offers.', inr: [5000, 15000], usd: [250, 2000], unit: 'per month', src: ['im-social', 'manypixels'] },
   { cat: 'social', name: 'Social media management', what: 'Design plus posting and planning for your pages every month.', inr: [15000, 40000], unit: 'per month', src: ['noir'] },

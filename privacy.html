@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://www.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://images.unsplash.com; font-src 'self'; media-src 'self'; connect-src 'self' https://firestore.googleapis.com https://*.googleapis.com https://formsubmit.co https://www.google.com; frame-src https://www.youtube-nocookie.com https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://www.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://images.unsplash.com; font-src 'self'; media-src 'self' blob:; connect-src 'self' https://firestore.googleapis.com https://*.googleapis.com https://formsubmit.co https://www.google.com; frame-src https://www.youtube-nocookie.com https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Privacy Policy | Ebraheem Hussain Productions</title>
   <meta name="description" content="How Ebraheem Hussain Productions handles enquiry and review details.">
-  <meta name="theme-color" content="#0a0a0b">
+  <meta name="theme-color" content="#0c0b0a">
   <link rel="canonical" href="https://ebraheemhussain748.github.io/ehproductions/privacy">
   <link rel="icon" href="assets/img/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/img/icon-192.png">
@@ -18,15 +18,17 @@
   <meta property="og:image" content="https://ebraheemhussain748.github.io/ehproductions/assets/img/og-image.jpg">
   <meta property="og:url" content="https://ebraheemhussain748.github.io/ehproductions/privacy">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="preload" href="assets/fonts/font-serif-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/font-text-600.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/font-text-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/font-serif-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preconnect" href="https://images.unsplash.com">
-  <link rel="stylesheet" href="css/styles.css?v=77a24b5e">
+  <link rel="stylesheet" href="css/scrollcraft.css?v=928c1474">
+  <link rel="stylesheet" href="css/styles.css?v=928c1474">
 </head>
 <body class="page-privacy">
   <a class="skip" href="#main">Skip to content</a>
-  <div class="announce" id="announce" hidden></div>
   <header class="nav">
+    <div class="announce" id="announce" hidden></div>
     <div class="wrap nav__row">
       <a class="brand" href="./" aria-label="Ebraheem Hussain Productions, home">
         <img src="assets/img/logo-mark-96.png" alt="" width="62" height="32">
@@ -57,7 +59,7 @@
 
   <main id="main" class="legal">
     <div class="wrap legal__wrap">
-      <p class="eyebrow">Last updated 16 October 2026</p>
+      <p class="eyebrow">Last updated 29 October 2026</p>
       <h1>Privacy Policy</h1>
       <p class="legal__lede">We collect only what we need to answer your enquiry. We do not use tracking cookies, analytics or advertising trackers, and we never sell your data.</p>
 
@@ -70,6 +72,7 @@
         <li><strong>Reviews:</strong> your name, an optional business name, your rating and your review. A review is shown publicly on this website only after we approve it.</li>
         <li><strong>WhatsApp buttons:</strong> they open WhatsApp with a ready-made message. Nothing is sent until you press send in WhatsApp, and what you send is handled by WhatsApp (Meta) under its own privacy policy.</li>
         <li><strong>Your quote list and currency choice</strong> in the catalog are saved only in your own browser (local storage) so they are still there when you come back. They are never sent to us unless you send the list yourself.</li>
+        <li><strong>The shop name you type on the sign</strong> on the home page is saved only in your own browser (local storage), and we copy it into the enquiry form for you. It reaches us only if you send that form.</li>
       </ul>
       <p>We do not ask for payment details, passwords or government ID numbers on this website.</p>
 
@@ -114,12 +117,18 @@
 
   <footer class="foot">
     <div class="wrap">
-      <p class="foot__big"><a href="./#contact">Let’s make something<br>people remember.</a></p>
+      <div class="foot__top">
+        <a class="brand brand--foot" href="./" aria-label="Ebraheem Hussain Productions, home">
+          <img src="assets/img/logo-mark-96.png" alt="" width="62" height="32">
+          <span>Ebraheem Hussain<small>Productions</small></span>
+        </a>
+        <p class="foot__line">Ads, signs, websites and music from one studio in Mathura. Courier across India.</p>
+      </div>
       <div class="foot__grid">
         <div>
           <h4>Shop</h4>
           <ul>
-            <li><a href="catalog?type=offline">Print &amp; signage</a></li>
+            <li><a href="catalog?type=offline">Print and signage</a></li>
             <li><a href="catalog?cat=video">Video ads</a></li>
             <li><a href="catalog?cat=websites">Websites</a></li>
             <li><a href="catalog?cat=music">Music production</a></li>
@@ -130,7 +139,7 @@
           <ul>
             <li><a href="./#work">Work</a></li>
             <li><a href="./#about">About</a></li>
-            <li><a href="./#faq">FAQ</a></li>
+            <li><a href="./#faq">Questions</a></li>
             <li><a href="./#contact">Contact</a></li>
           </ul>
         </div>
@@ -160,6 +169,6 @@
   </footer>
   <a class="fab" data-link="whatsapp" href="https://wa.me/919389080059" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><span data-icon="wa"></span><span>Chat with us</span></a>
 
-  <script type="module" src="js/legal.js?v=77a24b5e"></script>
+  <script type="module" src="js/legal.js?v=928c1474"></script>
 </body>
 </html>

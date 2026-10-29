@@ -1,7 +1,7 @@
 // Plan builder: the questions and the matching engine.
 // The engine scores every product from the answers (business, goals, reach, budget, timing, own words),
 // keeps a reason for every point it gives, and returns a short curated plan: 3 main picks + up to 3 add-ons.
-import { words, hit, norm, index } from './search.js?v=77a24b5e';
+import { words, hit, norm, index } from './search.js?v=928c1474';
 
 export const STEPS = [
   { id: 'b', type: 'one', title: 'What do you do?', sub: 'Pick the closest one.', options: [
@@ -35,9 +35,9 @@ export const STEPS = [
   ] },
   { id: 'm', type: 'one', title: 'What is your budget?', sub: 'For everything together. It only helps us suggest the right size.', options: [
     { id: 'b1', label: 'Under ₹5,000', max: 5000 },
-    { id: 'b2', label: '₹5,000 – ₹20,000', max: 20000 },
-    { id: 'b3', label: '₹20,000 – ₹50,000', max: 50000 },
-    { id: 'b4', label: '₹50,000 – ₹2 lakh', max: 200000 },
+    { id: 'b2', label: '₹5,000 to ₹20,000', max: 20000 },
+    { id: 'b3', label: '₹20,000 to ₹50,000', max: 50000 },
+    { id: 'b4', label: '₹50,000 to ₹2 lakh', max: 200000 },
     { id: 'b5', label: 'Above ₹2 lakh', max: 1e9 },
     { id: 'b0', label: 'Not sure yet', max: null },
   ] },
