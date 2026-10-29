@@ -1,9 +1,9 @@
 // Shared by every page: clean URLs, nav (search, menu), live prices from the admin, my list drawer, toast.
-import './guard.js?v=928c1474';
-import { CONTACT } from './data/site-data.js?v=928c1474';
-import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=928c1474';
-import { PHOTOS, img } from './data/photos.js?v=928c1474';
-import { icon } from './icons.js?v=928c1474';
+import './guard.js?v=93ecf7ec';
+import { CONTACT } from './data/site-data.js?v=93ecf7ec';
+import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=93ecf7ec';
+import { PHOTOS, img } from './data/photos.js?v=93ecf7ec';
+import { icon } from './icons.js?v=93ecf7ec';
 
 // Show addresses without ".html" (GitHub Pages serves /catalog from catalog.html).
 if (/\.html$/.test(location.pathname)) {
@@ -75,7 +75,7 @@ export const ready = (async () => {
   let data = store.get('site-public', null);
   try {
     const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 2500);
-    const headers = await Promise.race([import('./firebase.js?v=928c1474').then(m => m.appCheckHeaders()), new Promise(r => setTimeout(() => r({}), 1500))]);
+    const headers = await Promise.race([import('./firebase.js?v=93ecf7ec').then(m => m.appCheckHeaders()), new Promise(r => setTimeout(() => r({}), 1500))]);
     const r = await fetch(REST, { signal: ctl.signal, cache: 'no-store', headers }); clearTimeout(t);
     if (r.ok) { const j = await r.json(); data = decode({ mapValue: { fields: j.fields || {} } }); store.set('site-public', data); }
     else if (r.status === 404) { data = {}; store.set('site-public', data); }
@@ -194,7 +194,7 @@ export async function initChrome() {
   $$('[data-link="email"]').forEach(x => { x.href = `mailto:${CONTACT.email}`; });
   $$('.year').forEach(n => { n.textContent = new Date().getFullYear(); });
   // "Build my plan" opens the questions in place (the link still works without JavaScript)
-  $$('[data-open-plan]').forEach(a => a.addEventListener('click', async e => { e.preventDefault(); (await import('./quiz.js?v=928c1474')).openQuiz(); }));
+  $$('[data-open-plan]').forEach(a => a.addEventListener('click', async e => { e.preventDefault(); (await import('./quiz.js?v=93ecf7ec')).openQuiz(); }));
   reveal();
 }
 

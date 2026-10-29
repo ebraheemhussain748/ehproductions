@@ -1,6 +1,6 @@
 // Home page story. Mounts the scroll engine (js/scrollcraft.js, MIT, see js/scrollcraft-LICENSE.txt)
 // and runs the one moment that is only on this site: the visitor's shop name on the sign in the film.
-import { store } from './common.js?v=928c1474';
+import { store } from './common.js?v=93ecf7ec';
 
 const $ = (s, r = document) => r.querySelector(s);
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;

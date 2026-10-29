@@ -206,7 +206,7 @@ h3 { font: 600 1.2rem/1.28 var(--text); letter-spacing: -.012em; margin: 0 0 6px
 .copy--open { max-width: min(40rem, 44vw); bottom: clamp(3rem, 13vh, 8rem); }
 
 /* act 2: four feet. flows; the shop wipes into an empty frame */
-.feet { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(32px, 6vw, 110px); min-height: 118svh; padding: 14svh var(--gutter); max-width: 1320px; margin: 0 auto; }
+.feet { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(32px, 6vw, 110px); min-height: 100svh; padding: 9svh var(--gutter); max-width: 1320px; margin: 0 auto; }
 .film--feet { position: relative; margin: 0; justify-self: end; height: min(80svh, 70vw); width: calc(min(80svh, 70vw) * .5625); background: #12100e; }
 .film--feet::before { content: ""; position: absolute; inset: 18px; border: 1px solid rgba(242,237,229,.1); border-radius: 12px; }
 .feet__over { position: absolute; inset: 0; z-index: 1; }
