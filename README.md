@@ -19,6 +19,7 @@ Addresses work without `.html` (for example `/catalog`, `/product?id=logo-design
 
 ## Adding things
 - New product: add it to `ITEMS` in `catalog-data.js`, its text to `details.js`, photos to `photos.js`, and its URL to `sitemap.xml`.
+- Hide a product: add `hidden: true` to it in `catalog-data.js` and take its URL out of `sitemap.xml`. It stays hidden even when the admin data cannot load; the admin Prices "Hide" box can still show it again.
 - New video: add it to `WORK` in `site-data.js` and its poster to `assets/img/`.
 
 ## Admin page (admin.html)

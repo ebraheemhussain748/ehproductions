@@ -1,9 +1,9 @@
 // Studio admin: dashboard, leads pipeline, reviews, prices, extra products, home page settings.
 // Data lives in Firestore: leads/*, reviews/*, and one public document site/public that the website reads.
-import './guard.js?v=93ecf7ec';
-import { fb, configured, ADMIN_EMAIL } from './firebase.js?v=93ecf7ec';
-import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=93ecf7ec';
-import { icon } from './icons.js?v=93ecf7ec';
+import './guard.js?v=ef453390';
+import { fb, configured, ADMIN_EMAIL } from './firebase.js?v=ef453390';
+import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=ef453390';
+import { icon } from './icons.js?v=ef453390';
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -268,6 +268,7 @@ const BADGES = ['', 'Popular', 'New', 'Best value', 'Offer'];
 
 function prices() {
   const draft = JSON.parse(JSON.stringify(site.prices || {}));
+  for (const i of DEFAULTS) if (draft[i.id]?.hidden === !!i.hidden) { delete draft[i.id].hidden; if (!Object.keys(draft[i.id]).length) delete draft[i.id]; }
   const search = el('label', { className: 'searchbox' }); search.innerHTML = icon('search');
   const q = el('input', { type: 'search', placeholder: 'Search products…', value: filters.pq }); search.append(q);
   const cat = el('select', {}, el('option', { value: 'all', textContent: 'All categories' }), ...CATEGORIES.map(c => el('option', { value: c.id, textContent: c.name })));
@@ -281,9 +282,9 @@ function prices() {
     const lo = f(cur.lo, 'from'), hi = f(cur.hi, 'to'), ulo = f(cur.ulo, '$'), uhi = f(cur.uhi, '$');
     const unit = el('input', { type: 'text', value: o.unit ?? i.unit ?? '' });
     const quoteBox = el('input', { type: 'checkbox', checked: o.quote ?? !i.inr });
-    const hidden = el('input', { type: 'checkbox', checked: !!o.hidden });
+    const hidden = el('input', { type: 'checkbox', checked: o.hidden ?? !!i.hidden });
     const badge = el('select', {}, ...BADGES.map(b => el('option', { value: b, textContent: b || 'None' }))); badge.value = o.badge || '';
-    const tr = el('tr', { className: `${draft[i.id] ? 'changed' : ''}${o.hidden ? ' off' : ''}` },
+    const tr = el('tr', { className: `${draft[i.id] ? 'changed' : ''}${(o.hidden ?? i.hidden) ? ' off' : ''}` },
       el('td', {}, el('b', { textContent: i.name }), el('br'), el('span', { className: 'small', textContent: CAT[i.cat].name })),
       el('td', {}, lo), el('td', {}, hi), el('td', {}, unit),
       el('td', {}, i.group === 'online' ? ulo : el('span', { className: 'small', textContent: 'n/a' })), el('td', {}, i.group === 'online' ? uhi : ''),
@@ -297,7 +298,7 @@ function prices() {
       if (i.group === 'online' && ul != null && uh != null && (!i.usd || ul !== i.usd[0] || uh !== i.usd[1])) d.usd = [Math.min(ul, uh), Math.max(ul, uh)];
       if (unit.value.trim() && unit.value.trim() !== i.unit) d.unit = unit.value.trim().slice(0, 40);
       if (badge.value) d.badge = badge.value;
-      if (hidden.checked) d.hidden = true;
+      if (hidden.checked !== !!i.hidden) d.hidden = hidden.checked;
       if (Object.keys(d).length) draft[i.id] = d; else delete draft[i.id];
       tr.className = `${draft[i.id] ? 'changed' : ''}${hidden.checked ? ' off' : ''}`;
       changed.textContent = `${Object.keys(draft).length} products differ from the standard price list`;

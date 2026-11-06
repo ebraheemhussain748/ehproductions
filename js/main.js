@@ -1,10 +1,10 @@
 // Home page.
-import { CONTACT, WORK, FAQ, CREDENTIALS } from './data/site-data.js?v=93ecf7ec';
-import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=93ecf7ec';
-import { icon } from './icons.js?v=93ecf7ec';
-import { fb, configured } from './firebase.js?v=93ecf7ec';
-import { $, $$, el, initChrome, CAT, byId, site, ready, reveal, store, recentlySent, markSent, cleanName, cleanPhone, cleanEmail } from './common.js?v=93ecf7ec';
-import { card, price } from './shop.js?v=93ecf7ec';
+import { CONTACT, WORK, FAQ, CREDENTIALS } from './data/site-data.js?v=ef453390';
+import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=ef453390';
+import { icon } from './icons.js?v=ef453390';
+import { fb, configured } from './firebase.js?v=ef453390';
+import { $, $$, el, initChrome, CAT, byId, site, ready, reveal, store, recentlySent, markSent, cleanName, cleanPhone, cleanEmail } from './common.js?v=ef453390';
+import { card, price } from './shop.js?v=ef453390';
 
 await ready;
 

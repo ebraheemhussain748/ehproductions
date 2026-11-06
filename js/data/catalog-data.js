@@ -1,6 +1,7 @@
 // Catalog of everything Ebraheem Hussain Productions makes.
 // Prices are AVERAGE MARKET PRICES checked online in October 2026 (sources at the bottom).
 // To edit: change an item's inr: [low, high] (and usd for online work), or add a new item to ITEMS.
+// hidden: true keeps an item off the website (the admin Prices "Hide" box can still show it).
 // unit examples: 'per sq ft', 'per piece', 'per 100 cards', 'per month'. inr: null means "price on quote".
 
 export const NOTE = 'This is an average price and depends on your specified work.';
@@ -149,11 +150,11 @@ export const ITEMS = [
 
   // ---------- Digital Solutions ----------
   { cat: 'digital', name: 'Website + app package', what: 'Website and matching mobile app, built together.', inr: [200000, 800000], usd: [5000, 25000], unit: 'per package', src: ['codingclave', 'indianweb'] },
-  { cat: 'digital', name: 'Business automation', what: 'WhatsApp auto-replies, lead routing, reminders and reports.', inr: [15000, 150000], unit: 'setup', src: ['hyperleap', 'decipher'], tip: 'WhatsApp platforms add about ₹1,000 to ₹16,500 a month.' },
-  { cat: 'digital', name: 'AI-powered tools & chatbots', what: 'Chatbots and AI helpers trained on your business.', inr: [50000, 250000], unit: 'per tool', src: ['decipher', 'codingclave'] },
+  { cat: 'digital', name: 'Business automation', what: 'WhatsApp auto-replies, lead routing, reminders and reports.', inr: [15000, 150000], unit: 'setup', src: ['hyperleap', 'decipher'], tip: 'WhatsApp platforms add about ₹1,000 to ₹16,500 a month.', hidden: true },
+  { cat: 'digital', name: 'AI-powered tools & chatbots', what: 'Chatbots and AI helpers trained on your business.', inr: [50000, 250000], unit: 'per tool', src: ['decipher', 'codingclave'], hidden: true },
   { cat: 'digital', name: 'Custom software', what: 'CRM, billing or ERP made for how your business works.', inr: [300000, 1500000], unit: 'per project', src: ['codingclave'] },
   { cat: 'digital', name: 'API & system integrations', what: 'Connect payments, WhatsApp, Tally, Zoho, maps or shipping.', inr: [30000, 150000], unit: 'per integration', src: ['codingclave'] },
-  { cat: 'digital', name: 'Local SEO & Google Business Profile', what: 'Get found on Google Maps and search in your city.', inr: [8000, 20000], unit: 'per month', src: ['upgrowth-seo', 'whitespark'] },
+  { cat: 'digital', name: 'Local SEO & Google Business Profile', what: 'Get found on Google Maps and search in your city.', inr: [8000, 20000], unit: 'per month', src: ['upgrowth-seo', 'whitespark'], hidden: true },
 ];
 
 export const SOURCES = {
