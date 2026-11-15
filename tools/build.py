@@ -154,8 +154,9 @@ def page(name, title, desc, path, main, script, current='', extra='', body_extra
 # kept outside the repo with the build notes.
 HOME = f'''  <main id="main">
     <div class="sc-grain" aria-hidden="true"></div>
+    <div class="ambient" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 
-    <section class="act act--open" aria-labelledby="open-h" data-sc-act="scrub" data-sc-span="1.7" data-sc-dwell="0.24" data-sc-drift="#0c0b0a">
+    <section class="act act--open" aria-labelledby="open-h" data-sc-act="scrub" data-sc-span="2.5" data-sc-span-m="2.9" data-sc-clip-map="hold" data-sc-hold="0.25" data-sc-dwell="0.12" data-sc-drift="#0c0b0a">
       <div data-sc-stage class="stage">
         <img class="amb" src="assets/story/amb-open.webp" alt="" data-sc-parallax="-1.6">
         <div class="film film--open" data-sc-parallax="-0.5">
@@ -164,7 +165,7 @@ HOME = f'''  <main id="main">
           <span class="film__ai">AI-generated</span>
         </div>
         <div class="sc-scrim scrim--open" aria-hidden="true"></div>
-        <div class="sc-copy sc-copy--lead copy--open" data-sc-cue="0 0.8 0 0.3">
+        <div class="sc-copy sc-copy--lead copy--open" data-sc-cue="0 0.97 0 0.18">
           <h1 id="open-h" class="sc-display show--hero" data-sc-kinetic="lines">Some businesses fill glass towers.</h1>
           <p class="hero-sub">Ebraheem Hussain Productions makes ads, signs and websites for everyone else.</p>
           <div class="hero-cta">
@@ -190,7 +191,7 @@ HOME = f'''  <main id="main">
       </div>
     </section>
 
-    <section class="act act--sign" id="your-sign" aria-labelledby="sign-h" data-sc-act="pin" data-sc-span="2.6" data-sc-drift="#080706">
+    <section class="act act--sign" id="your-sign" aria-labelledby="sign-h" data-sc-act="pin" data-sc-span="2.6" data-sc-span-m="2.9" data-sc-drift="#080706">
       <div data-sc-stage class="stage">
         <img class="amb amb--sign" src="assets/story/amb-sign.webp" alt="">
         <div class="film film--sign">
@@ -213,7 +214,7 @@ HOME = f'''  <main id="main">
       </div>
     </section>
 
-    <section class="act act--spread" aria-labelledby="spread-h" data-sc-act="scrub" data-sc-span="1.5" data-sc-dwell="0.24" data-sc-drift="#0d0b09">
+    <section class="act act--spread" aria-labelledby="spread-h" data-sc-act="scrub" data-sc-span="2.6" data-sc-span-m="3" data-sc-clip-map="hold" data-sc-hold="0.25" data-sc-lead="0.35" data-sc-dwell="0.12" data-sc-drift="#0d0b09">
       <div data-sc-stage class="stage">
         <img class="amb" src="assets/story/amb-spread.webp" alt="" data-sc-parallax="-1.4">
         <div class="film film--spread" data-sc-parallax="-0.6">
@@ -229,7 +230,7 @@ HOME = f'''  <main id="main">
       </div>
     </section>
 
-    <section class="act act--range" id="services" aria-labelledby="range-h" data-sc-act="pan" data-sc-span="2.2" data-sc-drift="#0c0b0a">
+    <section class="act act--range" id="services" aria-labelledby="range-h" data-sc-act="pan" data-sc-span="2.2" data-sc-span-m="2.6" data-sc-drift="#0c0b0a">
       <div data-sc-stage class="stage stage--range">
         <div class="range" data-sc-pan="0.04">
           <div class="range__lead">

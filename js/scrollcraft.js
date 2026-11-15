@@ -340,8 +340,16 @@
         device: device,
         pinned: pinned,
         span: parseFloat(el.getAttribute('data-sc-span')) || (pinned ? 1.5 : 0),
+        spanM: parseFloat(el.getAttribute('data-sc-span-m')) || 0,
         dwell: parseFloat(el.getAttribute('data-sc-dwell')) || 0,
         clipTravel: pinned && el.getAttribute('data-sc-clip-map') === 'travel',
+        // "hold": the clip starts as the stage slides in (data-sc-lead viewports
+        // before the pin, default 0.3) and finishes inside the pin, leaving the
+        // last data-sc-hold of the pin (default 0.25) on the final frame. The
+        // reader sees the whole move on a still page instead of on the exit slide.
+        clipHold: pinned && el.getAttribute('data-sc-clip-map') === 'hold'
+          ? clamp(parseFloat(el.getAttribute('data-sc-hold')) || 0.25, 0, 0.6) : null,
+        clipLead: clamp01(parseFloat(el.getAttribute('data-sc-lead')) || 0.3),
         p: 0, raw: 0, top: 0, height: 0, live: false,
         cues: [], parallax: [], reveals: [], counts: [],
         video: null, seq: null, rail: null
@@ -579,7 +587,8 @@
       if (scDead) return;
       vh = innerHeight; vw = innerWidth;
       acts.forEach(function (a) {
-        if (a.pinned) a.el.style.height = (a.span * 100) + 'vh';
+        // Phones flick further per gesture, so an act can ask for more scroll there.
+        if (a.pinned) a.el.style.height = ((isMobile() && a.spanM) || a.span) * 100 + 'vh';
       });
       // The spacer is the whole document flow of a worldflight. Its height is
       // the sum of the leg weights plus one viewport: without that extra screen
@@ -876,7 +885,12 @@
         // an act near the bottom must still reach its last frame while the page
         // can still scroll.
         a.vp = a.p;
-        if (a.pinned && !a.clipTravel) {
+        if (a.pinned && a.clipHold !== null) {
+          var hStart = a.top - Math.min(vh * a.clipLead, a.top);
+          var hEnd = Math.min(a.top + travel * (1 - a.clipHold), maxY);
+          var hraw = clamp01((y - hStart) / Math.max(hEnd - hStart, 1));
+          a.vp = a.dwell ? dwell(hraw, a.dwell) : hraw;
+        } else if (a.pinned && !a.clipTravel) {
           var startY = a.top - Math.min(vh, a.top);
           var endY = Math.min(a.top + a.height, maxY);
           var vraw = clamp01((y - startY) / Math.max(endY - startY, 1));
