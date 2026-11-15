@@ -6,9 +6,7 @@ class H(http.server.SimpleHTTPRequestHandler):
     def log_message(s, *a): pass
     def send_head(s):
         u = urlsplit(s.path); p = u.path
-        if not p.startswith('/ehproductions/'):
-            s.send_error(404); return None
-        rel = p[len('/ehproductions/'):] or 'index.html'
+        rel = p.lstrip('/') or 'index.html'
         if rel.endswith('/'): rel += 'index.html'
         f = os.path.join(ROOT, rel)
         if not os.path.exists(f) and os.path.exists(f + '.html'): rel += '.html'

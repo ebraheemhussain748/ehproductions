@@ -1,6 +1,6 @@
 # Ebraheem Hussain Productions website
 
-Static site hosted on GitHub Pages: https://ebraheemhussain748.github.io/ehproductions/
+Static site hosted on GitHub Pages: https://ehproductions.in/
 Addresses work without `.html` (for example `/catalog`, `/product?id=logo-design`).
 
 ## Folders

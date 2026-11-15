@@ -5,7 +5,7 @@ import re, sys, html
 from pathlib import Path
 
 SITE = Path(sys.argv[1])
-BASE = 'https://ebraheemhussain748.github.io/ehproductions/'
+BASE = 'https://ehproductions.in/'
 WA = 'https://wa.me/919389080059'
 YT = 'https://www.youtube.com/channel/UCWhn9Tuk_qFfp__eVmOqNBQ'
 IG = 'https://www.instagram.com/ebraheemhussainproductions/'
@@ -417,7 +417,7 @@ LD = '''
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"ProfessionalService","name":"Ebraheem Hussain Productions",
    "description":"AI video ads, websites, apps, branding, signage, flex banners, printing, uniforms, promotional gifts and music mixing and mastering. Courier all over India.",
-   "url":"https://ebraheemhussain748.github.io/ehproductions/","image":"https://ebraheemhussain748.github.io/ehproductions/assets/img/og-image.jpg",
+   "url":"https://ehproductions.in/","image":"https://ehproductions.in/assets/img/og-image.jpg",
    "telephone":"+91 93890 80059","email":"ebraheemhussain748@gmail.com",
    "address":{"@type":"PostalAddress","addressLocality":"Mathura","addressRegion":"Uttar Pradesh","addressCountry":"IN"},
    "areaServed":["IN","US","Worldwide"],
@@ -525,7 +525,7 @@ def lic_fix(m):
 legal('privacy', 'Privacy Policy | Ebraheem Hussain Productions', 'How Ebraheem Hussain Productions handles enquiry and review details.')
 legal('terms', 'Terms | Ebraheem Hussain Productions', 'Terms for using the Ebraheem Hussain Productions website and ordering work.')
 legal('licenses', 'Licences | Ebraheem Hussain Productions', 'Licences for the fonts, photos and services used on this website.', lic_fix)
-legal('404', 'Page not found | Ebraheem Hussain Productions', 'This page is not here.', base='/ehproductions/')
+legal('404', 'Page not found | Ebraheem Hussain Productions', 'This page is not here.', base='/')
 print('built')
 
 # ---------------- cache stamp ----------------

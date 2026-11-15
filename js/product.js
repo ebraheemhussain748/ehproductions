@@ -1,10 +1,10 @@
 // Product page: product?id=<product id>
-import { DELIVERY, ITEMS, SOURCES } from './data/catalog-data.js?v=ef453390';
-import { DETAILS } from './data/details.js?v=ef453390';
-import { img } from './data/photos.js?v=ef453390';
-import { icon } from './icons.js?v=ef453390';
-import { $, $$, el, wa, initChrome, CAT, byId, productUrl, ready } from './common.js?v=ef453390';
-import { card, price, currency, addButton, askText } from './shop.js?v=ef453390';
+import { DELIVERY, ITEMS, SOURCES } from './data/catalog-data.js?v=7530aa90';
+import { DETAILS } from './data/details.js?v=7530aa90';
+import { img } from './data/photos.js?v=7530aa90';
+import { icon } from './icons.js?v=7530aa90';
+import { $, $$, el, wa, initChrome, CAT, byId, productUrl, ready } from './common.js?v=7530aa90';
+import { card, price, currency, addButton, askText } from './shop.js?v=7530aa90';
 
 await ready;
 initChrome();
@@ -30,7 +30,7 @@ function render() {
   document.title = `${i.name}: price and details | Ebraheem Hussain Productions`;
   const p0 = price(i, 0);
   $('meta[name="description"]').content = `${i.name}${i.inr ? `, ${p0.val} ${p0.unit}` : ''}. ${i.what} ${online ? 'Delivered online, anywhere.' : DELIVERY}`;
-  $('link[rel="canonical"]').href = `https://ebraheemhussain748.github.io/ehproductions/${productUrl(i)}`;
+  $('link[rel="canonical"]').href = `https://ehproductions.in/${productUrl(i)}`;
 
   /* gallery */
   const photos = i.photos;
@@ -114,7 +114,7 @@ function render() {
   document.body.append(el('div', { className: 'buybar', role: 'region', ariaLabel: 'Order this product' }, addButton(i, { small: false }), ask('btn btn--dark')));
 
   const ld = { '@context': 'https://schema.org', '@type': 'Product', name: i.name, description: d.about || i.what, category: c.name,
-    brand: { '@type': 'Brand', name: 'Ebraheem Hussain Productions' }, url: `https://ebraheemhussain748.github.io/ehproductions/${productUrl(i)}` };
+    brand: { '@type': 'Brand', name: 'Ebraheem Hussain Productions' }, url: `https://ehproductions.in/${productUrl(i)}` };
   if (photos[0]) ld.image = img(photos[0], 1200);
   if (i.inr) ld.offers = { '@type': 'AggregateOffer', priceCurrency: 'INR', lowPrice: i.inr[0], highPrice: i.inr[1], availability: 'https://schema.org/InStock' };
   document.head.append(el('script', { type: 'application/ld+json', textContent: JSON.stringify(ld) }));

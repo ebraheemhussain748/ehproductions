@@ -1,9 +1,9 @@
 // Studio admin: dashboard, leads pipeline, reviews, prices, extra products, home page settings.
 // Data lives in Firestore: leads/*, reviews/*, and one public document site/public that the website reads.
-import './guard.js?v=ef453390';
-import { fb, configured, ADMIN_EMAIL } from './firebase.js?v=ef453390';
-import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=ef453390';
-import { icon } from './icons.js?v=ef453390';
+import './guard.js?v=7530aa90';
+import { fb, configured, ADMIN_EMAIL } from './firebase.js?v=7530aa90';
+import { CATEGORIES, ITEMS } from './data/catalog-data.js?v=7530aa90';
+import { icon } from './icons.js?v=7530aa90';
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -30,7 +30,7 @@ const REPLIES = [
   ['Send quote', n => `Hi ${n}, here is your quote: ₹____ for ____. It includes ____. Delivery in __ days after approval. Shall we go ahead?`],
   ['Follow up', n => `Hi ${n}, just checking in on the quote I sent. Happy to adjust anything. Shall we start?`],
   ['Payment reminder', n => `Hi ${n}, your order is ready to start. Please send the advance of ₹____ on UPI and share the screenshot here.`],
-  ['Delivered + review', n => `Hi ${n}, your order is delivered. Thank you! If you liked it, please leave a short review here: https://ebraheemhussain748.github.io/ehproductions/#reviews`],
+  ['Delivered + review', n => `Hi ${n}, your order is delivered. Thank you! If you liked it, please leave a short review here: https://ehproductions.in/#reviews`],
 ];
 
 let api, view = 'dashboard', leads = [], reviews = [];
