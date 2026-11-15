@@ -117,7 +117,7 @@ FOOTER = f'''  <footer class="foot">
           <h4>Talk to us</h4>
           <ul>
             <li><a data-link="call" href="tel:+919389080059">+91 93890 80059</a></li>
-            <li><a data-link="email" href="mailto:ebraheemhussain748@gmail.com">ebraheemhussain748@gmail.com</a></li>
+            <li><a data-link="email" href="mailto:contact@ehproductions.in">contact@ehproductions.in</a></li>
             <li>Mathura, Uttar Pradesh, India</li>
           </ul>
         </div>
@@ -393,7 +393,7 @@ HOME = f'''  <main id="main">
           </div>
           <div class="contact__card">
             <h3>Email</h3>
-            <p><a data-link="email" href="mailto:ebraheemhussain748@gmail.com">ebraheemhussain748@gmail.com</a></p>
+            <p><a data-link="email" href="mailto:contact@ehproductions.in">contact@ehproductions.in</a></p>
             <p>Mathura, Uttar Pradesh (near Delhi). Courier across India, and international delivery for big projects.</p>
           </div>
         </aside>
@@ -418,7 +418,7 @@ LD = '''
   {"@context":"https://schema.org","@type":"ProfessionalService","name":"Ebraheem Hussain Productions",
    "description":"AI video ads, websites, apps, branding, signage, flex banners, printing, uniforms, promotional gifts and music mixing and mastering. Courier all over India.",
    "url":"https://ehproductions.in/","image":"https://ehproductions.in/assets/img/og-image.jpg",
-   "telephone":"+91 93890 80059","email":"ebraheemhussain748@gmail.com",
+   "telephone":"+91 93890 80059","email":"contact@ehproductions.in",
    "address":{"@type":"PostalAddress","addressLocality":"Mathura","addressRegion":"Uttar Pradesh","addressCountry":"IN"},
    "areaServed":["IN","US","Worldwide"],
    "sameAs":["https://www.youtube.com/channel/UCWhn9Tuk_qFfp__eVmOqNBQ","https://www.instagram.com/ebraheemhussainproductions/"]}
@@ -430,7 +430,7 @@ page('index', 'Ebraheem Hussain Productions | AI video ads, print, signage, webs
 
 # ---------------- shop ----------------
 CATALOG = '''  <main id="main">
-    <div class="print-cover" aria-hidden="true"><img src="assets/img/logo-full.jpg" alt="" width="900" height="685"><p class="print-cover__title">Catalog &amp; prices</p><p>WhatsApp +91 93890 80059 · ebraheemhussain748@gmail.com · Mathura, Uttar Pradesh</p></div>
+    <div class="print-cover" aria-hidden="true"><img src="assets/img/logo-full.jpg" alt="" width="900" height="685"><p class="print-cover__title">Catalog &amp; prices</p><p>WhatsApp +91 93890 80059 · contact@ehproductions.in · Mathura, Uttar Pradesh</p></div>
     <div class="wrap">
       <ol class="crumbs" id="crumbs"><li><a href="./">Home</a></li><li>Shop</li></ol>
       <div class="shop-head">

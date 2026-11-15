@@ -4,7 +4,7 @@
 export const CONTACT = {
   whatsapp: '919389080059',
   whatsappDisplay: '+91 93890 80059',
-  email: 'ebraheemhussain748@gmail.com',
+  email: 'contact@ehproductions.in',
   location: 'Mathura, Uttar Pradesh (near Delhi)',
   youtube: 'https://www.youtube.com/channel/UCWhn9Tuk_qFfp__eVmOqNBQ',
   instagram: 'https://www.instagram.com/ebraheemhussainproductions/',
