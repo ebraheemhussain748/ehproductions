@@ -4,7 +4,7 @@ Static site hosted on GitHub Pages: https://ehproductions.in/
 Addresses work without `.html` (for example `/catalog`, `/product?id=logo-design`).
 
 ## Folders
-- `index.html` home. Its top is a scroll story: `js/scrollcraft.js` + `css/scrollcraft.css` (the Scroll Craft engine, MIT, do not edit) and `js/story.js` (mounts it and runs the shop-name sign). Story clips and frames are in `assets/story/`.
+- `index.html` home. The hero is the shop-name sign (`js/hero.js`): the visitor types a name and it appears on the lit board. `js/motion.js` runs the scroll reveals and count-ups on every page. Photos for the hero and tiles are in `assets/story/`.
 - `catalog.html` catalog (search, filters, sort, quote list, print), `product.html` one product (`product?id=...`).
 - `privacy.html`, `terms.html`, `licenses.html`, `404.html` legal pages. `admin.html` private page for enquiries and reviews (Google sign-in, admin email only).
 - `css/styles.css` all styles.

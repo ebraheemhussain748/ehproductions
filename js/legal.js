@@ -1,6 +1,6 @@
 // Legal pages (privacy, terms, licences, 404): shared header and footer, plus the photo credits list.
-import { initChrome, el } from './common.js?v=7afb9635';
-import { PHOTOS, credit } from './data/photos.js?v=7afb9635';
+import { initChrome, el } from './common.js?v=0831c29f';
+import { PHOTOS, credit } from './data/photos.js?v=0831c29f';
 
 initChrome({ page: 'legal' });
 

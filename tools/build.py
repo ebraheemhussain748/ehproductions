@@ -39,13 +39,13 @@ def head(title, desc, path, extra=''):
   <link rel="preload" href="assets/fonts/font-text-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/font-serif-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preconnect" href="https://images.unsplash.com">
-  <link rel="stylesheet" href="css/scrollcraft.css">
   <link rel="stylesheet" href="css/styles.css">{extra}
 </head>'''
 
 def nav(current=''):
     cur = lambda k: ' aria-current="page"' if k == current else ''
     return f'''  <a class="skip" href="#main">Skip to content</a>
+  <div class="progress" aria-hidden="true"></div>
   <header class="nav">
     <div class="announce" id="announce" hidden></div>
     <div class="wrap nav__row">
@@ -122,6 +122,7 @@ FOOTER = f'''  <footer class="foot">
           </ul>
         </div>
       </div>
+      <p class="foot__mark" aria-hidden="true">Ebraheem Hussain</p>
       <div class="foot__base">
         <p>© <span class="year">2026</span> Ebraheem Hussain Productions. AI-generated visuals are labelled.</p>
         <p><a href="privacy">Privacy</a> · <a href="terms">Terms</a> · <a href="licenses">Licences</a></p>
@@ -142,6 +143,7 @@ def page(name, title, desc, path, main, script, current='', extra='', body_extra
 {main}
 
 {FOOTER}{body_extra}
+  <script type="module" src="js/motion.js"></script>
   <script type="module" src="js/{script}.js"></script>
 </body>
 </html>
@@ -149,158 +151,129 @@ def page(name, title, desc, path, main, script, current='', extra='', body_extra
     (SITE / f'{name}.html').write_text(out)
 
 # ---------------- home ----------------
-# The top of the page is a scroll story (Scroll Craft engine, js/scrollcraft.js). Each act is a
-# real section: the film frames are Google Flow clips, the copy is real HTML. Brief and score:
-# kept outside the repo with the build notes.
+# Hero: the visitor types a shop name and it appears on the lit board (js/hero.js). Below it, paper
+# sections with scroll reveals (js/motion.js). The photos are Google Flow frames, labelled AI-generated.
+TICK = ''.join(f'<li>{t}</li>' for t in ['Video ads', 'Shop signs', 'Websites', 'Logos', 'Flex banners', 'Visiting cards', 'Uniforms', 'Gifts', 'Music mixing', 'Apps'])
 HOME = f'''  <main id="main">
-    <div class="sc-grain" aria-hidden="true"></div>
-    <div class="ambient" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-
-    <section class="act act--open" aria-labelledby="open-h" data-sc-act="scrub" data-sc-span="2.5" data-sc-span-m="2.9" data-sc-clip-map="hold" data-sc-hold="0.25" data-sc-dwell="0.12" data-sc-drift="#0c0b0a">
-      <div data-sc-stage class="stage">
-        <img class="amb" src="assets/story/amb-open.webp" alt="" data-sc-parallax="-1.6">
-        <div class="film film--open" data-sc-parallax="-0.5">
-          <img class="sc-stage__poster" src="assets/story/open-poster.webp" alt="" width="720" height="1280">
-          <video data-sc-scrub data-sc-src="assets/story/open.mp4" data-sc-src-mobile="assets/story/open-m.mp4" muted playsinline aria-hidden="true"></video>
-          <span class="film__ai">AI-generated</span>
-        </div>
-        <div class="sc-scrim scrim--open" aria-hidden="true"></div>
-        <div class="sc-copy sc-copy--lead copy--open" data-sc-cue="0 0.97 0 0.18">
-          <h1 id="open-h" class="sc-display show--hero" data-sc-kinetic="lines">Some businesses fill glass towers.</h1>
-          <p class="hero-sub">Ebraheem Hussain Productions makes ads, signs and websites for everyone else.</p>
+    <section class="hero" id="your-sign" aria-labelledby="hero-h">
+      <div class="hero__glow" aria-hidden="true"><i></i><i></i></div>
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="kicker hero__kicker">Signs · Video ads · Websites · Print</p>
+          <h1 id="hero-h" class="show--hero hero__title"><span class="ln"><span>Your shop's name,</span></span> <span class="ln"><span>in <em>lights.</em></span></span></h1>
+          <p class="hero__sub">Ebraheem Hussain Productions makes signs, video ads, websites and print for local businesses. Made in Mathura, with a fixed price before any work starts.</p>
+          <div class="namer">
+            <label for="shop-name">Type your shop's name and watch the board</label>
+            <div class="namer__row"><input id="shop-name" type="text" maxlength="28" autocomplete="organization" enterkeyhint="done" placeholder="Sharma Sweets"></div>
+            <p class="namer__note">We make the real board too. <a href="product?id=glow-sign-boards">Glow sign boards</a> start at <span data-from="glow-sign-boards">₹180 per sq ft</span>.</p>
+          </div>
           <div class="hero-cta">
             <a class="btn btn--gold" href="#contact">Get a quote</a>
             <a class="btn btn--line" href="catalog">See prices</a>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section class="act act--feet" aria-labelledby="feet-h" data-sc-act="flow" data-sc-drift="#0e0c0a">
-      <div class="feet">
-        <figure class="film film--feet">
-          <div class="feet__over" data-sc-reveal="left" data-sc-reveal-at="0.16 0.5">
-            <img src="assets/story/shop.webp" alt="A small sweet shop on a busy street in Mathura at night, the owner standing in the doorway under his lit sign" width="720" height="1280" loading="lazy">
-          </div>
-          <figcaption class="film__ai">AI-generated</figcaption>
-        </figure>
-        <div class="feet__copy">
-          <h2 id="feet-h" class="sc-display show--xl" data-sc-cue="0.26 1 0.3 0" data-sc-kinetic="lines">Some fit in four feet.</h2>
-          <p class="lede" data-sc-cue="0.36 1 0.3 0">A counter, a family name over the door, and regulars who know it by heart. Then there are the shops nobody has noticed yet.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="act act--sign" id="your-sign" aria-labelledby="sign-h" data-sc-act="pin" data-sc-span="2.6" data-sc-span-m="2.9" data-sc-drift="#080706">
-      <div data-sc-stage class="stage">
-        <img class="amb amb--sign" src="assets/story/amb-sign.webp" alt="">
-        <div class="film film--sign">
+        <figure class="hero__film" id="hero-film">
           <div class="plate" id="sign-plate">
-            <img class="plate__img" src="assets/story/sign-dark.webp" alt="" width="720" height="1280">
+            <img class="plate__img" src="assets/story/sign-dark.webp" alt="" width="720" height="1280" fetchpriority="high">
             <img class="plate__img plate__lit" src="assets/story/sign-lit.webp" alt="A blank sign board above a small clinic at night, switched on" width="720" height="1280">
             <div class="board" aria-hidden="true"><span class="board__name" id="board-name">Your shop</span></div>
           </div>
-          <span class="film__ai">AI-generated</span>
+          <figcaption class="film__ai">AI-generated</figcaption>
+        </figure>
+      </div>
+      <div class="ticker" aria-hidden="true"><ul>{TICK}</ul><ul>{TICK}</ul></div>
+    </section>
+
+    <section class="section" aria-labelledby="story-h">
+      <div class="wrap story">
+        <div data-in>
+          <h2 id="story-h" class="story__lines"><span>Some businesses fill glass towers.</span> <span>Some fit in four feet.</span> <span>Every one deserves to be <i>seen.</i></span></h2>
+          <p class="lede">A counter, a family name over the door, and regulars who know it by heart. We make the board on the street and the reel that gets shared.</p>
         </div>
-        <div class="sc-scrim scrim--sign" aria-hidden="true"></div>
-        <div class="sc-copy copy--sign" data-sc-cue="0.34 1 0.2 0.05">
-          <h2 id="sign-h" class="sc-display show--xl" data-sc-kinetic="lines">Every business deserves to be seen.</h2>
-        </div>
-        <div class="namer" data-sc-cue="0.48 1 0.2 0.05">
-          <label for="shop-name">Type your shop's name</label>
-          <input id="shop-name" type="text" maxlength="28" autocomplete="organization" enterkeyhint="done" placeholder="Sharma Sweets">
-          <p class="namer__note">We make the real board too. <a href="product?id=glow-sign-boards">Glow sign boards</a> start at <span data-from="glow-sign-boards">₹180 per sq ft</span>.</p>
+        <div class="story__media" data-in>
+          <figure class="story__photo">
+            <img src="assets/story/shop.webp" alt="A small sweet shop on a busy street at night, the owner standing in the doorway under his lit sign" width="720" height="1280" loading="lazy">
+            <figcaption class="film__ai">AI-generated</figcaption>
+          </figure>
         </div>
       </div>
     </section>
 
-    <section class="act act--spread" aria-labelledby="spread-h" data-sc-act="scrub" data-sc-span="2.6" data-sc-span-m="3" data-sc-clip-map="hold" data-sc-hold="0.25" data-sc-lead="0.35" data-sc-dwell="0.12" data-sc-drift="#0d0b09">
-      <div data-sc-stage class="stage">
-        <img class="amb" src="assets/story/amb-spread.webp" alt="" data-sc-parallax="-1.4">
-        <div class="film film--spread" data-sc-parallax="-0.6">
-          <img class="sc-stage__poster" src="assets/story/spread-poster.webp" alt="" width="720" height="1280">
-          <video data-sc-scrub data-sc-src="assets/story/spread.mp4" data-sc-src-mobile="assets/story/spread-m.mp4" muted playsinline aria-hidden="true"></video>
-          <span class="film__ai">AI-generated</span>
+    <section class="section section--alt" id="services" aria-labelledby="range-h">
+      <div class="wrap">
+        <div class="section__head" data-in>
+          <div><p class="kicker">What we make</p><h2 id="range-h" class="show--lg">One studio. Five crafts.</h2></div>
+          <p class="lede">Prices are average market rates we checked. You get a fixed quote before any work starts.</p>
         </div>
-        <div class="sc-scrim scrim--spread" aria-hidden="true"></div>
-        <div class="sc-copy sc-copy--trail copy--spread" data-sc-cue="0.12 1 0.22 0.06">
-          <h2 id="spread-h" class="sc-display show--lg" data-sc-kinetic="lines">Then people start taking photos.</h2>
-          <p class="lede">A sign worth stopping for ends up on someone's phone, then on their friends' phones. We make both: the board on the street and the reel that gets shared.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="act act--range" id="services" aria-labelledby="range-h" data-sc-act="pan" data-sc-span="2.2" data-sc-span-m="2.6" data-sc-drift="#0c0b0a">
-      <div data-sc-stage class="stage stage--range">
-        <div class="range" data-sc-pan="0.04">
-          <div class="range__lead">
-            <h2 id="range-h" class="sc-display show--lg">What we make.</h2>
-            <p class="lede">Prices are average market rates we checked. You get a fixed quote before any work starts.</p>
-            <p class="range__links"><a class="link" href="catalog">See every service <span data-icon="arrow"></span></a><a class="link" href="plan" data-open-plan>Not sure? Build my plan <span data-icon="arrow"></span></a></p>
-          </div>
-          <a class="svc" href="catalog?cat=video">
-            <span class="svc__frame" data-sc-tilt="5"><img src="assets/story/rail-video.webp" alt="AI-generated frame: a founder filming her product on a turntable" width="720" height="1280" loading="lazy"></span>
+        <div class="bento" data-stagger>
+          <a class="svc svc--a" href="catalog?cat=video">
+            <span class="svc__frame"><img src="assets/story/rail-video.webp" alt="AI-generated frame: a founder filming her product on a turntable" width="720" height="1280" loading="lazy"></span>
+            <span class="svc__go" data-icon="arrow"></span>
             <h3>Video ads</h3>
             <p>AI commercials, reels and product films.</p>
             <p class="svc__price" data-from="ai-generated-promotional-videos">From ₹3,000 per 15 to 30 s ad</p>
           </a>
-          <a class="svc" href="catalog?cat=signage">
-            <span class="svc__frame" data-sc-tilt="5"><img src="assets/story/rail-sign.webp" alt="AI-generated frame: a lit sweet shop sign above a busy street at night" width="720" height="1280" loading="lazy"></span>
+          <a class="svc svc--b" href="catalog?cat=signage">
+            <span class="svc__frame"><img src="assets/story/rail-sign.webp" alt="AI-generated frame: a lit sweet shop sign above a busy street at night" width="720" height="1280" loading="lazy"></span>
+            <span class="svc__go" data-icon="arrow"></span>
             <h3>Signs</h3>
             <p>Shop boards, glow signs, 3D letters and LED.</p>
             <p class="svc__price" data-from="shop-signboards">From ₹50 per sq ft</p>
           </a>
-          <a class="svc" href="catalog?cat=websites">
-            <span class="svc__frame svc__frame--web" data-sc-tilt="5"><img src="assets/story/rail-web.webp" alt="This website on a phone screen" width="720" height="1280" loading="lazy"></span>
+          <a class="svc svc--c" href="catalog?cat=websites">
+            <span class="svc__frame"><img src="assets/story/rail-web.webp" alt="A website we built, on a phone screen" width="720" height="1280" loading="lazy"></span>
+            <span class="svc__go" data-icon="arrow"></span>
             <h3>Websites</h3>
-            <p>Fast sites that bring in enquiries. This one is ours.</p>
+            <p>Fast sites that bring in enquiries.</p>
             <p class="svc__price" data-from="business-websites">From ₹10,000 per website</p>
           </a>
-          <a class="svc" href="catalog?cat=branding">
-            <span class="svc__frame svc__frame--logo" data-sc-tilt="5"><img src="assets/img/logo-full.jpg" alt="The Ebraheem Hussain Productions logo" width="900" height="685" loading="lazy"></span>
+          <a class="svc svc--d" href="catalog?cat=branding">
+            <span class="svc__frame svc__frame--logo"><img src="assets/img/logo-full.jpg" alt="The Ebraheem Hussain Productions logo" width="900" height="685" loading="lazy"></span>
+            <span class="svc__go" data-icon="arrow"></span>
             <h3>Branding</h3>
             <p>Logos, brand kits and campaign designs.</p>
             <p class="svc__price" data-from="logo-design">From ₹1,500 per logo</p>
           </a>
-          <a class="svc" href="catalog?cat=music">
-            <span class="svc__frame" data-sc-tilt="5"><img src="assets/story/rail-music.webp" alt="AI-generated frame: a singer in headphones listening back in a studio" width="720" height="1280" loading="lazy"></span>
+          <a class="svc svc--e" href="catalog?cat=music">
+            <span class="svc__frame"><img src="assets/story/rail-music.webp" alt="AI-generated frame: a singer in headphones listening back in a studio" width="720" height="1280" loading="lazy"></span>
+            <span class="svc__go" data-icon="arrow"></span>
             <h3>Music</h3>
             <p>Mixing and mastering, ready for release.</p>
             <p class="svc__price" data-from="mixing-mastering-package">From ₹6,000 per song</p>
           </a>
-          <div class="range__end">
-            <p>Visiting cards, flex, uniforms, gifts and apps are in the shop as well.</p>
-            <a class="btn btn--line" href="catalog">Open the shop</a>
+          <div class="bento__more">
+            <p><strong>Visiting cards, flex, uniforms, gifts and apps</strong> are in the shop as well. Not sure what you need? Answer 6 quick questions and get a plan.</p>
+            <div><a class="btn btn--gold" href="catalog">Open the shop</a><a class="btn btn--line" href="plan" data-open-plan>Build my plan</a></div>
           </div>
         </div>
       </div>
     </section>
-    <span id="story-end" aria-hidden="true"></span>
 
     <section class="section work" id="work" aria-labelledby="work-h">
       <div class="wrap">
-        <div class="section__head" data-sc-in data-sc-stagger="70">
-          <h2 id="work-h" class="show--lg">Films we made.</h2>
+        <div class="section__head" data-in>
+          <div><p class="kicker">Now showing</p><h2 id="work-h" class="show--lg">Films we made.</h2></div>
           <p class="lede">Made in-house with AI video tools, editing, motion graphics and sound design.</p>
         </div>
-        <div class="reels" id="work-list"></div>
+        <div class="reels" id="work-list" data-stagger></div>
         <p class="work__links"><a class="link" data-link="youtube" href="{YT}" target="_blank" rel="noopener">YouTube <span data-icon="arrow"></span></a> <a class="link" data-link="instagram" href="{IG}" target="_blank" rel="noopener">Instagram <span data-icon="arrow"></span></a></p>
       </div>
     </section>
 
     <section class="section about-sec" id="about" aria-labelledby="about-h">
       <div class="wrap about">
-        <div class="about__text" data-sc-in data-sc-stagger="70">
+        <div class="about__text" data-in>
+          <p class="kicker">The studio</p>
           <h2 id="about-h" class="show--lg">Made in Mathura.</h2>
           <p class="lede">I'm Ebraheem Hussain. I make video ads with AI tools and finish them with editing, motion graphics and 3D, so a full commercial is ready in days.</p>
           <p>The same studio designs the posters, banners, logos and name plates that carry your brand offline, and mixes and masters music too.</p>
           <ul class="facts">
-            <li><b id="fact-items">93</b><span>services with prices</span></li>
+            <li><b id="fact-items" data-count>93</b><span>services with prices</span></li>
             <li><b>One studio</b><span>for print and digital</span></li>
             <li><b>All India</b><span>courier delivery</span></li>
           </ul>
         </div>
-        <div class="about__card" data-sc-in>
+        <div class="about__card" data-in>
           <img src="assets/img/logo-full.jpg" alt="Ebraheem Hussain Productions logo" width="900" height="685" loading="lazy">
           <h3>Awards and certificates</h3>
           <ul class="awards" id="creds"></ul>
@@ -310,8 +283,8 @@ HOME = f'''  <main id="main">
 
     <section class="section section--alt" id="process" aria-labelledby="process-h">
       <div class="wrap">
-        <h2 id="process-h" class="show--md">How it works.</h2>
-        <ol class="steps" data-sc-in data-sc-stagger="60">
+        <div data-in><p class="kicker">Four steps</p><h2 id="process-h" class="show--md">How it works.</h2></div>
+        <ol class="steps" data-stagger>
           <li><h3>Tell us the idea</h3><p>Pick something from the shop, or send a message on WhatsApp.</p></li>
           <li><h3>Get a fixed price</h3><p>Share the size, quantity and deadline. You get a concept and a fixed quote.</p></li>
           <li><h3>We make it</h3><p>Design, print, AI video, editing, code or sound, all done in-house.</p></li>
@@ -322,14 +295,14 @@ HOME = f'''  <main id="main">
 
     <section class="section" aria-labelledby="pop-h">
       <div class="wrap">
-        <div class="section__head"><div><h2 id="pop-h" class="show--md">Popular right now.</h2><p class="lede">Average prices. Your quote is fixed before we start.</p></div><a class="link" href="catalog">Open the shop <span data-icon="arrow"></span></a></div>
-        <div class="rail" id="rail"></div>
+        <div class="section__head" data-in><div><p class="kicker">From the shop</p><h2 id="pop-h" class="show--md">Popular right now.</h2><p class="lede">Average prices. Your quote is fixed before we start.</p></div><a class="link" href="catalog">Open the shop <span data-icon="arrow"></span></a></div>
+        <div class="rail" id="rail" data-stagger></div>
       </div>
     </section>
 
     <section class="section section--alt" id="reviews" aria-labelledby="reviews-h">
       <div class="wrap">
-        <div class="section__head"><div><h2 id="reviews-h" class="show--md">Worked with us?</h2><p class="lede">Tell other customers how it went. Reviews show up here after we check them.</p></div><button class="btn btn--line" type="button" id="review-open" aria-expanded="false" aria-controls="review-form">Write a review</button></div>
+        <div class="section__head" data-in><div><p class="kicker">Reviews</p><h2 id="reviews-h" class="show--md">Worked with us?</h2><p class="lede">Tell other customers how it went. Reviews show up here after we check them.</p></div><button class="btn btn--line" type="button" id="review-open" aria-expanded="false" aria-controls="review-form">Write a review</button></div>
         <div class="reviews" id="review-list" aria-live="polite" hidden></div>
         <form class="form panel" id="review-form" hidden novalidate>
           <div class="form__row">
@@ -353,14 +326,15 @@ HOME = f'''  <main id="main">
 
     <section class="section" id="faq" aria-labelledby="faq-h">
       <div class="wrap faq-wrap">
-        <h2 id="faq-h" class="show--md">Questions.</h2>
-        <div class="faq" id="faq-list"></div>
+        <div data-in><p class="kicker">Good to know</p><h2 id="faq-h" class="show--md">Questions.</h2></div>
+        <div class="faq" id="faq-list" data-in></div>
       </div>
     </section>
 
     <section class="section close" id="contact" aria-labelledby="contact-h">
       <div class="wrap contact">
-        <div>
+        <div data-in>
+          <p class="kicker">Start here</p>
           <h2 id="contact-h" class="show--lg">Let's get <span id="close-name">your business</span> seen.</h2>
           <p class="lede">A few lines is enough. We reply within 24 hours with ideas and a fixed price.</p>
           <form class="form" id="lead-form" novalidate>
@@ -386,7 +360,7 @@ HOME = f'''  <main id="main">
             <p class="small">We use these details only to reply to your enquiry. We never sell or share them. See our <a href="privacy">Privacy Policy</a>.</p>
           </form>
         </div>
-        <aside class="contact__side">
+        <aside class="contact__side" data-in>
           <div class="contact__card">
             <h3>Prefer WhatsApp?</h3>
             <p>Most clients start here. Send a photo, a voice note or a reference and we take it from there.</p>
@@ -407,12 +381,10 @@ PLAYER = '''
     <div class="player__box" id="player-box"></div>
     <form method="dialog"><button class="btn btn--gold btn--sm player__close">Close video</button></form>
   </dialog>
-  <script src="js/scrollcraft.js" defer></script>
-  <script type="module" src="js/story.js"></script>'''
+  <script type="module" src="js/hero.js"></script>'''
 
-
-NOJS = '''
-  <noscript><style>[data-sc-cue],[data-sc-in],[data-sc-stagger]>*{opacity:1!important;transform:none!important}</style></noscript>'''
+PRELOAD = '''
+  <link rel="preload" as="image" href="assets/story/sign-dark.webp" fetchpriority="high">'''
 
 LD = '''
   <script type="application/ld+json">
@@ -427,7 +399,7 @@ LD = '''
 
 page('index', 'Ebraheem Hussain Productions | AI video ads, print, signage, websites and music',
      'AI video ads, signboards, flex banners, visiting cards, uniforms, gifts, websites, apps and music mixing and mastering. Ebraheem Hussain Productions, Mathura (near Delhi). Courier all over India.',
-     '', HOME, 'main', extra=LD + NOJS, body_extra=PLAYER)
+     '', HOME, 'main', extra=LD + PRELOAD, body_extra=PLAYER)
 
 # ---------------- shop ----------------
 CATALOG = '''  <main id="main">
@@ -513,6 +485,7 @@ def legal(name, title, desc, fix=lambda m: m, base=''):
     page(name, title, desc, '' if name == '404' else name, fix(main), 'legal', base=base)
 
 def lic_fix(m):
+    m = re.sub(r'\s*<h2>Code</h2>\s*<p>The scroll story on the home page.*?</p>', '', m, flags=re.S)
     if '<h2>Product photos</h2>' in m: return m
     m = m.replace('The website design and code, the logo, the showreel, portfolio videos and their poster images are our own work.',
                   'The website design and code, the logo, the portfolio videos and their poster images are our own work.')
