@@ -221,7 +221,7 @@ HOME = f'''  <main id="main">
             <p class="svc__price" data-from="shop-signboards">From ₹50 per sq ft</p>
           </a>
           <a class="svc svc--c" href="catalog?cat=websites">
-            <span class="svc__frame"><img src="assets/story/rail-web.webp" alt="A website we built, on a phone screen" width="720" height="1280" loading="lazy"></span>
+            <span class="svc__frame"><img src="assets/story/rail-web.webp" alt="This website on a phone screen" width="720" height="1280" loading="lazy"></span>
             <span class="svc__go" data-icon="arrow"></span>
             <h3>Websites</h3>
             <p>Fast sites that bring in enquiries.</p>
