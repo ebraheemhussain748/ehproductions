@@ -1,10 +1,10 @@
 // Product page: product?id=<product id>
-import { DELIVERY, ITEMS, SOURCES } from './data/catalog-data.js?v=5bd6f93b';
-import { DETAILS } from './data/details.js?v=5bd6f93b';
-import { img } from './data/photos.js?v=5bd6f93b';
-import { icon } from './icons.js?v=5bd6f93b';
-import { $, $$, el, wa, initChrome, CAT, byId, productUrl, ready } from './common.js?v=5bd6f93b';
-import { card, price, currency, addButton, askText } from './shop.js?v=5bd6f93b';
+import { DELIVERY, ITEMS, SOURCES } from './data/catalog-data.js?v=4ce2a9ae';
+import { DETAILS } from './data/details.js?v=4ce2a9ae';
+import { img } from './data/photos.js?v=4ce2a9ae';
+import { icon } from './icons.js?v=4ce2a9ae';
+import { $, $$, el, wa, initChrome, CAT, byId, productUrl, ready } from './common.js?v=4ce2a9ae';
+import { card, price, currency, addButton, askText } from './shop.js?v=4ce2a9ae';
 
 await ready;
 initChrome();

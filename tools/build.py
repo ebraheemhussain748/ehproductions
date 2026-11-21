@@ -55,6 +55,7 @@ def nav(current=''):
       </a>
       <ul class="nav__links" id="nav-links">
         <li><a href="./#work">Work</a></li>
+        <li><a href="ads"{cur('ads')}>Ready-made ads</a></li>
         <li><a href="catalog"{cur('catalog')}>Shop</a></li>
         <li><a href="catalog?cat=music">Music</a></li>
         <li><a href="./#about">About</a></li>
@@ -293,6 +294,13 @@ HOME = f'''  <main id="main">
       </div>
     </section>
 
+    <section class="section ads-teaser" aria-labelledby="adt-h">
+      <div class="wrap ads-teaser__row" data-in>
+        <div><p class="kicker">New · Ready-made ads</p><h2 id="adt-h" class="show--md">Scroll-stopping ads, fixed price.</h2><p class="lede">Cinematic UGC and ASMR ads for Reels and Shorts, made with AI. Launch prices till 31 December 2026, from ₹1,499.</p></div>
+        <a class="btn btn--gold" href="ads">See the packages</a>
+      </div>
+    </section>
+
     <section class="section" aria-labelledby="pop-h">
       <div class="wrap">
         <div class="section__head" data-in><div><p class="kicker">From the shop</p><h2 id="pop-h" class="show--md">Popular right now.</h2><p class="lede">Average prices. Your quote is fixed before we start.</p></div><a class="link" href="catalog">Open the shop <span data-icon="arrow"></span></a></div>
@@ -452,6 +460,76 @@ CATALOG = '''  <main id="main">
 page('catalog', 'Shop | Ebraheem Hussain Productions',
      'Signboards, flex banners, visiting cards, uniforms, gifts, AI video ads, logos, websites, apps and music mixing, each with a price. Courier all over India.',
      'catalog', CATALOG, 'catalog', current='catalog')
+
+ADS = '''  <main id="main">
+    <section class="ads-hero night" aria-labelledby="ads-h">
+      <div class="wrap ads-hero__grid">
+        <div class="ads-hero__copy">
+          <p class="kicker">Ready-made ads</p>
+          <h1 id="ads-h" class="show--hero">Ads that stop the scroll.</h1>
+          <p class="lede">Cinematic short ads for Reels, Shorts and Meta, made with AI in our studio: UGC-style talk to camera plus ASMR close-ups, built on what worked in 200+ studied ads. Fixed price, fixed delivery.</p>
+          <p class="ads-offer"><strong>Launch prices till 31 December 2026.</strong> From 1 January 2027 the regular price applies.</p>
+          <div class="hero-cta"><a class="btn btn--gold" href="#packages">See packages</a><a class="btn btn--line" href="https://wa.me/919389080059?text=Hi%20EH%20Productions%2C%20I%20want%20the%20a%20ready-made%20ad%20package%20%28the%20launch%20price%29." target="_blank" rel="noopener">Ask on WhatsApp</a></div>
+        </div>
+        <div class="ads-samples">
+          <figure class="ads-sample"><video src="assets/ads/chai.mp4" poster="assets/ads/chai.jpg" muted loop playsinline autoplay preload="metadata" aria-label="Sample ASMR ad: masala chai poured into a clay cup"></video><button class="ads-sound" type="button" aria-pressed="false">Sound on</button><figcaption>ASMR Product Reveal · AI-generated sample</figcaption></figure>
+          <figure class="ads-sample"><video src="assets/ads/serum.mp4" poster="assets/ads/serum.jpg" muted loop playsinline autoplay preload="metadata" aria-label="Sample UGC and ASMR ad: a creator shows a face serum"></video><button class="ads-sound" type="button" aria-pressed="false">Sound on</button><figcaption>UGC + ASMR Combo · AI-generated sample</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="packages" aria-labelledby="pk-h">
+      <div class="wrap">
+        <div class="section__head" data-in><div><p class="kicker">Packages</p><h2 id="pk-h" class="show--md">Pick one. We start today.</h2><p class="lede">Every package: script and shot plan first, royalty-free sound, vertical 9:16, final MP4 files. 50% to start, the rest after you approve a watermarked preview.</p></div></div>
+        <div class="ads-grid" data-stagger>
+          <article class="ads-card">
+            <h3>ASMR Product Reveal</h3>
+            <p class="ads-card__meta">15 sec · delivered in 3 days</p>
+            <p>Macro pour, crunch or unbox shots with clean product sound, then your logo and offer card. Best for food, drinks and snacks.</p>
+            <p class="ads-price"><strong>₹2,999</strong> <span>launch price</span></p>
+            <p class="ads-reg">₹4,999 from 1 January 2027</p>
+            <a class="btn btn--gold btn--sm" href="https://wa.me/919389080059?text=Hi%20EH%20Productions%2C%20I%20want%20the%20ASMR%20Product%20Reveal%20package%20%28%E2%82%B92%2C999%20launch%20price%29." target="_blank" rel="noopener">Order on WhatsApp</a>
+          </article>
+          <article class="ads-card ads-card--best">
+            <p class="ads-card__tag">Best seller</p><h3>UGC + ASMR Combo</h3>
+            <p class="ads-card__meta">30 sec · delivered in 5 days</p>
+            <p>A creator talks to camera, ASMR close-ups, a cinematic proof shot and a clear call to action. Three hook versions of the same ad.</p>
+            <p class="ads-price"><strong>₹4,999</strong> <span>launch price</span></p>
+            <p class="ads-reg">₹7,999 from 1 January 2027</p>
+            <a class="btn btn--gold btn--sm" href="https://wa.me/919389080059?text=Hi%20EH%20Productions%2C%20I%20want%20the%20UGC%20%2B%20ASMR%20Combo%20package%20%28%E2%82%B94%2C999%20launch%20price%29." target="_blank" rel="noopener">Order on WhatsApp</a>
+          </article>
+          <article class="ads-card">
+            <h3>Texture Loop</h3>
+            <p class="ads-card__meta">8–10 sec · delivered in 2 days</p>
+            <p>A looping macro texture clip for beauty, skincare and home scent. Made for retargeting.</p>
+            <p class="ads-price"><strong>₹1,499</strong> <span>launch price</span></p>
+            <p class="ads-reg">₹2,999 from 1 January 2027</p>
+            <a class="btn btn--gold btn--sm" href="https://wa.me/919389080059?text=Hi%20EH%20Productions%2C%20I%20want%20the%20Texture%20Loop%20package%20%28%E2%82%B91%2C499%20launch%20price%29." target="_blank" rel="noopener">Order on WhatsApp</a>
+          </article>
+          <article class="ads-card">
+            <h3>Product Demo Ad</h3>
+            <p class="ads-card__meta">20 sec · delivered in 4 days</p>
+            <p>Problem, product in action, before and after, a one-line verdict and your offer card.</p>
+            <p class="ads-price"><strong>₹3,499</strong> <span>launch price</span></p>
+            <p class="ads-reg">₹5,999 from 1 January 2027</p>
+            <a class="btn btn--gold btn--sm" href="https://wa.me/919389080059?text=Hi%20EH%20Productions%2C%20I%20want%20the%20Product%20Demo%20Ad%20package%20%28%E2%82%B93%2C499%20launch%20price%29." target="_blank" rel="noopener">Order on WhatsApp</a>
+          </article>
+          <article class="ads-card">
+            <h3>Launch Pack</h3>
+            <p class="ads-card__meta">30 + 15 + 10 sec · delivered in 6 days</p>
+            <p>The UGC + ASMR Combo, ASMR Product Reveal and Texture Loop for one product, made to match.</p>
+            <p class="ads-price"><strong>₹7,999</strong> <span>launch price</span></p>
+            <p class="ads-reg">₹13,999 from 1 January 2027</p>
+            <a class="btn btn--gold btn--sm" href="https://wa.me/919389080059?text=Hi%20EH%20Productions%2C%20I%20want%20the%20Launch%20Pack%20package%20%28%E2%82%B97%2C999%20launch%20price%29." target="_blank" rel="noopener">Order on WhatsApp</a>
+          </article>
+        </div>
+        <p class="small ads-note">AI-made parts keep a small AI label, as the law and our rules require. Your ad never carries fake reviews or invented numbers.</p>
+      </div>
+    </section>
+  </main>'''
+page('ads', 'Ready-made ads | Ebraheem Hussain Productions',
+     'Cinematic UGC and ASMR short ads for Reels, Shorts and Meta, made with AI. Fixed price, fixed delivery. Launch prices till 31 December 2026.',
+     'ads', ADS, 'ads', current='ads')
 
 # ---------------- product ----------------
 PRODUCT = '''  <main id="main">
