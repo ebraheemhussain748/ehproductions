@@ -1,6 +1,6 @@
 // Home hero: the visitor types a shop name and it appears on the lit board in the photo.
 // The name is a real HTML element mapped onto the board's four corners, so it stays sharp at any size.
-import { store } from './common.js?v=4ce2a9ae';
+import { store } from './common.js?v=99dd314d';
 
 const $ = (s, r = document) => r.querySelector(s);
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;

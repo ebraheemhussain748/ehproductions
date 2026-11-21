@@ -483,6 +483,7 @@ ADS = '''  <main id="main">
         <div class="section__head" data-in><div><p class="kicker">Packages</p><h2 id="pk-h" class="show--md">Pick one. We start today.</h2><p class="lede">Every package: script and shot plan first, royalty-free sound, vertical 9:16, final MP4 files. 50% to start, the rest after you approve a watermarked preview.</p></div></div>
         <div class="ads-grid" data-stagger>
           <article class="ads-card">
+            <figure class="ads-card__clip"><video data-src="assets/ads/chai.mp4" poster="assets/ads/chai.jpg" muted loop playsinline preload="none" aria-label="AI-generated sample: masala chai poured into a clay cup"></video><figcaption>AI-generated sample</figcaption></figure>
             <h3>ASMR Product Reveal</h3>
             <p class="ads-card__meta">15 sec · delivered in 3 days</p>
             <p>Macro pour, crunch or unbox shots with clean product sound, then your logo and offer card. Best for food, drinks and snacks.</p>
@@ -491,7 +492,8 @@ ADS = '''  <main id="main">
             <a class="btn btn--gold btn--sm" href="https://wa.me/919389080059?text=Hi%20EH%20Productions%2C%20I%20want%20the%20ASMR%20Product%20Reveal%20package%20%28%E2%82%B92%2C999%20launch%20price%29." target="_blank" rel="noopener">Order on WhatsApp</a>
           </article>
           <article class="ads-card ads-card--best">
-            <p class="ads-card__tag">Best seller</p><h3>UGC + ASMR Combo</h3>
+            <p class="ads-card__tag">Best seller</p><figure class="ads-card__clip"><video data-src="assets/ads/serum.mp4" poster="assets/ads/serum.jpg" muted loop playsinline preload="none" aria-label="AI-generated sample: a creator shows a face serum"></video><figcaption>AI-generated sample</figcaption></figure>
+            <h3>UGC + ASMR Combo</h3>
             <p class="ads-card__meta">30 sec · delivered in 5 days</p>
             <p>A creator talks to camera, ASMR close-ups, a cinematic proof shot and a clear call to action. Three hook versions of the same ad.</p>
             <p class="ads-price"><strong>₹4,999</strong> <span>launch price</span></p>
@@ -499,6 +501,7 @@ ADS = '''  <main id="main">
             <a class="btn btn--gold btn--sm" href="https://wa.me/919389080059?text=Hi%20EH%20Productions%2C%20I%20want%20the%20UGC%20%2B%20ASMR%20Combo%20package%20%28%E2%82%B94%2C999%20launch%20price%29." target="_blank" rel="noopener">Order on WhatsApp</a>
           </article>
           <article class="ads-card">
+            <figure class="ads-card__clip"><video data-src="assets/ads/cream.mp4" poster="assets/ads/cream.jpg" muted loop playsinline preload="none" aria-label="AI-generated sample: a face cream texture swirl"></video><figcaption>AI-generated sample</figcaption></figure>
             <h3>Texture Loop</h3>
             <p class="ads-card__meta">8–10 sec · delivered in 2 days</p>
             <p>A looping macro texture clip for beauty, skincare and home scent. Made for retargeting.</p>
@@ -507,6 +510,7 @@ ADS = '''  <main id="main">
             <a class="btn btn--gold btn--sm" href="https://wa.me/919389080059?text=Hi%20EH%20Productions%2C%20I%20want%20the%20Texture%20Loop%20package%20%28%E2%82%B91%2C499%20launch%20price%29." target="_blank" rel="noopener">Order on WhatsApp</a>
           </article>
           <article class="ads-card">
+            <figure class="ads-card__clip"><video data-src="assets/ads/blender.mp4" poster="assets/ads/blender.jpg" muted loop playsinline preload="none" aria-label="AI-generated sample: a portable blender making orange juice"></video><figcaption>AI-generated sample</figcaption></figure>
             <h3>Product Demo Ad</h3>
             <p class="ads-card__meta">20 sec · delivered in 4 days</p>
             <p>Problem, product in action, before and after, a one-line verdict and your offer card.</p>
@@ -515,6 +519,7 @@ ADS = '''  <main id="main">
             <a class="btn btn--gold btn--sm" href="https://wa.me/919389080059?text=Hi%20EH%20Productions%2C%20I%20want%20the%20Product%20Demo%20Ad%20package%20%28%E2%82%B93%2C499%20launch%20price%29." target="_blank" rel="noopener">Order on WhatsApp</a>
           </article>
           <article class="ads-card">
+            <figure class="ads-card__clip"><video data-src="assets/ads/mithai.mp4" poster="assets/ads/mithai.jpg" muted loop playsinline preload="none" aria-label="AI-generated sample: a sweet shop gift box opened"></video><figcaption>AI-generated sample</figcaption></figure>
             <h3>Launch Pack</h3>
             <p class="ads-card__meta">30 + 15 + 10 sec · delivered in 6 days</p>
             <p>The UGC + ASMR Combo, ASMR Product Reveal and Texture Loop for one product, made to match.</p>

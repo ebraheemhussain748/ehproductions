@@ -1,7 +1,7 @@
 // "Build my plan" questions: a full-screen step-by-step form. On finish it opens the plan page with the answers.
-import { STEPS } from './planner.js?v=4ce2a9ae';
-import { icon } from './icons.js?v=4ce2a9ae';
-import { el, store } from './common.js?v=4ce2a9ae';
+import { STEPS } from './planner.js?v=99dd314d';
+import { icon } from './icons.js?v=99dd314d';
+import { el, store } from './common.js?v=99dd314d';
 
 export const toQuery = a => {
   const p = new URLSearchParams();

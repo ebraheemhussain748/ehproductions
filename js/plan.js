@@ -1,13 +1,13 @@
 // Plan page: plan?b=…&g=…&r=…&m=…&t=…&q=…  Shows the curated plan, or the questions when there are no answers yet.
-import { CONTACT } from './data/site-data.js?v=4ce2a9ae';
-import { ITEMS } from './data/catalog-data.js?v=4ce2a9ae';
-import { img } from './data/photos.js?v=4ce2a9ae';
-import { icon } from './icons.js?v=4ce2a9ae';
-import { fb } from './firebase.js?v=4ce2a9ae';
-import { $, el, wa, initChrome, CAT, byId, productUrl, quote, ready, toast, store, recentlySent, markSent, cleanName, cleanPhone } from './common.js?v=4ce2a9ae';
-import { card, addButton } from './shop.js?v=4ce2a9ae';
-import { plan, labelOf, STEPS } from './planner.js?v=4ce2a9ae';
-import { openQuiz, fromQuery } from './quiz.js?v=4ce2a9ae';
+import { CONTACT } from './data/site-data.js?v=99dd314d';
+import { ITEMS } from './data/catalog-data.js?v=99dd314d';
+import { img } from './data/photos.js?v=99dd314d';
+import { icon } from './icons.js?v=99dd314d';
+import { fb } from './firebase.js?v=99dd314d';
+import { $, el, wa, initChrome, CAT, byId, productUrl, quote, ready, toast, store, recentlySent, markSent, cleanName, cleanPhone } from './common.js?v=99dd314d';
+import { card, addButton } from './shop.js?v=99dd314d';
+import { plan, labelOf, STEPS } from './planner.js?v=99dd314d';
+import { openQuiz, fromQuery } from './quiz.js?v=99dd314d';
 
 await ready;
 initChrome();
